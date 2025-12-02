@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elterngeld PDF Filler - Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .conditional-field {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        .api-url {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .api-url label {
+            margin-bottom: 5px;
+        }
+
+        .api-url input {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍼 Elterngeld PDF Filler</h1>
+        <p class="subtitle">Test API for Hamburg Elterngeld Form (Page 1)</p>
+
+        <form id="elterngeldForm">
+            <div class="api-url">
+                <label for="apiUrl">API Endpoint URL:</label>
+                <input type="text" id="apiUrl" placeholder="https://your-app.vercel.app/api/fill-elterngeld" required>
+            </div>
+
+            <div class="form-group">
+                <label for="childFirstName">Child's First Name *</label>
+                <input type="text" id="childFirstName" placeholder="Emma" required>
+            </div>
+
+            <div class="form-group">
+                <label for="childLastName">Child's Last Name *</label>
+                <input type="text" id="childLastName" placeholder="Schmidt" required>
+            </div>
+
+            <div class="form-group">
+                <label for="childBirthDate">Birth Date (DD.MM.YYYY) *</label>
+                <input type="text" id="childBirthDate" placeholder="15.04.2025" required>
+            </div>
+
+            <div class="form-group">
+                <label for="numberOfChildren">Number of Children (for twins/triplets)</label>
+                <input type="number" id="numberOfChildren" placeholder="1" min="1" value="1">
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="isPremature">
+                    <label for="isPremature">Born 6+ weeks premature</label>
+                </div>
+
+                <div id="dueDateField" class="conditional-field" style="display: none;">
+                    <label for="originalDueDate">Original Due Date (DD.MM.YYYY)</label>
+                    <input type="text" id="originalDueDate" placeholder="01.06.2025">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="hasDisability">
+                    <label for="hasDisability">Child has a disability</label>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn">Generate PDF</button>
+        </form>
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <script>
+        // Show/hide due date field based on premature checkbox
+        document.getElementById('isPremature').addEventListener('change', function() {
+            document.getElementById('dueDateField').style.display = this.checked ? 'block' : 'none';
+        });
+
+        // Handle form submission
+        document.getElementById('elterngeldForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const statusDiv = document.getElementById('status');
+            const submitBtn = document.getElementById('submitBtn');
+            const apiUrl = document.getElementById('apiUrl').value;
+
+            // Validate API URL
+            if (!apiUrl) {
+                statusDiv.className = 'status error';
+                statusDiv.style.display = 'block';
+                statusDiv.textContent = 'Please enter the API endpoint URL';
+                return;
+            }
+
+            // Show loading state
+            statusDiv.className = 'status loading';
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = '⏳ Generating PDF...';
+            submitBtn.disabled = true;
+
+            // Collect form data
+            const formData = {
+                childFirstName: document.getElementById('childFirstName').value,
+                childLastName: document.getElementById('childLastName').value,
+                childBirthDate: document.getElementById('childBirthDate').value,
+                numberOfChildren: parseInt(document.getElementById('numberOfChildren').value) || 1,
+                isPremature: document.getElementById('isPremature').checked,
+                originalDueDate: document.getElementById('originalDueDate').value,
+                hasDisability: document.getElementById('hasDisability').checked
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to generate PDF');
+                }
+
+                // Download the PDF
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `elterngeld-${Date.now()}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                // Show success message
+                statusDiv.className = 'status success';
+                statusDiv.textContent = '✅ PDF generated successfully! Check your downloads folder.';
+
+            } catch (error) {
+                // Show error message
+                statusDiv.className = 'status error';
+                statusDiv.textContent = `❌ Error: ${error.message}`;
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

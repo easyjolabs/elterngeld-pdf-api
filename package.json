@@ -1,0 +1,17 @@
+{
+  "name": "elterngeld-pdf-filler",
+  "version": "1.0.0",
+  "description": "API to fill Elterngeld PDF forms",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
