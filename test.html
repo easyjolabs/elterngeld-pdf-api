@@ -284,7 +284,8 @@
             } catch (error) {
                 // Show error message
                 statusDiv.className = 'status error';
-                statusDiv.textContent = `❌ Error: ${error.message}`;
+                statusDiv.innerHTML = `❌ Error: ${error.message}<br><br><small style="font-size: 11px;">Check browser console for more details.</small>`;
+                console.error('Full error:', error);
             } finally {
                 submitBtn.disabled = false;
             }

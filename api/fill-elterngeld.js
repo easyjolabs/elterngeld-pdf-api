@@ -110,24 +110,31 @@ export default async function handler(req, res) {
     const filename = `elterngeld-${data.childLastName}-${Date.now()}.pdf`;
 
     // Upload to Vercel Blob storage
-    const blob = await put(filename, Buffer.from(filledPdfBytes), {
-      access: 'public',
-      contentType: 'application/pdf',
-    });
+    try {
+      const blob = await put(filename, Buffer.from(filledPdfBytes), {
+        access: 'public',
+        contentType: 'application/pdf',
+      });
 
-    // Return JSON with download link
-    res.status(200).json({
-      success: true,
-      message: 'PDF generated successfully',
-      downloadUrl: blob.url,
-      filename: filename
-    });
+      // Return JSON with download link
+      res.status(200).json({
+        success: true,
+        message: 'PDF generated successfully',
+        downloadUrl: blob.url,
+        filename: filename
+      });
+    } catch (blobError) {
+      console.error('Blob storage error:', blobError);
+      throw new Error(`Blob upload failed: ${blobError.message}. Make sure Vercel Blob storage is set up in your project settings.`);
+    }
 
   } catch (error) {
     console.error('PDF generation error:', error);
+    console.error('Error stack:', error.stack);
     res.status(500).json({
       error: 'Failed to generate PDF',
-      message: error.message
+      message: error.message,
+      details: error.stack
     });
   }
 }
