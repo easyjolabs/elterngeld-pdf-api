@@ -295,23 +295,39 @@ function setupElterngeldForm(wrapper: HTMLElement) {
 
             formEl?.style.setProperty("display", "none")
             successIcon?.classList.add("show")
+
+            // Show success message with download link
             if (successMessage) {
-                successMessage.textContent = "PDF erfolgreich erstellt! ✅"
+                successMessage.innerHTML = `
+                    PDF erfolgreich erstellt! ✅<br><br>
+                    <a href="${result.downloadUrl}"
+                       target="_blank"
+                       style="display: inline-block;
+                              padding: 12px 24px;
+                              background: #FB6A42;
+                              color: white;
+                              border-radius: 8px;
+                              text-decoration: none;
+                              font-weight: 600;
+                              margin-top: 12px;
+                              transition: background 0.2s;">
+                        📥 PDF herunterladen
+                    </a>
+                `
                 successMessage.classList.add("show")
+
+                // Add hover effect to the link
+                const downloadLink = successMessage.querySelector('a')
+                if (downloadLink) {
+                    downloadLink.addEventListener('mouseenter', () => {
+                        downloadLink.style.background = '#E85A32'
+                    })
+                    downloadLink.addEventListener('mouseleave', () => {
+                        downloadLink.style.background = '#FB6A42'
+                    })
+                }
             }
 
-            // Send the download URL back to Voiceflow
-            setTimeout(() => {
-                ;(window as any).voiceflow.chat.interact({
-                    type: "complete",
-                    payload: {
-                        downloadUrl: result.downloadUrl,
-                        filename: result.filename,
-                        childFirstName: firstNameInput?.value,
-                        childLastName: lastNameInput?.value,
-                    },
-                })
-            }, 1000)
         } catch (error) {
             console.error("Error:", error)
             alert(
