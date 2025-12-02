@@ -3,6 +3,7 @@
 
 import { PDFDocument } from 'pdf-lib';
 import fetch from 'node-fetch';
+import { put } from '@vercel/blob';
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -105,10 +106,22 @@ export default async function handler(req, res) {
     // Save the filled PDF
     const filledPdfBytes = await pdfDoc.save();
 
-    // Return the PDF as a downloadable file
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="elterngeld-${Date.now()}.pdf"`);
-    res.send(Buffer.from(filledPdfBytes));
+    // Generate unique filename
+    const filename = `elterngeld-${data.childLastName}-${Date.now()}.pdf`;
+
+    // Upload to Vercel Blob storage
+    const blob = await put(filename, Buffer.from(filledPdfBytes), {
+      access: 'public',
+      contentType: 'application/pdf',
+    });
+
+    // Return JSON with download link
+    res.status(200).json({
+      success: true,
+      message: 'PDF generated successfully',
+      downloadUrl: blob.url,
+      filename: filename
+    });
 
   } catch (error) {
     console.error('PDF generation error:', error);
