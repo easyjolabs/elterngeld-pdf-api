@@ -236,19 +236,19 @@ const SHARED_FORM_STYLES = `
     flex-shrink: 0;
   }
   
-  .vf-btn { 
+  .vf-btn {
     height: 36px;
     min-height: 36px;
     padding: 8px 24px;
-    border-radius: 18px; 
-    background: #FFF5F2;
-    box-shadow: none;
-    border: none;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    border: 1px solid #E4E4E4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 6px;
-    cursor: pointer; 
+    cursor: pointer;
     transition: all 0.2s;
     font-size: 14px;
     color: #111827;
@@ -257,9 +257,10 @@ const SHARED_FORM_STYLES = `
     touch-action: manipulation;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-  
-  .vf-btn:hover { 
-    background: #FFE5DC;
+
+  .vf-btn:hover {
+    background: #F9FAFB;
+    border-color: #D1D5DB;
   }
   
   .vf-btn:active {
