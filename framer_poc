@@ -1205,7 +1205,7 @@ function setupFormValidation(
 // MAIN COMPONENT
 // ============================================
 
-export default function VoiceflowChat() {
+function VoiceflowChat() {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const [actualSidebarWidth, setActualSidebarWidth] = useState(SIDEBAR_WIDTH)
     const [isMobile, setIsMobile] = useState(false)
@@ -1582,3 +1582,6 @@ export default function VoiceflowChat() {
         </div>
     )
 }
+
+// Explicit export for Framer compatibility
+export default VoiceflowChat
