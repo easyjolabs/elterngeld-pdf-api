@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-const NAV_HEIGHT = 86
+const NAV_HEIGHT = 65
 const SIDEBAR_WIDTH = 240
 
 // ============================================
