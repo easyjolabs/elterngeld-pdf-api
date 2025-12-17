@@ -609,12 +609,13 @@ export default function ElterngeldCalculator() {
                                 {/* Slider card */}
                                 <div
                                     style={{
-                                        padding: 18,
+                                        padding: 28,
                                         border: "1px solid #e5e7eb",
                                         borderRadius: 14,
                                         background: "#fafafa",
                                         display: "flex",
                                         flexDirection: "column",
+                                        minHeight: 180,
                                     }}
                                 >
                                     <div
@@ -628,67 +629,238 @@ export default function ElterngeldCalculator() {
                                         Your net income
                                     </div>
 
-                                    <input
-                                        type="range"
-                                        min={0}
-                                        max={SLIDER_MAX}
-                                        step={50}
-                                        value={income}
-                                        onChange={(e) =>
-                                            setIncome(Number(e.target.value))
-                                        }
-                                        style={{
-                                            width: "100%",
-                                            height: 2,
-                                            WebkitAppearance: "none",
-                                            appearance: "none",
-                                            background: `linear-gradient(to right, #111827 0%, #111827 ${
-                                                (income / SLIDER_MAX) * 100
-                                            }%, #e5e7eb ${
-                                                (income / SLIDER_MAX) * 100
-                                            }%, #e5e7eb 100%)`,
-                                            outline: "none",
-                                            borderRadius: 999,
-                                            cursor: "pointer",
-                                        }}
-                                    />
-
                                     <div
                                         style={{
+                                            flex: 1,
                                             display: "flex",
-                                            justifyContent: "space-between",
-                                            alignItems: "baseline",
-                                            marginTop: 10,
+                                            flexDirection: "column",
+                                            justifyContent: "center",
                                         }}
                                     >
+                                        <input
+                                            type="range"
+                                            min={0}
+                                            max={SLIDER_MAX}
+                                            step={50}
+                                            value={income}
+                                            onChange={(e) =>
+                                                setIncome(Number(e.target.value))
+                                            }
+                                            style={{
+                                                width: "100%",
+                                                height: 2,
+                                                WebkitAppearance: "none",
+                                                appearance: "none",
+                                                background: `linear-gradient(to right, #111827 0%, #111827 ${
+                                                    (income / SLIDER_MAX) * 100
+                                                }%, #e5e7eb ${
+                                                    (income / SLIDER_MAX) * 100
+                                                }%, #e5e7eb 100%)`,
+                                                outline: "none",
+                                                borderRadius: 999,
+                                                cursor: "pointer",
+                                            }}
+                                        />
+
                                         <div
                                             style={{
-                                                fontSize: 13,
-                                                color: "#9ca3af",
-                                                fontWeight: 800,
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "baseline",
+                                                marginTop: 10,
                                             }}
                                         >
-                                            0 €
+                                            <div
+                                                style={{
+                                                    fontSize: 13,
+                                                    color: "#9ca3af",
+                                                    fontWeight: 800,
+                                                }}
+                                            >
+                                                0 €
+                                            </div>
+                                            <div
+                                                style={{
+                                                    fontSize: 13,
+                                                    color: "#111827",
+                                                    fontWeight: 900,
+                                                }}
+                                            >
+                                                {income.toLocaleString("de-DE")} €
+                                            </div>
+                                            <div
+                                                style={{
+                                                    fontSize: 13,
+                                                    color: "#9ca3af",
+                                                    fontWeight: 800,
+                                                }}
+                                            >
+                                                {SLIDER_MAX.toLocaleString("de-DE")}{" "}
+                                                €
+                                            </div>
                                         </div>
-                                        <div
+                                    </div>
+
+                                    {/* Checkboxes at bottom */}
+                                    <div
+                                        style={{
+                                            display: "grid",
+                                            gap: 8,
+                                            marginTop: 20,
+                                        }}
+                                    >
+                                        <label
                                             style={{
-                                                fontSize: 13,
-                                                color: "#111827",
-                                                fontWeight: 900,
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: 10,
+                                                cursor: "pointer",
                                             }}
                                         >
-                                            {income.toLocaleString("de-DE")} €
-                                        </div>
-                                        <div
+                                            <input
+                                                type="checkbox"
+                                                checked={siblingBonus}
+                                                onChange={(e) =>
+                                                    setSiblingBonus(
+                                                        e.target.checked
+                                                    )
+                                                }
+                                                style={{
+                                                    width: 16,
+                                                    height: 16,
+                                                    cursor: "pointer",
+                                                    accentColor: "#111827",
+                                                    flexShrink: 0,
+                                                }}
+                                            />
+                                            <div
+                                                style={{
+                                                    fontSize: 13,
+                                                    fontWeight: 600,
+                                                    color: "#111827",
+                                                }}
+                                            >
+                                                Include sibling bonus
+                                            </div>
+                                            <button
+                                                onClick={() =>
+                                                    setShowSiblingModal(true)
+                                                }
+                                                style={{
+                                                    width: 20,
+                                                    height: 20,
+                                                    borderRadius: "50%",
+                                                    border: "1.5px solid #9a9a9a",
+                                                    background: "none",
+                                                    cursor: "pointer",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    fontSize: 12,
+                                                    fontWeight: 700,
+                                                    color: "#9a9a9a",
+                                                    padding: 0,
+                                                    flexShrink: 0,
+                                                }}
+                                            >
+                                                i
+                                            </button>
+                                        </label>
+
+                                        <label
                                             style={{
-                                                fontSize: 13,
-                                                color: "#9ca3af",
-                                                fontWeight: 800,
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: 10,
+                                                cursor: "pointer",
                                             }}
                                         >
-                                            {SLIDER_MAX.toLocaleString("de-DE")}{" "}
-                                            €
-                                        </div>
+                                            <input
+                                                type="checkbox"
+                                                checked={multipleChildren}
+                                                onChange={(e) =>
+                                                    setMultipleChildren(
+                                                        e.target.checked
+                                                    )
+                                                }
+                                                style={{
+                                                    width: 16,
+                                                    height: 16,
+                                                    cursor: "pointer",
+                                                    accentColor: "#111827",
+                                                    flexShrink: 0,
+                                                }}
+                                            />
+                                            <div
+                                                style={{
+                                                    fontSize: 13,
+                                                    fontWeight: 600,
+                                                    color: "#111827",
+                                                }}
+                                            >
+                                                Include bonus for multiple births
+                                            </div>
+                                            <button
+                                                onClick={() =>
+                                                    setShowMultipleModal(true)
+                                                }
+                                                style={{
+                                                    width: 20,
+                                                    height: 20,
+                                                    borderRadius: "50%",
+                                                    border: "1.5px solid #9a9a9a",
+                                                    background: "none",
+                                                    cursor: "pointer",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    fontSize: 12,
+                                                    fontWeight: 700,
+                                                    color: "#9a9a9a",
+                                                    padding: 0,
+                                                    flexShrink: 0,
+                                                }}
+                                            >
+                                                i
+                                            </button>
+                                        </label>
+
+                                        {multipleChildren && (
+                                            <div style={{ marginLeft: 26 }}>
+                                                <select
+                                                    value={numberOfChildren}
+                                                    onChange={(e) =>
+                                                        setNumberOfChildren(
+                                                            Number(e.target.value)
+                                                        )
+                                                    }
+                                                    style={{
+                                                        padding: "8px 10px",
+                                                        fontSize: 13,
+                                                        border: "1px solid #e5e7eb",
+                                                        borderRadius: 10,
+                                                        backgroundColor: "#ffffff",
+                                                        cursor: "pointer",
+                                                        width: 180,
+                                                    }}
+                                                >
+                                                    {[
+                                                        1, 2, 3, 4, 5, 6, 7, 8, 9,
+                                                        10,
+                                                    ].map((num) => (
+                                                        <option
+                                                            key={num}
+                                                            value={num}
+                                                        >
+                                                            {num}{" "}
+                                                            {num === 1
+                                                                ? "child"
+                                                                : "children"}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
@@ -697,8 +869,9 @@ export default function ElterngeldCalculator() {
                                     style={{
                                         border: "1px solid #e5e7eb",
                                         borderRadius: 14,
-                                        padding: 14,
+                                        padding: 24,
                                         background: "#ffffff",
+                                        minHeight: 180,
                                     }}
                                 >
                                     {/* Basis */}
@@ -777,7 +950,7 @@ export default function ElterngeldCalculator() {
                                 </div>
                             </div>
 
-                            {/* Bonuses (left) + CTA (right) */}
+                            {/* CTA aligned to right (30% width) */}
                             <div
                                 className="eg-step1-bottom-row"
                                 style={{
@@ -787,162 +960,7 @@ export default function ElterngeldCalculator() {
                                     alignItems: "start",
                                 }}
                             >
-                                {/* Bonuses */}
-                                <div style={{ display: "grid", gap: 8 }}>
-                                    <label
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 10,
-                                            cursor: "pointer",
-                                        }}
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            checked={siblingBonus}
-                                            onChange={(e) =>
-                                                setSiblingBonus(
-                                                    e.target.checked
-                                                )
-                                            }
-                                            style={{
-                                                width: 16,
-                                                height: 16,
-                                                cursor: "pointer",
-                                                accentColor: "#111827",
-                                                flexShrink: 0,
-                                            }}
-                                        />
-                                        <div
-                                            style={{
-                                                fontSize: 13,
-                                                fontWeight: 600,
-                                                color: "#111827",
-                                            }}
-                                        >
-                                            Include sibling bonus
-                                        </div>
-                                        <button
-                                            onClick={() =>
-                                                setShowSiblingModal(true)
-                                            }
-                                            style={{
-                                                width: 20,
-                                                height: 20,
-                                                borderRadius: "50%",
-                                                border: "1.5px solid #9a9a9a",
-                                                background: "none",
-                                                cursor: "pointer",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                fontSize: 12,
-                                                fontWeight: 700,
-                                                color: "#9a9a9a",
-                                                padding: 0,
-                                                flexShrink: 0,
-                                            }}
-                                        >
-                                            i
-                                        </button>
-                                    </label>
-
-                                    <label
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 10,
-                                            cursor: "pointer",
-                                        }}
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            checked={multipleChildren}
-                                            onChange={(e) =>
-                                                setMultipleChildren(
-                                                    e.target.checked
-                                                )
-                                            }
-                                            style={{
-                                                width: 16,
-                                                height: 16,
-                                                cursor: "pointer",
-                                                accentColor: "#111827",
-                                                flexShrink: 0,
-                                            }}
-                                        />
-                                        <div
-                                            style={{
-                                                fontSize: 13,
-                                                fontWeight: 600,
-                                                color: "#111827",
-                                            }}
-                                        >
-                                            Include bonus for multiple births
-                                        </div>
-                                        <button
-                                            onClick={() =>
-                                                setShowMultipleModal(true)
-                                            }
-                                            style={{
-                                                width: 20,
-                                                height: 20,
-                                                borderRadius: "50%",
-                                                border: "1.5px solid #9a9a9a",
-                                                background: "none",
-                                                cursor: "pointer",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                fontSize: 12,
-                                                fontWeight: 700,
-                                                color: "#9a9a9a",
-                                                padding: 0,
-                                                flexShrink: 0,
-                                            }}
-                                        >
-                                            i
-                                        </button>
-                                    </label>
-
-                                    {multipleChildren && (
-                                        <div style={{ marginLeft: 26 }}>
-                                            <select
-                                                value={numberOfChildren}
-                                                onChange={(e) =>
-                                                    setNumberOfChildren(
-                                                        Number(e.target.value)
-                                                    )
-                                                }
-                                                style={{
-                                                    padding: "8px 10px",
-                                                    fontSize: 13,
-                                                    border: "1px solid #e5e7eb",
-                                                    borderRadius: 10,
-                                                    backgroundColor: "#ffffff",
-                                                    cursor: "pointer",
-                                                    width: 180,
-                                                }}
-                                            >
-                                                {[
-                                                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                                                    10,
-                                                ].map((num) => (
-                                                    <option
-                                                        key={num}
-                                                        value={num}
-                                                    >
-                                                        {num}{" "}
-                                                        {num === 1
-                                                            ? "child"
-                                                            : "children"}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    )}
-                                </div>
-
+                                <div />
                                 {/* CTA (same width as result box) */}
                                 <div>
                                     <button
@@ -951,12 +969,12 @@ export default function ElterngeldCalculator() {
                                             width: "100%",
                                             height: 40,
                                             borderRadius: 10,
-                                            border: "1px solid #e1e1e1",
-                                            background: "#ffffff",
+                                            border: "none",
+                                            background: "#1a1a1a",
                                             cursor: "pointer",
                                             fontSize: 13,
                                             fontWeight: 900,
-                                            color: "#1a1a1a",
+                                            color: "#ffffff",
                                         }}
                                     >
                                         Plan your Elterngeld model
