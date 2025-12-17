@@ -1022,14 +1022,11 @@ export default function ElterngeldCalculator() {
                                         fontSize: 22,
                                         fontWeight: 900,
                                         color: "#1a1a1a",
-                                        margin: "0 0 6px 0",
+                                        margin: 0,
                                     }}
                                 >
                                     Plan your months
                                 </h3>
-                                <div style={{ fontSize: 13, color: "#9a9a9a" }}>
-                                    Start at month 1. Scroll to the last month.
-                                </div>
                             </div>
 
                             <div
@@ -1112,43 +1109,6 @@ export default function ElterngeldCalculator() {
                             </div>
                         </div>
 
-                        {/* INFO TEXT ABOUT MONTH SELECTION */}
-                        <div
-                            style={{
-                                marginBottom: 14,
-                                padding: 12,
-                                backgroundColor: "#eff6ff",
-                                border: "1px solid #bfdbfe",
-                                borderRadius: 10,
-                                fontSize: 13,
-                                lineHeight: 1.6,
-                                color: "#1e40af",
-                            }}
-                        >
-                            <strong>How many months can you select?</strong>
-                            {isSingleParent ? (
-                                <div style={{ marginTop: 6 }}>
-                                    As a single parent, you can select up to{" "}
-                                    <strong>14 Basis months</strong>. You must
-                                    take at least 2 months. Each Basis month can
-                                    be split into 2 ElterngeldPlus months (up to
-                                    28 months total).
-                                </div>
-                            ) : (
-                                <div style={{ marginTop: 6 }}>
-                                    Together you can select up to{" "}
-                                    <strong>14 Basis months</strong>. To receive
-                                    all 14 months, both partners must take at
-                                    least 2 months each. You can take a maximum
-                                    of <strong>1 month simultaneously</strong>{" "}
-                                    during the <strong>first 12 months</strong>.
-                                    Each Basis month can be split into 2
-                                    ElterngeldPlus months (up to 28 months total
-                                    for both partners).
-                                </div>
-                            )}
-                        </div>
-
                         {/* MONTHS SCROLLER */}
                         <div
                             ref={scrollContainerRef}
@@ -1163,41 +1123,6 @@ export default function ElterngeldCalculator() {
                                 position: "relative",
                             }}
                         >
-                            {/* Scroll button */}
-                            {showScrollButton && (
-                                <button
-                                    onClick={scrollOneBoxRight}
-                                    style={{
-                                        position: "absolute",
-                                        right: 0,
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                        zIndex: 10,
-                                        width: 40,
-                                        height: 40,
-                                        borderRadius: 10,
-                                        border: "1px solid #e1e1e1",
-                                        background: "#ffffff",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        cursor: "pointer",
-                                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                                    }}
-                                >
-                                    <svg
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#1a1a1a"
-                                        strokeWidth="2.5"
-                                    >
-                                        <path d="M9 18l6-6-6-6" />
-                                    </svg>
-                                </button>
-                            )}
-
                             <div
                                 style={{
                                     display: "inline-flex",
@@ -1239,7 +1164,7 @@ export default function ElterngeldCalculator() {
                                                         ? "2px solid #ef4444"
                                                         : "1px solid #f0f0f0",
                                                     borderRadius: 14,
-                                                    padding: 10,
+                                                    padding: 14,
                                                     background: hasError
                                                         ? "#fff5f5"
                                                         : "#ffffff",
@@ -1253,7 +1178,7 @@ export default function ElterngeldCalculator() {
                                                         fontSize: 14,
                                                         fontWeight: 900,
                                                         color: "#1a1a1a",
-                                                        marginBottom: 2,
+                                                        marginBottom: 4,
                                                     }}
                                                 >
                                                     {index + 1}
@@ -1264,7 +1189,7 @@ export default function ElterngeldCalculator() {
                                                         style={{
                                                             fontSize: 10,
                                                             color: "#9a9a9a",
-                                                            marginBottom: 8,
+                                                            marginBottom: 12,
                                                         }}
                                                     >
                                                         {dateRange}
@@ -1274,7 +1199,7 @@ export default function ElterngeldCalculator() {
                                                 <div
                                                     style={{
                                                         display: "grid",
-                                                        gap: 8,
+                                                        gap: 10,
                                                     }}
                                                 >
                                                     <div>
@@ -1290,7 +1215,7 @@ export default function ElterngeldCalculator() {
                                                         <div
                                                             style={{
                                                                 display: "grid",
-                                                                gap: 6,
+                                                                gap: 8,
                                                             }}
                                                         >
                                                             <label
@@ -1389,7 +1314,7 @@ export default function ElterngeldCalculator() {
                                                                 style={{
                                                                     display:
                                                                         "grid",
-                                                                    gap: 6,
+                                                                    gap: 8,
                                                                 }}
                                                             >
                                                                 <label
@@ -1521,7 +1446,7 @@ export default function ElterngeldCalculator() {
                                             flex: "0 0 auto",
                                             border: "2px dashed #e1e1e1",
                                             borderRadius: 14,
-                                            padding: 10,
+                                            padding: 14,
                                             background: "#fafafa",
                                             boxSizing: "border-box",
                                             display: "flex",
@@ -1529,7 +1454,7 @@ export default function ElterngeldCalculator() {
                                             alignItems: "center",
                                             justifyContent: "center",
                                             cursor: "pointer",
-                                            minHeight: 180,
+                                            minHeight: 200,
                                             transition: "all 0.2s",
                                         }}
                                         onMouseEnter={(e) => {
@@ -1555,10 +1480,11 @@ export default function ElterngeldCalculator() {
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "center",
-                                                fontSize: 20,
+                                                fontSize: 18,
                                                 fontWeight: 900,
                                                 color: "#1a1a1a",
                                                 marginBottom: 6,
+                                                lineHeight: 1,
                                             }}
                                         >
                                             +
@@ -1576,6 +1502,43 @@ export default function ElterngeldCalculator() {
                                     </div>
                                 )}
                             </div>
+                        </div>
+
+                        {/* INFO TEXT ABOUT MONTH SELECTION */}
+                        <div
+                            style={{
+                                marginTop: 14,
+                                padding: 10,
+                                backgroundColor: "#eff6ff",
+                                border: "1px solid #bfdbfe",
+                                borderRadius: 8,
+                                fontSize: 11,
+                                lineHeight: 1.5,
+                                color: "#1e40af",
+                            }}
+                        >
+                            <strong>How many months can you select?</strong>
+                            {isSingleParent ? (
+                                <div style={{ marginTop: 6 }}>
+                                    As a single parent, you can select up to{" "}
+                                    <strong>14 Basis months</strong>. You must
+                                    take at least 2 months. Each Basis month can
+                                    be split into 2 ElterngeldPlus months (up to
+                                    28 months total).
+                                </div>
+                            ) : (
+                                <div style={{ marginTop: 6 }}>
+                                    Together you can select up to{" "}
+                                    <strong>14 Basis months</strong>. To receive
+                                    all 14 months, both partners must take at
+                                    least 2 months each. You can take a maximum
+                                    of <strong>1 month simultaneously</strong>{" "}
+                                    during the <strong>first 12 months</strong>.
+                                    Each Basis month can be split into 2
+                                    ElterngeldPlus months (up to 28 months total
+                                    for both partners).
+                                </div>
+                            )}
                         </div>
 
                         {hasValidationErrors && (
@@ -1634,6 +1597,22 @@ export default function ElterngeldCalculator() {
                             >
                                 Back
                             </button>
+                        </div>
+
+                        {/* Legal text: centered at the very bottom */}
+                        <div style={{ marginTop: "auto", paddingTop: 18 }}>
+                            <div
+                                style={{
+                                    fontSize: 11,
+                                    lineHeight: 1.5,
+                                    color: "#6b7280",
+                                    textAlign: "center",
+                                }}
+                            >
+                                This is <strong>not a final amount</strong>. It
+                                is a <strong>quick estimate</strong> based on
+                                the information provided.
+                            </div>
                         </div>
                     </div>
                 )}
