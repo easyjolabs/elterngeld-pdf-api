@@ -551,64 +551,6 @@ export default function ElterngeldCalculator() {
                                 flex: 1,
                             }}
                         >
-                            {/* Question text: constrained to slider width only */}
-                            <div
-                                className="eg-step1-question-row"
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "70% 30%",
-                                    gap: 18,
-                                    alignItems: "start",
-                                }}
-                            >
-                                <div style={{ maxWidth: "100%" }}>
-                                    <div
-                                        style={{
-                                            fontSize: 15,
-                                            fontWeight: 900,
-                                            color: "#1a1a1a",
-                                            marginBottom: 6,
-                                        }}
-                                    >
-                                        What was your average monthly net
-                                        income?
-                                    </div>
-
-                                    <div
-                                        style={{
-                                            fontSize: 12,
-                                            color: "#6b7280",
-                                            lineHeight: 1.5,
-                                        }}
-                                    >
-                                        Please calculate your combined monthly{" "}
-                                        <button
-                                            onClick={() =>
-                                                triggerVoiceflowChat(
-                                                    "How is income calculated for Elterngeld?"
-                                                )
-                                            }
-                                            style={{
-                                                background: "none",
-                                                border: "none",
-                                                padding: 0,
-                                                cursor: "pointer",
-                                                color: "#111827",
-                                                fontSize: 12,
-                                                fontWeight: 800,
-                                                textDecoration: "underline",
-                                            }}
-                                        >
-                                            average net income
-                                        </button>{" "}
-                                        from the 12 months before birth, or the
-                                        calendar year before birth if you are
-                                        self-employed.
-                                    </div>
-                                </div>
-                                <div />
-                            </div>
-
                             {/* Slider (65%) + Result card (35%) */}
                             <div
                                 className="eg-step1-slider-row"
@@ -628,7 +570,7 @@ export default function ElterngeldCalculator() {
                                         background: "#fafafa",
                                         display: "flex",
                                         flexDirection: "column",
-                                        minHeight: 220,
+                                        minHeight: 286,
                                     }}
                                 >
                                     <div
@@ -637,35 +579,9 @@ export default function ElterngeldCalculator() {
                                             fontWeight: 400,
                                             color: "#374151",
                                             marginBottom: 10,
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 6,
                                         }}
                                     >
                                         Your net income
-                                        <button
-                                            onClick={() =>
-                                                setShowIncomeInfoModal(true)
-                                            }
-                                            style={{
-                                                width: 16,
-                                                height: 16,
-                                                borderRadius: "50%",
-                                                border: "1.5px solid #9a9a9a",
-                                                background: "none",
-                                                cursor: "pointer",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                fontSize: 10,
-                                                fontWeight: 700,
-                                                color: "#9a9a9a",
-                                                padding: 0,
-                                                flexShrink: 0,
-                                            }}
-                                        >
-                                            i
-                                        </button>
                                     </div>
 
                                     <div
@@ -894,7 +810,7 @@ export default function ElterngeldCalculator() {
                                         borderRadius: 14,
                                         padding: 24,
                                         background: "#ffffff",
-                                        minHeight: 220,
+                                        minHeight: 286,
                                     }}
                                 >
                                     {/* Basis */}
@@ -971,6 +887,48 @@ export default function ElterngeldCalculator() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            {/* Info text below slider (70% width only) */}
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "70% 30%",
+                                    gap: 18,
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontSize: 12,
+                                        color: "#6b7280",
+                                        lineHeight: 1.5,
+                                    }}
+                                >
+                                    Please calculate your combined monthly{" "}
+                                    <button
+                                        onClick={() =>
+                                            triggerVoiceflowChat(
+                                                "How is income calculated for Elterngeld?"
+                                            )
+                                        }
+                                        style={{
+                                            background: "none",
+                                            border: "none",
+                                            padding: 0,
+                                            cursor: "pointer",
+                                            color: "#111827",
+                                            fontSize: 12,
+                                            fontWeight: 800,
+                                            textDecoration: "underline",
+                                        }}
+                                    >
+                                        average net income
+                                    </button>{" "}
+                                    from the 12 months before birth, or the
+                                    calendar year before birth if you are
+                                    self-employed.
+                                </div>
+                                <div />
                             </div>
 
                             {/* CTA aligned to right (30% width) */}
@@ -1691,9 +1649,6 @@ export default function ElterngeldCalculator() {
                     }
 
                     @media (max-width: 980px) {
-                        .eg-step1-question-row {
-                            grid-template-columns: 1fr !important;
-                        }
                         .eg-step1-slider-row {
                             grid-template-columns: 1fr !important;
                         }
