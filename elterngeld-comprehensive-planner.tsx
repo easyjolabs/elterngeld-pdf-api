@@ -869,7 +869,6 @@ export default function ElterngeldCalculator() {
                                         minHeight: 286,
                                         display: "flex",
                                         flexDirection: "column",
-                                        justifyContent: "space-between",
                                     }}
                                 >
                                     {/* Basis */}
