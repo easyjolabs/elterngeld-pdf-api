@@ -579,9 +579,31 @@ export default function ElterngeldCalculator() {
                                             fontWeight: 400,
                                             color: "#374151",
                                             marginBottom: 10,
+                                            lineHeight: 1.5,
                                         }}
                                     >
-                                        Your net income
+                                        Select your average{" "}
+                                        <button
+                                            onClick={() =>
+                                                triggerVoiceflowChat(
+                                                    "How is income calculated for Elterngeld?"
+                                                )
+                                            }
+                                            style={{
+                                                background: "none",
+                                                border: "none",
+                                                padding: 0,
+                                                cursor: "pointer",
+                                                color: "#111827",
+                                                fontSize: 11,
+                                                fontWeight: 800,
+                                                textDecoration: "underline",
+                                            }}
+                                        >
+                                            monthly net income
+                                        </button>{" "}
+                                        over the 12 months before birth (or the
+                                        previous calendar year if self-employed)
                                     </div>
 
                                     <div
@@ -656,12 +678,34 @@ export default function ElterngeldCalculator() {
                                         </div>
                                     </div>
 
+                                    {/* Info text for high income */}
+                                    {income > 2800 && (
+                                        <div
+                                            style={{
+                                                marginTop: 12,
+                                                padding: 10,
+                                                backgroundColor: "#eff6ff",
+                                                border: "1px solid #bfdbfe",
+                                                borderRadius: 8,
+                                                fontSize: 11,
+                                                lineHeight: 1.5,
+                                                color: "#1e40af",
+                                            }}
+                                        >
+                                            Income above ~€2,770 net/month results
+                                            in the maximum Elterngeld of €1,800. If
+                                            your annual income exceeds €175,000, you
+                                            are not eligible for Elterngeld.
+                                        </div>
+                                    )}
+
                                     {/* Checkboxes at bottom */}
                                     <div
                                         style={{
                                             display: "grid",
                                             gap: 8,
                                             marginTop: 20,
+                                            minHeight: 120,
                                         }}
                                     >
                                         <label
@@ -811,6 +855,9 @@ export default function ElterngeldCalculator() {
                                         padding: 24,
                                         background: "#ffffff",
                                         minHeight: 286,
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "space-between",
                                     }}
                                 >
                                     {/* Basis */}
@@ -852,114 +899,61 @@ export default function ElterngeldCalculator() {
 
                                     {/* Plus */}
                                     <div>
-                                        <div
-                                            style={{
-                                                fontSize: 11,
-                                                color: "#374151",
-                                                marginBottom: 10,
-                                            }}
-                                        >
-                                            ElterngeldPlus
-                                        </div>
-
                                         <div>
                                             <div
                                                 style={{
-                                                    fontSize: 24,
-                                                    fontWeight: 900,
-                                                    color: "#111827",
-                                                    lineHeight: 1,
+                                                    fontSize: 11,
+                                                    color: "#374151",
+                                                    marginBottom: 10,
                                                 }}
                                             >
-                                                {result.isOverLimit
-                                                    ? "0 €"
-                                                    : `${result.plus.toLocaleString("de-DE")} €`}
+                                                ElterngeldPlus
                                             </div>
-                                            <div
-                                                style={{
-                                                    fontSize: 12,
-                                                    color: "#6b7280",
-                                                    marginTop: 4,
-                                                }}
-                                            >
-                                                for 24–28 months
+
+                                            <div>
+                                                <div
+                                                    style={{
+                                                        fontSize: 24,
+                                                        fontWeight: 900,
+                                                        color: "#111827",
+                                                        lineHeight: 1,
+                                                    }}
+                                                >
+                                                    {result.isOverLimit
+                                                        ? "0 €"
+                                                        : `${result.plus.toLocaleString("de-DE")} €`}
+                                                </div>
+                                                <div
+                                                    style={{
+                                                        fontSize: 12,
+                                                        color: "#6b7280",
+                                                        marginTop: 4,
+                                                    }}
+                                                >
+                                                    for 24–28 months
+                                                </div>
                                             </div>
                                         </div>
+
+                                        {/* CTA button */}
+                                        <button
+                                            onClick={() => setCurrentStep(2)}
+                                            style={{
+                                                width: "100%",
+                                                height: 40,
+                                                borderRadius: 10,
+                                                border: "none",
+                                                background: "#1a1a1a",
+                                                cursor: "pointer",
+                                                fontSize: 13,
+                                                fontWeight: 900,
+                                                color: "#ffffff",
+                                                marginTop: 24,
+                                            }}
+                                        >
+                                            Plan your Elterngeld model
+                                        </button>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* Info text below slider (70% width only) */}
-                            <div
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "70% 30%",
-                                    gap: 18,
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        fontSize: 12,
-                                        color: "#6b7280",
-                                        lineHeight: 1.5,
-                                    }}
-                                >
-                                    Please calculate your combined monthly{" "}
-                                    <button
-                                        onClick={() =>
-                                            triggerVoiceflowChat(
-                                                "How is income calculated for Elterngeld?"
-                                            )
-                                        }
-                                        style={{
-                                            background: "none",
-                                            border: "none",
-                                            padding: 0,
-                                            cursor: "pointer",
-                                            color: "#111827",
-                                            fontSize: 12,
-                                            fontWeight: 800,
-                                            textDecoration: "underline",
-                                        }}
-                                    >
-                                        average net income
-                                    </button>{" "}
-                                    from the 12 months before birth, or the
-                                    calendar year before birth if you are
-                                    self-employed.
-                                </div>
-                                <div />
-                            </div>
-
-                            {/* CTA aligned to right (30% width) */}
-                            <div
-                                className="eg-step1-bottom-row"
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "70% 30%",
-                                    gap: 18,
-                                    alignItems: "start",
-                                }}
-                            >
-                                <div />
-                                {/* CTA (same width as result box) */}
-                                <div>
-                                    <button
-                                        onClick={() => setCurrentStep(2)}
-                                        style={{
-                                            width: "100%",
-                                            height: 40,
-                                            borderRadius: 10,
-                                            border: "none",
-                                            background: "#1a1a1a",
-                                            cursor: "pointer",
-                                            fontSize: 13,
-                                            fontWeight: 900,
-                                            color: "#ffffff",
-                                        }}
-                                    >
-                                        Plan your Elterngeld model
-                                    </button>
                                 </div>
                             </div>
 
