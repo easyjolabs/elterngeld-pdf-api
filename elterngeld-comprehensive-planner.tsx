@@ -36,6 +36,7 @@ export default function ElterngeldCalculator() {
 
     const [showSiblingModal, setShowSiblingModal] = useState(false)
     const [showMultipleModal, setShowMultipleModal] = useState(false)
+    const [showIncomeInfoModal, setShowIncomeInfoModal] = useState(false)
 
     const scrollContainerRef = useRef<HTMLDivElement>(null)
 
@@ -508,6 +509,18 @@ export default function ElterngeldCalculator() {
                     </p>
                 </Modal>
 
+                <Modal
+                    isOpen={showIncomeInfoModal}
+                    onClose={() => setShowIncomeInfoModal(false)}
+                    title="Income Calculation"
+                >
+                    <p>
+                        Please calculate your combined monthly average net
+                        income from the 12 months before birth, or the calendar
+                        year before birth if you are self-employed.
+                    </p>
+                </Modal>
+
                 {/* STEP 1 */}
                 {currentStep === 1 && (
                     <div
@@ -568,10 +581,7 @@ export default function ElterngeldCalculator() {
                                             lineHeight: 1.5,
                                         }}
                                     >
-                                        Please calculate your combined monthly
-                                        average net income from the 12 months
-                                        before birth, or the calendar year
-                                        before birth if you are self-employed.{" "}
+                                        Please calculate your combined monthly{" "}
                                         <button
                                             onClick={() =>
                                                 triggerVoiceflowChat(
@@ -589,8 +599,11 @@ export default function ElterngeldCalculator() {
                                                 textDecoration: "underline",
                                             }}
                                         >
-                                            Learn more
-                                        </button>
+                                            average net income
+                                        </button>{" "}
+                                        from the 12 months before birth, or the
+                                        calendar year before birth if you are
+                                        self-employed.
                                     </div>
                                 </div>
                                 <div />
@@ -615,7 +628,7 @@ export default function ElterngeldCalculator() {
                                         background: "#fafafa",
                                         display: "flex",
                                         flexDirection: "column",
-                                        minHeight: 180,
+                                        minHeight: 220,
                                     }}
                                 >
                                     <div
@@ -623,10 +636,36 @@ export default function ElterngeldCalculator() {
                                             fontSize: 11,
                                             fontWeight: 400,
                                             color: "#374151",
-                                            marginBottom: 8,
+                                            marginBottom: 10,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: 6,
                                         }}
                                     >
                                         Your net income
+                                        <button
+                                            onClick={() =>
+                                                setShowIncomeInfoModal(true)
+                                            }
+                                            style={{
+                                                width: 16,
+                                                height: 16,
+                                                borderRadius: "50%",
+                                                border: "1.5px solid #9a9a9a",
+                                                background: "none",
+                                                cursor: "pointer",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                fontSize: 10,
+                                                fontWeight: 700,
+                                                color: "#9a9a9a",
+                                                padding: 0,
+                                                flexShrink: 0,
+                                            }}
+                                        >
+                                            i
+                                        </button>
                                     </div>
 
                                     <div
@@ -712,7 +751,7 @@ export default function ElterngeldCalculator() {
                                         <label
                                             style={{
                                                 display: "flex",
-                                                alignItems: "center",
+                                                alignItems: "flex-start",
                                                 gap: 10,
                                                 cursor: "pointer",
                                             }}
@@ -731,46 +770,39 @@ export default function ElterngeldCalculator() {
                                                     cursor: "pointer",
                                                     accentColor: "#111827",
                                                     flexShrink: 0,
+                                                    marginTop: 2,
                                                 }}
                                             />
-                                            <div
-                                                style={{
-                                                    fontSize: 13,
-                                                    fontWeight: 600,
-                                                    color: "#111827",
-                                                }}
-                                            >
-                                                Include sibling bonus
+                                            <div>
+                                                <div
+                                                    style={{
+                                                        fontSize: 13,
+                                                        fontWeight: 600,
+                                                        color: "#111827",
+                                                        marginBottom: 2,
+                                                    }}
+                                                >
+                                                    Include sibling bonus
+                                                </div>
+                                                <div
+                                                    style={{
+                                                        fontSize: 11,
+                                                        color: "#6b7280",
+                                                        lineHeight: 1.4,
+                                                    }}
+                                                >
+                                                    If you have 1 child under 3
+                                                    years old, or 2 children under
+                                                    6 years old, or 1 child with a
+                                                    disability under 14 years old
+                                                </div>
                                             </div>
-                                            <button
-                                                onClick={() =>
-                                                    setShowSiblingModal(true)
-                                                }
-                                                style={{
-                                                    width: 20,
-                                                    height: 20,
-                                                    borderRadius: "50%",
-                                                    border: "1.5px solid #9a9a9a",
-                                                    background: "none",
-                                                    cursor: "pointer",
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    fontSize: 12,
-                                                    fontWeight: 700,
-                                                    color: "#9a9a9a",
-                                                    padding: 0,
-                                                    flexShrink: 0,
-                                                }}
-                                            >
-                                                i
-                                            </button>
                                         </label>
 
                                         <label
                                             style={{
                                                 display: "flex",
-                                                alignItems: "center",
+                                                alignItems: "flex-start",
                                                 gap: 10,
                                                 cursor: "pointer",
                                             }}
@@ -789,40 +821,31 @@ export default function ElterngeldCalculator() {
                                                     cursor: "pointer",
                                                     accentColor: "#111827",
                                                     flexShrink: 0,
+                                                    marginTop: 2,
                                                 }}
                                             />
-                                            <div
-                                                style={{
-                                                    fontSize: 13,
-                                                    fontWeight: 600,
-                                                    color: "#111827",
-                                                }}
-                                            >
-                                                Include bonus for multiple births
+                                            <div>
+                                                <div
+                                                    style={{
+                                                        fontSize: 13,
+                                                        fontWeight: 600,
+                                                        color: "#111827",
+                                                        marginBottom: 2,
+                                                    }}
+                                                >
+                                                    Include bonus for multiple births
+                                                </div>
+                                                <div
+                                                    style={{
+                                                        fontSize: 11,
+                                                        color: "#6b7280",
+                                                        lineHeight: 1.4,
+                                                    }}
+                                                >
+                                                    If you expect multiple childs
+                                                    (e.g., twins or triplets)
+                                                </div>
                                             </div>
-                                            <button
-                                                onClick={() =>
-                                                    setShowMultipleModal(true)
-                                                }
-                                                style={{
-                                                    width: 20,
-                                                    height: 20,
-                                                    borderRadius: "50%",
-                                                    border: "1.5px solid #9a9a9a",
-                                                    background: "none",
-                                                    cursor: "pointer",
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    fontSize: 12,
-                                                    fontWeight: 700,
-                                                    color: "#9a9a9a",
-                                                    padding: 0,
-                                                    flexShrink: 0,
-                                                }}
-                                            >
-                                                i
-                                            </button>
                                         </label>
 
                                         {multipleChildren && (
@@ -871,7 +894,7 @@ export default function ElterngeldCalculator() {
                                         borderRadius: 14,
                                         padding: 24,
                                         background: "#ffffff",
-                                        minHeight: 180,
+                                        minHeight: 220,
                                     }}
                                 >
                                     {/* Basis */}
