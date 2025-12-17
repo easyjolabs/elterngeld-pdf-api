@@ -955,23 +955,56 @@ export default function ElterngeldCalculator() {
                                         </div>
 
                                         {/* CTA button */}
-                                        <button
-                                            onClick={() => setCurrentStep(2)}
-                                            style={{
-                                                width: "100%",
-                                                height: 40,
-                                                borderRadius: 10,
-                                                border: "none",
-                                                background: "#1a1a1a",
-                                                cursor: "pointer",
-                                                fontSize: 13,
-                                                fontWeight: 900,
-                                                color: "#ffffff",
-                                                marginTop: 44,
-                                            }}
-                                        >
-                                            Plan your model
-                                        </button>
+                                        <div>
+                                            <button
+                                                onClick={() => setCurrentStep(2)}
+                                                style={{
+                                                    width: "100%",
+                                                    height: 40,
+                                                    borderRadius: 10,
+                                                    border: "none",
+                                                    background: "#1a1a1a",
+                                                    cursor: "pointer",
+                                                    fontSize: 13,
+                                                    fontWeight: 900,
+                                                    color: "#ffffff",
+                                                    marginTop: 44,
+                                                }}
+                                            >
+                                                Plan your Elterngeld model
+                                            </button>
+                                            <div
+                                                style={{
+                                                    fontSize: 11,
+                                                    color: "#6b7280",
+                                                    marginTop: 8,
+                                                    textAlign: "center",
+                                                    lineHeight: 1.4,
+                                                }}
+                                            >
+                                                More details{" "}
+                                                <button
+                                                    onClick={() =>
+                                                        triggerVoiceflowChat(
+                                                            "explain how i can plan with elterngeld basis, plus and the partner months"
+                                                        )
+                                                    }
+                                                    style={{
+                                                        background: "none",
+                                                        border: "none",
+                                                        padding: 0,
+                                                        cursor: "pointer",
+                                                        color: "#111827",
+                                                        fontSize: 11,
+                                                        fontWeight: 800,
+                                                        textDecoration: "underline",
+                                                    }}
+                                                >
+                                                    which options
+                                                </button>{" "}
+                                                you have
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1022,7 +1055,7 @@ export default function ElterngeldCalculator() {
                                         fontSize: 22,
                                         fontWeight: 900,
                                         color: "#1a1a1a",
-                                        margin: 0,
+                                        margin: "0 0 20px 0",
                                     }}
                                 >
                                     Plan your months
@@ -1181,20 +1214,25 @@ export default function ElterngeldCalculator() {
                                                         marginBottom: 4,
                                                     }}
                                                 >
-                                                    {index + 1}
+                                                    Month {index + 1}
                                                 </div>
 
-                                                {dateRange && (
-                                                    <div
-                                                        style={{
-                                                            fontSize: 10,
-                                                            color: "#9a9a9a",
-                                                            marginBottom: 12,
-                                                        }}
-                                                    >
-                                                        {dateRange}
-                                                    </div>
-                                                )}
+                                                <div
+                                                    style={{
+                                                        fontSize: 10,
+                                                        color: "#9a9a9a",
+                                                        marginBottom: 12,
+                                                    }}
+                                                >
+                                                    {dateRange || "dd/mm/yyyy"}
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        borderTop: "1px solid #e5e7eb",
+                                                        marginBottom: 12,
+                                                    }}
+                                                />
 
                                                 <div
                                                     style={{
@@ -1502,43 +1540,6 @@ export default function ElterngeldCalculator() {
                                     </div>
                                 )}
                             </div>
-                        </div>
-
-                        {/* INFO TEXT ABOUT MONTH SELECTION */}
-                        <div
-                            style={{
-                                marginTop: 14,
-                                padding: 10,
-                                backgroundColor: "#eff6ff",
-                                border: "1px solid #bfdbfe",
-                                borderRadius: 8,
-                                fontSize: 11,
-                                lineHeight: 1.5,
-                                color: "#1e40af",
-                            }}
-                        >
-                            <strong>How many months can you select?</strong>
-                            {isSingleParent ? (
-                                <div style={{ marginTop: 6 }}>
-                                    As a single parent, you can select up to{" "}
-                                    <strong>14 Basis months</strong>. You must
-                                    take at least 2 months. Each Basis month can
-                                    be split into 2 ElterngeldPlus months (up to
-                                    28 months total).
-                                </div>
-                            ) : (
-                                <div style={{ marginTop: 6 }}>
-                                    Together you can select up to{" "}
-                                    <strong>14 Basis months</strong>. To receive
-                                    all 14 months, both partners must take at
-                                    least 2 months each. You can take a maximum
-                                    of <strong>1 month simultaneously</strong>{" "}
-                                    during the <strong>first 12 months</strong>.
-                                    Each Basis month can be split into 2
-                                    ElterngeldPlus months (up to 28 months total
-                                    for both partners).
-                                </div>
-                            )}
                         </div>
 
                         {hasValidationErrors && (
