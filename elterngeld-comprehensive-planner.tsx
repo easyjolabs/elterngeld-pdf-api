@@ -578,7 +578,7 @@ export default function ElterngeldCalculator() {
                                             fontSize: 11,
                                             fontWeight: 400,
                                             color: "#374151",
-                                            marginBottom: 10,
+                                            marginBottom: 50,
                                             lineHeight: 1.5,
                                         }}
                                     >
@@ -621,7 +621,9 @@ export default function ElterngeldCalculator() {
                                             step={50}
                                             value={income}
                                             onChange={(e) =>
-                                                setIncome(Number(e.target.value))
+                                                setIncome(
+                                                    Number(e.target.value)
+                                                )
                                             }
                                             style={{
                                                 width: "100%",
@@ -644,7 +646,7 @@ export default function ElterngeldCalculator() {
                                                 display: "flex",
                                                 justifyContent: "space-between",
                                                 alignItems: "baseline",
-                                                marginTop: 10,
+                                                marginTop: 15,
                                             }}
                                         >
                                             <div
@@ -663,7 +665,8 @@ export default function ElterngeldCalculator() {
                                                     fontWeight: 900,
                                                 }}
                                             >
-                                                {income.toLocaleString("de-DE")} €
+                                                {income.toLocaleString("de-DE")}{" "}
+                                                €
                                             </div>
                                             <div
                                                 style={{
@@ -672,7 +675,9 @@ export default function ElterngeldCalculator() {
                                                     fontWeight: 800,
                                                 }}
                                             >
-                                                {SLIDER_MAX.toLocaleString("de-DE")}{" "}
+                                                {SLIDER_MAX.toLocaleString(
+                                                    "de-DE"
+                                                )}{" "}
                                                 €
                                             </div>
                                         </div>
@@ -692,10 +697,11 @@ export default function ElterngeldCalculator() {
                                                 color: "#1e40af",
                                             }}
                                         >
-                                            Income above ~€2,770 net/month results
-                                            in the maximum Elterngeld of €1,800. If
-                                            your annual income exceeds €175,000, you
-                                            are not eligible for Elterngeld.
+                                            Income above ~€2,770 net/month
+                                            results in the maximum Elterngeld of
+                                            €1,800. If your annual income
+                                            exceeds €175,000, you are not
+                                            eligible for Elterngeld.
                                         </div>
                                     )}
 
@@ -704,7 +710,7 @@ export default function ElterngeldCalculator() {
                                         style={{
                                             display: "grid",
                                             gap: 8,
-                                            marginTop: 20,
+                                            marginTop: 70,
                                             minHeight: 120,
                                         }}
                                     >
@@ -752,9 +758,10 @@ export default function ElterngeldCalculator() {
                                                     }}
                                                 >
                                                     If you have 1 child under 3
-                                                    years old, or 2 children under
-                                                    6 years old, or 1 child with a
-                                                    disability under 14 years old
+                                                    years old, or 2 children
+                                                    under 6 years old, or 1
+                                                    child with a disability
+                                                    under 14 years old
                                                 </div>
                                             </div>
                                         </label>
@@ -793,7 +800,8 @@ export default function ElterngeldCalculator() {
                                                         marginBottom: 2,
                                                     }}
                                                 >
-                                                    Include bonus for multiple births
+                                                    Include bonus for multiple
+                                                    births
                                                 </div>
                                                 <div
                                                     style={{
@@ -802,8 +810,9 @@ export default function ElterngeldCalculator() {
                                                         lineHeight: 1.4,
                                                     }}
                                                 >
-                                                    If you expect multiple childs
-                                                    (e.g., twins or triplets)
+                                                    If you expect multiple
+                                                    childs (e.g., twins or
+                                                    triplets)
                                                 </div>
                                             </div>
                                         </label>
@@ -814,7 +823,9 @@ export default function ElterngeldCalculator() {
                                                     value={numberOfChildren}
                                                     onChange={(e) =>
                                                         setNumberOfChildren(
-                                                            Number(e.target.value)
+                                                            Number(
+                                                                e.target.value
+                                                            )
                                                         )
                                                     }
                                                     style={{
@@ -822,14 +833,15 @@ export default function ElterngeldCalculator() {
                                                         fontSize: 13,
                                                         border: "1px solid #e5e7eb",
                                                         borderRadius: 10,
-                                                        backgroundColor: "#ffffff",
+                                                        backgroundColor:
+                                                            "#ffffff",
                                                         cursor: "pointer",
                                                         width: 180,
                                                     }}
                                                 >
                                                     {[
-                                                        1, 2, 3, 4, 5, 6, 7, 8, 9,
-                                                        10,
+                                                        1, 2, 3, 4, 5, 6, 7, 8,
+                                                        9, 10,
                                                     ].map((num) => (
                                                         <option
                                                             key={num}
@@ -948,10 +960,10 @@ export default function ElterngeldCalculator() {
                                                 fontSize: 13,
                                                 fontWeight: 900,
                                                 color: "#ffffff",
-                                                marginTop: 24,
+                                                marginTop: 44,
                                             }}
                                         >
-                                            Plan your Elterngeld model
+                                            Plan your model
                                         </button>
                                     </div>
                                 </div>
