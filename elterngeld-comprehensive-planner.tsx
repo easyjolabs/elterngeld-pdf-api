@@ -873,7 +873,7 @@ export default function ElterngeldCalculator() {
                                     }}
                                 >
                                     {/* Basis */}
-                                    <div style={{ marginBottom: 24 }}>
+                                    <div style={{ paddingBottom: 20 }}>
                                         <div
                                             style={{
                                                 fontSize: 11,
@@ -908,6 +908,14 @@ export default function ElterngeldCalculator() {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Divider */}
+                                    <div
+                                        style={{
+                                            borderTop: "1px solid #e5e7eb",
+                                            marginBottom: 20,
+                                        }}
+                                    />
 
                                     {/* Plus */}
                                     <div>
