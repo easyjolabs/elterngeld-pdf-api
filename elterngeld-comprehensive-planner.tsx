@@ -449,6 +449,7 @@ export default function ElterngeldCalculator() {
             }}
         >
             <div
+                className="eg-container"
                 style={{
                     width: "100%",
                     minHeight: "100%",
@@ -464,6 +465,7 @@ export default function ElterngeldCalculator() {
             >
                 {/* Header with Stepper and navigation button */}
                 <div
+                    className="eg-header"
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
@@ -1065,6 +1067,7 @@ export default function ElterngeldCalculator() {
                         }}
                     >
                         <div
+                            className="eg-step2-header"
                             style={{
                                 display: "flex",
                                 justifyContent: "space-between",
@@ -1707,12 +1710,38 @@ export default function ElterngeldCalculator() {
                         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
                     }
 
-                    @media (max-width: 980px) {
+                    /* Tablet breakpoint */
+                    @media (max-width: 768px) {
+                        .eg-container {
+                            padding: 20px !important;
+                            border-radius: 16px !important;
+                        }
+
                         .eg-step1-slider-row {
                             grid-template-columns: 1fr !important;
+                            gap: 16px !important;
                         }
+
                         .eg-step1-bottom-row {
                             grid-template-columns: 1fr !important;
+                        }
+
+                        .eg-step2-header {
+                            flex-direction: column !important;
+                            align-items: flex-start !important;
+                            gap: 12px !important;
+                        }
+                    }
+
+                    /* Mobile breakpoint */
+                    @media (max-width: 480px) {
+                        .eg-container {
+                            padding: 16px !important;
+                            border-radius: 12px !important;
+                        }
+
+                        .eg-header {
+                            padding-bottom: 16px !important;
                         }
                     }
                 `}</style>
