@@ -468,9 +468,8 @@ export default function ElterngeldCalculator() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        borderBottom: "1px solid #f0f0f0",
                         paddingBottom: 18,
-                        marginBottom: 18,
+                        marginBottom: 0,
                     }}
                 >
                     <Stepper />
@@ -513,6 +512,17 @@ export default function ElterngeldCalculator() {
                         </button>
                     )}
                 </div>
+
+                {/* Full-width divider */}
+                <div
+                    style={{
+                        height: 1,
+                        background: "#f0f0f0",
+                        marginLeft: -30,
+                        marginRight: -30,
+                        marginBottom: 18,
+                    }}
+                />
 
                 {/* Modals */}
                 <Modal
@@ -593,7 +603,7 @@ export default function ElterngeldCalculator() {
                                     display: "grid",
                                     gridTemplateColumns: "70% 30%",
                                     gap: 18,
-                                    alignItems: "stretch",
+                                    alignItems: "start",
                                 }}
                             >
                                 {/* Slider card */}
@@ -1107,23 +1117,39 @@ export default function ElterngeldCalculator() {
                                     alignItems: "center",
                                 }}
                             >
-                                <input
-                                    type="date"
-                                    value={childBirthDate}
-                                    onChange={(e) =>
-                                        setChildBirthDate(e.target.value)
-                                    }
-                                    placeholder="Child's birthday"
-                                    style={{
-                                        height: 40,
-                                        padding: "0 12px",
-                                        borderRadius: 10,
-                                        border: "1px solid #e1e1e1",
-                                        background: "#ffffff",
-                                        fontSize: 13,
-                                        color: "#1a1a1a",
-                                    }}
-                                />
+                                <div style={{ position: "relative" }}>
+                                    <input
+                                        type="date"
+                                        value={childBirthDate}
+                                        onChange={(e) =>
+                                            setChildBirthDate(e.target.value)
+                                        }
+                                        style={{
+                                            height: 40,
+                                            padding: "0 12px",
+                                            borderRadius: 10,
+                                            border: "1px solid #e1e1e1",
+                                            background: "#ffffff",
+                                            fontSize: 13,
+                                            color: childBirthDate ? "#1a1a1a" : "transparent",
+                                        }}
+                                    />
+                                    {!childBirthDate && (
+                                        <div
+                                            style={{
+                                                position: "absolute",
+                                                left: 12,
+                                                top: "50%",
+                                                transform: "translateY(-50%)",
+                                                fontSize: 13,
+                                                color: "#9ca3af",
+                                                pointerEvents: "none",
+                                            }}
+                                        >
+                                            Child's Birthday
+                                        </div>
+                                    )}
+                                </div>
 
                                 <label
                                     style={{
@@ -1366,7 +1392,7 @@ export default function ElterngeldCalculator() {
                                                     </div>
 
                                                     {!isSingleParent && (
-                                                        <div>
+                                                        <div style={{ paddingTop: 12 }}>
                                                             <div
                                                                 style={{
                                                                     fontSize: 10,
