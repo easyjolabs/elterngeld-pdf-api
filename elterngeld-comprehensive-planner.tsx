@@ -364,19 +364,19 @@ export default function ElterngeldCalculator() {
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 12,
+                    gap: 8,
                 }}
             >
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <div
                         style={{
-                            width: 24,
-                            height: 24,
+                            width: 18,
+                            height: 18,
                             borderRadius: 999,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontSize: 12,
+                            fontSize: 10,
                             fontWeight: 900,
                             color: currentStep === 1 ? "#ffffff" : "#1a1a1a",
                             backgroundColor:
@@ -388,7 +388,7 @@ export default function ElterngeldCalculator() {
                     </div>
                     <div
                         style={{
-                            fontSize: 12,
+                            fontSize: 10,
                             fontWeight: 900,
                             color: "#1a1a1a",
                         }}
@@ -399,22 +399,22 @@ export default function ElterngeldCalculator() {
 
                 <div
                     style={{
-                        width: 40,
+                        width: 30,
                         height: 1,
                         background: "#e1e1e1",
                     }}
                 />
 
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <div
                         style={{
-                            width: 24,
-                            height: 24,
+                            width: 18,
+                            height: 18,
                             borderRadius: 999,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontSize: 12,
+                            fontSize: 10,
                             fontWeight: 900,
                             color: currentStep === 2 ? "#ffffff" : "#1a1a1a",
                             backgroundColor:
@@ -426,7 +426,7 @@ export default function ElterngeldCalculator() {
                     </div>
                     <div
                         style={{
-                            fontSize: 12,
+                            fontSize: 10,
                             fontWeight: 900,
                             color: "#1a1a1a",
                         }}
@@ -468,8 +468,8 @@ export default function ElterngeldCalculator() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        height: 52,
-                        minHeight: 52,
+                        height: 25,
+                        minHeight: 25,
                         paddingBottom: 0,
                         marginBottom: 0,
                     }}
@@ -480,13 +480,13 @@ export default function ElterngeldCalculator() {
                         <button
                             onClick={() => setCurrentStep(2)}
                             style={{
-                                height: 36,
-                                padding: "0 14px",
-                                borderRadius: 10,
+                                height: 20,
+                                padding: "0 10px",
+                                borderRadius: 8,
                                 border: "none",
                                 background: "#1a1a1a",
                                 cursor: "pointer",
-                                fontSize: 13,
+                                fontSize: 11,
                                 fontWeight: 900,
                                 color: "#ffffff",
                                 flexShrink: 0,
@@ -498,13 +498,13 @@ export default function ElterngeldCalculator() {
                         <button
                             onClick={() => setCurrentStep(1)}
                             style={{
-                                height: 36,
-                                padding: "0 14px",
-                                borderRadius: 10,
+                                height: 20,
+                                padding: "0 10px",
+                                borderRadius: 8,
                                 border: "1px solid #e1e1e1",
                                 background: "#ffffff",
                                 cursor: "pointer",
-                                fontSize: 13,
+                                fontSize: 11,
                                 fontWeight: 900,
                                 color: "#1a1a1a",
                                 flexShrink: 0,
@@ -655,7 +655,7 @@ export default function ElterngeldCalculator() {
 
                                     <div
                                         style={{
-                                            flex: 1,
+                                            height: 80,
                                             display: "flex",
                                             flexDirection: "column",
                                             justifyContent: "center",
@@ -1138,7 +1138,8 @@ export default function ElterngeldCalculator() {
                                             onClick={() => {
                                                 const input = document.getElementById("child-birthday-input") as HTMLInputElement;
                                                 if (input) {
-                                                    input.showPicker?.();
+                                                    input.click();
+                                                    input.focus();
                                                 }
                                             }}
                                             style={{
