@@ -531,17 +531,43 @@ export default function ElterngeldCalculator() {
                             flexDirection: "column",
                         }}
                     >
-                        <h1
+                        {/* Header with Next button */}
+                        <div
                             style={{
-                                fontSize: 22,
-                                fontWeight: 900,
-                                color: "#1a1a1a",
-                                margin: "0 0 20px 0",
-                                lineHeight: 1.2,
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                marginBottom: 20,
                             }}
                         >
-                            Calculate your Elterngeld
-                        </h1>
+                            <h1
+                                style={{
+                                    fontSize: 22,
+                                    fontWeight: 900,
+                                    color: "#1a1a1a",
+                                    margin: 0,
+                                    lineHeight: 1.2,
+                                }}
+                            >
+                                Calculate your Elterngeld
+                            </h1>
+                            <button
+                                onClick={() => setCurrentStep(2)}
+                                style={{
+                                    height: 36,
+                                    padding: "0 14px",
+                                    borderRadius: 10,
+                                    border: "none",
+                                    background: "#1a1a1a",
+                                    cursor: "pointer",
+                                    fontSize: 13,
+                                    fontWeight: 900,
+                                    color: "#ffffff",
+                                }}
+                            >
+                                Next
+                            </button>
+                        </div>
 
                         <div
                             style={{
@@ -586,7 +612,7 @@ export default function ElterngeldCalculator() {
                                         <button
                                             onClick={() =>
                                                 triggerVoiceflowChat(
-                                                    "How is income calculated for Elterngeld?"
+                                                    "explain how income is measured"
                                                 )
                                             }
                                             style={{
@@ -959,25 +985,6 @@ export default function ElterngeldCalculator() {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {/* CTA button */}
-                                        <button
-                                            onClick={() => setCurrentStep(2)}
-                                            style={{
-                                                width: "100%",
-                                                height: 40,
-                                                borderRadius: 10,
-                                                border: "none",
-                                                background: "#1a1a1a",
-                                                cursor: "pointer",
-                                                fontSize: 13,
-                                                fontWeight: 900,
-                                                color: "#ffffff",
-                                                marginTop: 24,
-                                            }}
-                                        >
-                                            Plan models
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1011,15 +1018,13 @@ export default function ElterngeldCalculator() {
                             flexDirection: "column",
                         }}
                     >
-                        {/* Header with birthday input and single parent checkbox */}
+                        {/* Header with Back button */}
                         <div
                             style={{
                                 display: "flex",
                                 justifyContent: "space-between",
-                                alignItems: "flex-end",
-                                gap: 16,
+                                alignItems: "center",
                                 marginBottom: 10,
-                                flexWrap: "wrap",
                             }}
                         >
                             <div>
@@ -1045,7 +1050,7 @@ export default function ElterngeldCalculator() {
                                     <button
                                         onClick={() =>
                                             triggerVoiceflowChat(
-                                                "explain how i can plan with elterngeld basis, plus and the partner months"
+                                                "explain elterngeld plus and basis"
                                             )
                                         }
                                         style={{
@@ -1065,13 +1070,34 @@ export default function ElterngeldCalculator() {
                                 </div>
                             </div>
 
-                            <div
+                            <button
+                                onClick={() => setCurrentStep(1)}
                                 style={{
-                                    display: "flex",
-                                    gap: 12,
-                                    alignItems: "flex-end",
+                                    height: 36,
+                                    padding: "0 14px",
+                                    borderRadius: 10,
+                                    border: "1px solid #e1e1e1",
+                                    background: "#ffffff",
+                                    cursor: "pointer",
+                                    fontSize: 13,
+                                    fontWeight: 900,
+                                    color: "#1a1a1a",
                                 }}
                             >
+                                Back
+                            </button>
+                        </div>
+
+                        {/* Birthday input and single parent checkbox */}
+                        <div
+                            style={{
+                                display: "flex",
+                                gap: 12,
+                                alignItems: "flex-end",
+                                marginBottom: 10,
+                                flexWrap: "wrap",
+                            }}
+                        >
                                 <div
                                     style={{
                                         display: "flex",
@@ -1554,21 +1580,12 @@ export default function ElterngeldCalculator() {
                         {/* Error container with fixed space */}
                         <div
                             style={{
-                                marginTop: 4,
+                                marginTop: 8,
                                 minHeight: 50,
                             }}
                         >
                             {hasValidationErrors && (
-                                <div
-                                    style={{
-                                        padding: 10,
-                                        backgroundColor: "#fff5f5",
-                                        border: "2px solid #ef4444",
-                                        borderRadius: 12,
-                                        fontSize: 12,
-                                        lineHeight: 1.5,
-                                    }}
-                                >
+                                <div>
                                     {validationErrors.map((error, index) => (
                                         <div
                                             key={index}
@@ -1576,6 +1593,8 @@ export default function ElterngeldCalculator() {
                                                 display: "flex",
                                                 gap: 8,
                                                 color: "#dc2626",
+                                                fontSize: 12,
+                                                lineHeight: 1.5,
                                                 marginBottom:
                                                     index <
                                                     validationErrors.length - 1
@@ -1589,31 +1608,6 @@ export default function ElterngeldCalculator() {
                                     ))}
                                 </div>
                             )}
-                        </div>
-
-                        <div
-                            style={{
-                                marginTop: 4,
-                                display: "flex",
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <button
-                                onClick={() => setCurrentStep(1)}
-                                style={{
-                                    height: 36,
-                                    padding: "0 14px",
-                                    borderRadius: 10,
-                                    border: "1px solid #e1e1e1",
-                                    background: "#ffffff",
-                                    cursor: "pointer",
-                                    fontSize: 13,
-                                    fontWeight: 900,
-                                    color: "#1a1a1a",
-                                }}
-                            >
-                                Back
-                            </button>
                         </div>
 
                         {/* Legal text: centered at the very bottom */}
