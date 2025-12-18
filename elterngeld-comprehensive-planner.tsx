@@ -718,40 +718,12 @@ export default function ElterngeldCalculator() {
                                         </div>
                                     </div>
 
-                                    {/* Fixed space for hint - prevents checkbox movement */}
-                                    <div
-                                        style={{
-                                            marginTop: 12,
-                                            minHeight: 58,
-                                        }}
-                                    >
-                                        {income > 2800 && (
-                                            <div
-                                                style={{
-                                                    padding: 10,
-                                                    backgroundColor: "#eff6ff",
-                                                    border: "1px solid #bfdbfe",
-                                                    borderRadius: 8,
-                                                    fontSize: 11,
-                                                    lineHeight: 1.5,
-                                                    color: "#1e40af",
-                                                }}
-                                            >
-                                                Income above ~€2,770 net/month
-                                                results in the maximum Elterngeld of
-                                                €1,800. If your annual income
-                                                exceeds €175,000, you are not
-                                                eligible for Elterngeld.
-                                            </div>
-                                        )}
-                                    </div>
-
                                     {/* Checkboxes at bottom */}
                                     <div
                                         style={{
                                             display: "grid",
                                             gap: 8,
-                                            marginTop: 12,
+                                            marginTop: 70,
                                             minHeight: 120,
                                         }}
                                     >
@@ -994,6 +966,28 @@ export default function ElterngeldCalculator() {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {/* Income hint box */}
+                                        {income > 2800 && (
+                                            <div
+                                                style={{
+                                                    marginTop: 20,
+                                                    padding: 10,
+                                                    backgroundColor: "#eff6ff",
+                                                    border: "1px solid #bfdbfe",
+                                                    borderRadius: 8,
+                                                    fontSize: 11,
+                                                    lineHeight: 1.5,
+                                                    color: "#1e40af",
+                                                }}
+                                            >
+                                                Income above ~€2,770 net/month
+                                                results in the maximum Elterngeld of
+                                                €1,800. If your annual income
+                                                exceeds €175,000, you are not
+                                                eligible for Elterngeld.
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -1027,59 +1021,66 @@ export default function ElterngeldCalculator() {
                             flexDirection: "column",
                         }}
                     >
-                        <div>
-                            <h3
-                                style={{
-                                    fontSize: 22,
-                                    fontWeight: 900,
-                                    color: "#1a1a1a",
-                                    margin: "0 0 6px 0",
-                                }}
-                            >
-                                Plan your months
-                            </h3>
-                            <div
-                                style={{
-                                    fontSize: 11,
-                                    color: "#6b7280",
-                                    lineHeight: 1.4,
-                                    marginBottom: 10,
-                                }}
-                            >
-                                More details{" "}
-                                <button
-                                    onClick={() =>
-                                        triggerVoiceflowChat(
-                                            "explain elterngeld plus and basis"
-                                        )
-                                    }
-                                    style={{
-                                        background: "none",
-                                        border: "none",
-                                        padding: 0,
-                                        cursor: "pointer",
-                                        color: "#111827",
-                                        fontSize: 11,
-                                        fontWeight: 800,
-                                        textDecoration: "underline",
-                                    }}
-                                >
-                                    which options
-                                </button>{" "}
-                                you have
-                            </div>
-                        </div>
-
-                        {/* Birthday input and single parent checkbox */}
                         <div
                             style={{
                                 display: "flex",
-                                gap: 12,
+                                justifyContent: "space-between",
                                 alignItems: "flex-end",
+                                gap: 16,
                                 marginBottom: 10,
                                 flexWrap: "wrap",
                             }}
                         >
+                            <div>
+                                <h3
+                                    style={{
+                                        fontSize: 22,
+                                        fontWeight: 900,
+                                        color: "#1a1a1a",
+                                        margin: "0 0 6px 0",
+                                    }}
+                                >
+                                    Plan your months
+                                </h3>
+                                <div
+                                    style={{
+                                        fontSize: 11,
+                                        color: "#6b7280",
+                                        lineHeight: 1.4,
+                                    }}
+                                >
+                                    More details{" "}
+                                    <button
+                                        onClick={() =>
+                                            triggerVoiceflowChat(
+                                                "explain elterngeld plus and basis"
+                                            )
+                                        }
+                                        style={{
+                                            background: "none",
+                                            border: "none",
+                                            padding: 0,
+                                            cursor: "pointer",
+                                            color: "#111827",
+                                            fontSize: 11,
+                                            fontWeight: 800,
+                                            textDecoration: "underline",
+                                        }}
+                                    >
+                                        which options
+                                    </button>{" "}
+                                    you have
+                                </div>
+                            </div>
+
+                            {/* Birthday input and single parent checkbox */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    gap: 12,
+                                    alignItems: "flex-end",
+                                }}
+                            >
                             <div
                                 style={{
                                     display: "flex",
@@ -1150,6 +1151,7 @@ export default function ElterngeldCalculator() {
                                     I am a single parent
                                 </span>
                             </label>
+                            </div>
                         </div>
 
                         {/* MONTHS SCROLLER */}
