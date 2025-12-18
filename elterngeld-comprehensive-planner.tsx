@@ -1156,7 +1156,7 @@ export default function ElterngeldCalculator() {
                                 WebkitOverflowScrolling: "touch",
                                 paddingBottom: 12,
                                 position: "relative",
-                                maxHeight: "400px",
+                                maxHeight: "330px",
                             }}
                         >
                             <div
@@ -1208,7 +1208,7 @@ export default function ElterngeldCalculator() {
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     justifyContent: "space-between",
-                                                    minHeight: 350,
+                                                    minHeight: 280,
                                                 }}
                                             >
                                                 {/* Top section: Month + Date + Divider */}
@@ -1501,7 +1501,7 @@ export default function ElterngeldCalculator() {
                                             alignItems: "center",
                                             justifyContent: "center",
                                             cursor: "pointer",
-                                            minHeight: 350,
+                                            minHeight: 280,
                                             transition: "all 0.2s",
                                         }}
                                         onMouseEnter={(e) => {
@@ -1555,7 +1555,7 @@ export default function ElterngeldCalculator() {
                         <div
                             style={{
                                 marginTop: 6,
-                                minHeight: 80,
+                                minHeight: 70,
                             }}
                         >
                             {hasValidationErrors && (
