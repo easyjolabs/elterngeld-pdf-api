@@ -358,100 +358,102 @@ export default function ElterngeldCalculator() {
         )
     }
 
-    const Stepper = () => (
-        <div
-            style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 16,
-                padding: "0 0 18px 0",
-                borderBottom: "1px solid #f0f0f0",
-                marginBottom: 18,
-            }}
-        >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div
-                    style={{
-                        width: 28,
-                        height: 28,
-                        borderRadius: 999,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 13,
-                        fontWeight: 900,
-                        color: currentStep === 1 ? "#ffffff" : "#1a1a1a",
-                        backgroundColor:
-                            currentStep === 1 ? "#1a1a1a" : "#ffffff",
-                        border: "1px solid #e1e1e1",
-                    }}
-                >
-                    1
-                </div>
-                <div style={{ lineHeight: 1.2 }}>
-                    <div
-                        style={{
-                            fontSize: 13,
-                            fontWeight: 900,
-                            color: "#1a1a1a",
-                        }}
-                    >
-                        Elterngeld Calculator
-                    </div>
-                    <div style={{ fontSize: 12, color: "#9a9a9a" }}>
-                        Get a quick estimate
-                    </div>
-                </div>
-            </div>
-
+    const Stepper = () => {
+        return (
             <div
                 style={{
-                    flex: 1,
-                    height: 1,
-                    background: "#e1e1e1",
-                    marginLeft: 10,
-                    marginRight: 10,
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 16,
+                    padding: "0 0 18px 0",
+                    borderBottom: "1px solid #f0f0f0",
+                    marginBottom: 18,
                 }}
-            />
-
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div
-                    style={{
-                        width: 28,
-                        height: 28,
-                        borderRadius: 999,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 13,
-                        fontWeight: 900,
-                        color: currentStep === 2 ? "#ffffff" : "#1a1a1a",
-                        backgroundColor:
-                            currentStep === 2 ? "#1a1a1a" : "#ffffff",
-                        border: "1px solid #e1e1e1",
-                    }}
-                >
-                    2
-                </div>
-                <div style={{ lineHeight: 1.2 }}>
+            >
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div
                         style={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: 999,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                             fontSize: 13,
                             fontWeight: 900,
-                            color: "#1a1a1a",
+                            color: currentStep === 1 ? "#ffffff" : "#1a1a1a",
+                            backgroundColor:
+                                currentStep === 1 ? "#1a1a1a" : "#ffffff",
+                            border: "1px solid #e1e1e1",
                         }}
                     >
-                        Elterngeld Model Planner
+                        1
                     </div>
-                    <div style={{ fontSize: 12, color: "#9a9a9a" }}>
-                        Plan your Elterngeld months
+                    <div style={{ lineHeight: 1.2 }}>
+                        <div
+                            style={{
+                                fontSize: 13,
+                                fontWeight: 900,
+                                color: "#1a1a1a",
+                            }}
+                        >
+                            Elterngeld Calculator
+                        </div>
+                        <div style={{ fontSize: 12, color: "#9a9a9a" }}>
+                            Get a quick estimate
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style={{
+                        flex: 1,
+                        height: 1,
+                        background: "#e1e1e1",
+                        marginLeft: 10,
+                        marginRight: 10,
+                    }}
+                />
+
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div
+                        style={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: 999,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: 13,
+                            fontWeight: 900,
+                            color: currentStep === 2 ? "#ffffff" : "#1a1a1a",
+                            backgroundColor:
+                                currentStep === 2 ? "#1a1a1a" : "#ffffff",
+                            border: "1px solid #e1e1e1",
+                        }}
+                    >
+                        2
+                    </div>
+                    <div style={{ lineHeight: 1.2 }}>
+                        <div
+                            style={{
+                                fontSize: 13,
+                                fontWeight: 900,
+                                color: "#1a1a1a",
+                            }}
+                        >
+                            Elterngeld Model Planner
+                        </div>
+                        <div style={{ fontSize: 12, color: "#9a9a9a" }}>
+                            Plan your Elterngeld months
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 
     return (
         <div
