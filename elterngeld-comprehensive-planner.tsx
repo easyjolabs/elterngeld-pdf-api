@@ -1098,77 +1098,76 @@ export default function ElterngeldCalculator() {
                                 flexWrap: "wrap",
                             }}
                         >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 6,
+                                }}
+                            >
                                 <div
                                     style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        gap: 6,
+                                        fontSize: 12,
+                                        color: "#9a9a9a",
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            fontSize: 12,
-                                            color: "#9a9a9a",
-                                        }}
-                                    >
-                                        Birthday of your child
-                                    </div>
-                                    <input
-                                        type="date"
-                                        value={childBirthDate}
-                                        onChange={(e) =>
-                                            setChildBirthDate(e.target.value)
-                                        }
-                                        style={{
-                                            height: 36,
-                                            padding: "0 10px",
-                                            borderRadius: 10,
-                                            border: "1px solid #e1e1e1",
-                                            background: "#ffffff",
-                                            fontSize: 13,
-                                            color: "#1a1a1a",
-                                        }}
-                                    />
+                                    Birthday of your child
                                 </div>
-
-                                <label
+                                <input
+                                    type="date"
+                                    value={childBirthDate}
+                                    onChange={(e) =>
+                                        setChildBirthDate(e.target.value)
+                                    }
                                     style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 8,
-                                        cursor: "pointer",
                                         height: 36,
-                                        padding: "0 12px",
+                                        padding: "0 10px",
                                         borderRadius: 10,
                                         border: "1px solid #e1e1e1",
                                         background: "#ffffff",
+                                        fontSize: 13,
+                                        color: "#1a1a1a",
+                                    }}
+                                />
+                            </div>
+
+                            <label
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                    cursor: "pointer",
+                                    height: 36,
+                                    padding: "0 12px",
+                                    borderRadius: 10,
+                                    border: "1px solid #e1e1e1",
+                                    background: "#ffffff",
+                                }}
+                            >
+                                <input
+                                    type="checkbox"
+                                    checked={isSingleParent}
+                                    onChange={(e) =>
+                                        setIsSingleParent(e.target.checked)
+                                    }
+                                    style={{
+                                        width: 16,
+                                        height: 16,
+                                        cursor: "pointer",
+                                        accentColor: "#111827",
+                                    }}
+                                />
+                                <span
+                                    style={{
+                                        fontSize: 13,
+                                        fontWeight: 800,
+                                        color: "#1a1a1a",
+                                        whiteSpace: "nowrap",
                                     }}
                                 >
-                                    <input
-                                        type="checkbox"
-                                        checked={isSingleParent}
-                                        onChange={(e) =>
-                                            setIsSingleParent(e.target.checked)
-                                        }
-                                        style={{
-                                            width: 16,
-                                            height: 16,
-                                            cursor: "pointer",
-                                            accentColor: "#111827",
-                                        }}
-                                    />
-                                    <span
-                                        style={{
-                                            fontSize: 13,
-                                            fontWeight: 800,
-                                            color: "#1a1a1a",
-                                            whiteSpace: "nowrap",
-                                        }}
-                                    >
-                                        I am a single parent
-                                    </span>
-                                </label>
-                            </div>
+                                    I am a single parent
+                                </span>
+                            </label>
                         </div>
 
                         {/* MONTHS SCROLLER */}
