@@ -468,7 +468,7 @@ export default function ElterngeldCalculator() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        paddingBottom: 18,
+                        paddingBottom: 12,
                         marginBottom: 0,
                     }}
                 >
@@ -520,7 +520,7 @@ export default function ElterngeldCalculator() {
                         background: "#f0f0f0",
                         marginLeft: -30,
                         marginRight: -30,
-                        marginBottom: 18,
+                        marginBottom: 12,
                     }}
                 />
 
