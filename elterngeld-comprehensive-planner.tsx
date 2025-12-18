@@ -723,7 +723,7 @@ export default function ElterngeldCalculator() {
                                         style={{
                                             display: "grid",
                                             gap: 8,
-                                            marginTop: 70,
+                                            marginTop: 20,
                                             minHeight: 120,
                                         }}
                                     >
@@ -967,28 +967,54 @@ export default function ElterngeldCalculator() {
                                             </div>
                                         </div>
 
-                                        {/* Income hint box */}
-                                        {income > 2800 && (
-                                            <div
-                                                style={{
-                                                    marginTop: 20,
-                                                    padding: 10,
-                                                    backgroundColor: "#eff6ff",
-                                                    border: "1px solid #bfdbfe",
-                                                    borderRadius: 8,
-                                                    fontSize: 11,
-                                                    lineHeight: 1.5,
-                                                    color: "#1e40af",
-                                                }}
-                                            >
-                                                Income above ~€2,770 net/month
-                                                results in the maximum Elterngeld of
-                                                €1,800. If your annual income
-                                                exceeds €175,000, you are not
-                                                eligible for Elterngeld.
-                                            </div>
-                                        )}
+                                        {/* Income hint box - fixed height container */}
+                                        <div
+                                            style={{
+                                                marginTop: 20,
+                                                minHeight: income > 2800 ? 0 : 0,
+                                            }}
+                                        >
+                                            {income > 2800 && (
+                                                <div
+                                                    style={{
+                                                        fontSize: 12,
+                                                        lineHeight: 1.5,
+                                                        color: "#1e40af",
+                                                        display: "flex",
+                                                        gap: 8,
+                                                    }}
+                                                >
+                                                    <span>ℹ️</span>
+                                                    <span>
+                                                        Income above ~€2,770 net/month
+                                                        results in the maximum Elterngeld of
+                                                        €1,800. If your annual income
+                                                        exceeds €175,000, you are not
+                                                        eligible for Elterngeld.
+                                                    </span>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
+
+                                    {/* Plan next button */}
+                                    <button
+                                        onClick={() => setCurrentStep(2)}
+                                        style={{
+                                            width: "100%",
+                                            height: 40,
+                                            borderRadius: 10,
+                                            border: "none",
+                                            background: "#1a1a1a",
+                                            cursor: "pointer",
+                                            fontSize: 13,
+                                            fontWeight: 900,
+                                            color: "#ffffff",
+                                            marginTop: 16,
+                                        }}
+                                    >
+                                        Plan next
+                                    </button>
                                 </div>
                             </div>
 
@@ -1078,33 +1104,19 @@ export default function ElterngeldCalculator() {
                                 style={{
                                     display: "flex",
                                     gap: 12,
-                                    alignItems: "flex-end",
+                                    alignItems: "center",
                                 }}
                             >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 6,
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        fontSize: 12,
-                                        color: "#9a9a9a",
-                                    }}
-                                >
-                                    Birthday of your child
-                                </div>
                                 <input
                                     type="date"
                                     value={childBirthDate}
                                     onChange={(e) =>
                                         setChildBirthDate(e.target.value)
                                     }
+                                    placeholder="Child's birthday"
                                     style={{
-                                        height: 36,
-                                        padding: "0 10px",
+                                        height: 40,
+                                        padding: "0 12px",
                                         borderRadius: 10,
                                         border: "1px solid #e1e1e1",
                                         background: "#ffffff",
@@ -1112,45 +1124,44 @@ export default function ElterngeldCalculator() {
                                         color: "#1a1a1a",
                                     }}
                                 />
-                            </div>
 
-                            <label
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 8,
-                                    cursor: "pointer",
-                                    height: 36,
-                                    padding: "0 12px",
-                                    borderRadius: 10,
-                                    border: "1px solid #e1e1e1",
-                                    background: "#ffffff",
-                                }}
-                            >
-                                <input
-                                    type="checkbox"
-                                    checked={isSingleParent}
-                                    onChange={(e) =>
-                                        setIsSingleParent(e.target.checked)
-                                    }
+                                <label
                                     style={{
-                                        width: 16,
-                                        height: 16,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 8,
                                         cursor: "pointer",
-                                        accentColor: "#111827",
-                                    }}
-                                />
-                                <span
-                                    style={{
-                                        fontSize: 13,
-                                        fontWeight: 800,
-                                        color: "#1a1a1a",
-                                        whiteSpace: "nowrap",
+                                        height: 40,
+                                        padding: "0 12px",
+                                        borderRadius: 10,
+                                        border: "1px solid #e1e1e1",
+                                        background: "#ffffff",
                                     }}
                                 >
-                                    I am a single parent
-                                </span>
-                            </label>
+                                    <input
+                                        type="checkbox"
+                                        checked={isSingleParent}
+                                        onChange={(e) =>
+                                            setIsSingleParent(e.target.checked)
+                                        }
+                                        style={{
+                                            width: 16,
+                                            height: 16,
+                                            cursor: "pointer",
+                                            accentColor: "#111827",
+                                        }}
+                                    />
+                                    <span
+                                        style={{
+                                            fontSize: 13,
+                                            fontWeight: 600,
+                                            color: "#1a1a1a",
+                                            whiteSpace: "nowrap",
+                                        }}
+                                    >
+                                        I am a single parent
+                                    </span>
+                                </label>
                             </div>
                         </div>
 
@@ -1163,9 +1174,9 @@ export default function ElterngeldCalculator() {
                                 overflowX: "auto",
                                 overflowY: "hidden",
                                 WebkitOverflowScrolling: "touch",
-                                paddingBottom: 12,
+                                paddingBottom: 16,
                                 position: "relative",
-                                maxHeight: "330px",
+                                maxHeight: "380px",
                             }}
                         >
                             <div
@@ -1209,7 +1220,7 @@ export default function ElterngeldCalculator() {
                                                         ? "2px solid #ef4444"
                                                         : "1px solid #f0f0f0",
                                                     borderRadius: 14,
-                                                    padding: 14,
+                                                    padding: 16,
                                                     background: hasError
                                                         ? "#fff5f5"
                                                         : "#ffffff",
@@ -1217,7 +1228,7 @@ export default function ElterngeldCalculator() {
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     justifyContent: "space-between",
-                                                    minHeight: 280,
+                                                    minHeight: 320,
                                                 }}
                                             >
                                                 {/* Top section: Month + Date + Divider */}
@@ -1502,7 +1513,7 @@ export default function ElterngeldCalculator() {
                                             flex: "0 0 auto",
                                             border: "2px dashed #e1e1e1",
                                             borderRadius: 14,
-                                            padding: 14,
+                                            padding: 16,
                                             background: "#fafafa",
                                             boxSizing: "border-box",
                                             display: "flex",
@@ -1510,7 +1521,7 @@ export default function ElterngeldCalculator() {
                                             alignItems: "center",
                                             justifyContent: "center",
                                             cursor: "pointer",
-                                            minHeight: 280,
+                                            minHeight: 320,
                                             transition: "all 0.2s",
                                         }}
                                         onMouseEnter={(e) => {
