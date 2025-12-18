@@ -955,56 +955,23 @@ export default function ElterngeldCalculator() {
                                         </div>
 
                                         {/* CTA button */}
-                                        <div>
-                                            <button
-                                                onClick={() => setCurrentStep(2)}
-                                                style={{
-                                                    width: "100%",
-                                                    height: 40,
-                                                    borderRadius: 10,
-                                                    border: "none",
-                                                    background: "#1a1a1a",
-                                                    cursor: "pointer",
-                                                    fontSize: 13,
-                                                    fontWeight: 900,
-                                                    color: "#ffffff",
-                                                    marginTop: 44,
-                                                }}
-                                            >
-                                                Plan your Elterngeld model
-                                            </button>
-                                            <div
-                                                style={{
-                                                    fontSize: 11,
-                                                    color: "#6b7280",
-                                                    marginTop: 8,
-                                                    textAlign: "center",
-                                                    lineHeight: 1.4,
-                                                }}
-                                            >
-                                                More details{" "}
-                                                <button
-                                                    onClick={() =>
-                                                        triggerVoiceflowChat(
-                                                            "explain how i can plan with elterngeld basis, plus and the partner months"
-                                                        )
-                                                    }
-                                                    style={{
-                                                        background: "none",
-                                                        border: "none",
-                                                        padding: 0,
-                                                        cursor: "pointer",
-                                                        color: "#111827",
-                                                        fontSize: 11,
-                                                        fontWeight: 800,
-                                                        textDecoration: "underline",
-                                                    }}
-                                                >
-                                                    which options
-                                                </button>{" "}
-                                                you have
-                                            </div>
-                                        </div>
+                                        <button
+                                            onClick={() => setCurrentStep(2)}
+                                            style={{
+                                                width: "100%",
+                                                height: 40,
+                                                borderRadius: 10,
+                                                border: "none",
+                                                background: "#1a1a1a",
+                                                cursor: "pointer",
+                                                fontSize: 13,
+                                                fontWeight: 900,
+                                                color: "#ffffff",
+                                                marginTop: 24,
+                                            }}
+                                        >
+                                            Plan models
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1055,11 +1022,41 @@ export default function ElterngeldCalculator() {
                                         fontSize: 22,
                                         fontWeight: 900,
                                         color: "#1a1a1a",
-                                        margin: "0 0 20px 0",
+                                        margin: "0 0 6px 0",
                                     }}
                                 >
                                     Plan your months
                                 </h3>
+                                <div
+                                    style={{
+                                        fontSize: 11,
+                                        color: "#6b7280",
+                                        lineHeight: 1.4,
+                                        marginBottom: 14,
+                                    }}
+                                >
+                                    More details{" "}
+                                    <button
+                                        onClick={() =>
+                                            triggerVoiceflowChat(
+                                                "explain how i can plan with elterngeld basis, plus and the partner months"
+                                            )
+                                        }
+                                        style={{
+                                            background: "none",
+                                            border: "none",
+                                            padding: 0,
+                                            cursor: "pointer",
+                                            color: "#111827",
+                                            fontSize: 11,
+                                            fontWeight: 800,
+                                            textDecoration: "underline",
+                                        }}
+                                    >
+                                        which options
+                                    </button>{" "}
+                                    you have
+                                </div>
                             </div>
 
                             <div
@@ -1204,6 +1201,7 @@ export default function ElterngeldCalculator() {
                                                     boxSizing: "border-box",
                                                     display: "flex",
                                                     flexDirection: "column",
+                                                    minHeight: 215,
                                                 }}
                                             >
                                                 <div
@@ -1237,7 +1235,7 @@ export default function ElterngeldCalculator() {
                                                 <div
                                                     style={{
                                                         display: "grid",
-                                                        gap: 10,
+                                                        gap: 6,
                                                     }}
                                                 >
                                                     <div>
@@ -1542,38 +1540,45 @@ export default function ElterngeldCalculator() {
                             </div>
                         </div>
 
-                        {hasValidationErrors && (
-                            <div
-                                style={{
-                                    marginTop: 14,
-                                    padding: 14,
-                                    backgroundColor: "#fff5f5",
-                                    border: "2px solid #ef4444",
-                                    borderRadius: 12,
-                                    fontSize: 13,
-                                    lineHeight: 1.6,
-                                }}
-                            >
-                                {validationErrors.map((error, index) => (
-                                    <div
-                                        key={index}
-                                        style={{
-                                            display: "flex",
-                                            gap: 8,
-                                            color: "#dc2626",
-                                            marginBottom:
-                                                index <
-                                                validationErrors.length - 1
-                                                    ? 8
-                                                    : 0,
-                                        }}
-                                    >
-                                        <span>⚠️</span>
-                                        <span>{error}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                        {/* Error container with fixed space */}
+                        <div
+                            style={{
+                                marginTop: 14,
+                                minHeight: hasValidationErrors ? "auto" : 0,
+                            }}
+                        >
+                            {hasValidationErrors && (
+                                <div
+                                    style={{
+                                        padding: 14,
+                                        backgroundColor: "#fff5f5",
+                                        border: "2px solid #ef4444",
+                                        borderRadius: 12,
+                                        fontSize: 13,
+                                        lineHeight: 1.6,
+                                    }}
+                                >
+                                    {validationErrors.map((error, index) => (
+                                        <div
+                                            key={index}
+                                            style={{
+                                                display: "flex",
+                                                gap: 8,
+                                                color: "#dc2626",
+                                                marginBottom:
+                                                    index <
+                                                    validationErrors.length - 1
+                                                        ? 8
+                                                        : 0,
+                                            }}
+                                        >
+                                            <span>⚠️</span>
+                                            <span>{error}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
                         <div
                             style={{
