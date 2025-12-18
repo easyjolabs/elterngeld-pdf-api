@@ -1018,7 +1018,7 @@ export default function ElterngeldCalculator() {
                                 justifyContent: "space-between",
                                 alignItems: "flex-end",
                                 gap: 16,
-                                marginBottom: 14,
+                                marginBottom: 10,
                                 flexWrap: "wrap",
                             }}
                         >
@@ -1038,7 +1038,7 @@ export default function ElterngeldCalculator() {
                                         fontSize: 11,
                                         color: "#6b7280",
                                         lineHeight: 1.4,
-                                        marginBottom: 14,
+                                        marginBottom: 10,
                                     }}
                                 >
                                     More details{" "}
@@ -1554,19 +1554,19 @@ export default function ElterngeldCalculator() {
                         {/* Error container with fixed space */}
                         <div
                             style={{
-                                marginTop: 6,
-                                minHeight: 70,
+                                marginTop: 4,
+                                minHeight: 50,
                             }}
                         >
                             {hasValidationErrors && (
                                 <div
                                     style={{
-                                        padding: 14,
+                                        padding: 10,
                                         backgroundColor: "#fff5f5",
                                         border: "2px solid #ef4444",
                                         borderRadius: 12,
-                                        fontSize: 13,
-                                        lineHeight: 1.6,
+                                        fontSize: 12,
+                                        lineHeight: 1.5,
                                     }}
                                 >
                                     {validationErrors.map((error, index) => (
@@ -1579,7 +1579,7 @@ export default function ElterngeldCalculator() {
                                                 marginBottom:
                                                     index <
                                                     validationErrors.length - 1
-                                                        ? 8
+                                                        ? 6
                                                         : 0,
                                             }}
                                         >
@@ -1593,7 +1593,7 @@ export default function ElterngeldCalculator() {
 
                         <div
                             style={{
-                                marginTop: 8,
+                                marginTop: 4,
                                 display: "flex",
                                 justifyContent: "space-between",
                             }}
@@ -1617,7 +1617,7 @@ export default function ElterngeldCalculator() {
                         </div>
 
                         {/* Legal text: centered at the very bottom */}
-                        <div style={{ marginTop: "auto", paddingTop: 12 }}>
+                        <div style={{ marginTop: "auto", paddingTop: 8 }}>
                             <div
                                 style={{
                                     fontSize: 11,
