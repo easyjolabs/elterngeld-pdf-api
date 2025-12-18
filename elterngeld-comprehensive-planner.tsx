@@ -454,13 +454,14 @@ export default function ElterngeldCalculator() {
                     width: "100%",
                     minHeight: "100%",
                     backgroundColor: "#ffffff",
-                    border: "1px solid #e1e1e1",
-                    borderRadius: 20,
+                    border: "1px solid #e5e7eb",
+                    borderRadius: 24,
                     padding: 30,
                     boxSizing: "border-box",
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
+                    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)",
                 }}
             >
                 {/* Header with Stepper and navigation button */}
@@ -483,36 +484,55 @@ export default function ElterngeldCalculator() {
                             onClick={() => setCurrentStep(2)}
                             style={{
                                 height: 36,
-                                padding: "0 14px",
-                                borderRadius: 10,
+                                padding: "0 18px",
+                                borderRadius: 12,
                                 border: "none",
-                                background: "#1a1a1a",
+                                background: "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)",
                                 cursor: "pointer",
                                 fontSize: 13,
-                                fontWeight: 900,
+                                fontWeight: 700,
                                 color: "#ffffff",
                                 flexShrink: 0,
+                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.12)",
+                                transition: "all 0.2s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-1px)"
+                                e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)"
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0)"
+                                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.12)"
                             }}
                         >
-                            Next
+                            Next →
                         </button>
                     ) : (
                         <button
                             onClick={() => setCurrentStep(1)}
                             style={{
                                 height: 36,
-                                padding: "0 14px",
-                                borderRadius: 10,
-                                border: "1px solid #e1e1e1",
+                                padding: "0 18px",
+                                borderRadius: 12,
+                                border: "1px solid #e5e7eb",
                                 background: "#ffffff",
                                 cursor: "pointer",
                                 fontSize: 13,
-                                fontWeight: 900,
+                                fontWeight: 700,
                                 color: "#1a1a1a",
                                 flexShrink: 0,
+                                transition: "all 0.2s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = "#f9fafb"
+                                e.currentTarget.style.borderColor = "#d1d5db"
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = "#ffffff"
+                                e.currentTarget.style.borderColor = "#e5e7eb"
                             }}
                         >
-                            Back
+                            ← Back
                         </button>
                     )}
                 </div>
@@ -521,10 +541,10 @@ export default function ElterngeldCalculator() {
                 <div
                     style={{
                         height: 1,
-                        background: "#e5e7eb",
+                        background: "linear-gradient(to right, transparent, #e5e7eb 10%, #e5e7eb 90%, transparent)",
                         marginLeft: -30,
                         marginRight: -30,
-                        marginBottom: 18,
+                        marginBottom: 24,
                     }}
                 />
 
@@ -582,11 +602,12 @@ export default function ElterngeldCalculator() {
                     >
                         <h1
                             style={{
-                                fontSize: 22,
-                                fontWeight: 900,
-                                color: "#1a1a1a",
-                                margin: "0 0 20px 0",
+                                fontSize: 24,
+                                fontWeight: 800,
+                                color: "#111827",
+                                margin: "0 0 24px 0",
                                 lineHeight: 1.2,
+                                letterSpacing: "-0.5px",
                             }}
                         >
                             Calculate your Elterngeld
@@ -613,13 +634,14 @@ export default function ElterngeldCalculator() {
                                 {/* Slider card */}
                                 <div
                                     style={{
-                                        padding: 28,
+                                        padding: 32,
                                         border: "1px solid #e5e7eb",
-                                        borderRadius: 14,
-                                        background: "#fafafa",
+                                        borderRadius: 20,
+                                        background: "linear-gradient(to bottom, #fafafa 0%, #f5f5f5 100%)",
                                         display: "flex",
                                         flexDirection: "column",
                                         minHeight: 350,
+                                        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
                                     }}
                                 >
                                     <div
@@ -924,12 +946,13 @@ export default function ElterngeldCalculator() {
                                 <div
                                     style={{
                                         border: "1px solid #e5e7eb",
-                                        borderRadius: 14,
-                                        padding: 24,
-                                        background: "#ffffff",
+                                        borderRadius: 20,
+                                        padding: 28,
+                                        background: "linear-gradient(135deg, #ffffff 0%, #fafafa 100%)",
                                         minHeight: 380,
                                         display: "flex",
                                         flexDirection: "column",
+                                        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)",
                                     }}
                                 >
                                     {/* Basis */}
@@ -947,10 +970,11 @@ export default function ElterngeldCalculator() {
                                         <div>
                                             <div
                                                 style={{
-                                                    fontSize: 24,
-                                                    fontWeight: 900,
+                                                    fontSize: 28,
+                                                    fontWeight: 800,
                                                     color: "#111827",
                                                     lineHeight: 1,
+                                                    letterSpacing: "-0.8px",
                                                 }}
                                             >
                                                 {result.isOverLimit
@@ -961,7 +985,8 @@ export default function ElterngeldCalculator() {
                                                 style={{
                                                     fontSize: 12,
                                                     color: "#6b7280",
-                                                    marginTop: 4,
+                                                    marginTop: 6,
+                                                    fontWeight: 500,
                                                 }}
                                             >
                                                 for 12–14 months
@@ -993,10 +1018,11 @@ export default function ElterngeldCalculator() {
                                             <div>
                                                 <div
                                                     style={{
-                                                        fontSize: 24,
+                                                        fontSize: 28,
                                                         fontWeight: 800,
                                                         color: "#111827",
                                                         lineHeight: 1,
+                                                        letterSpacing: "-0.8px",
                                                     }}
                                                 >
                                                     {result.isOverLimit
@@ -1007,7 +1033,8 @@ export default function ElterngeldCalculator() {
                                                     style={{
                                                         fontSize: 12,
                                                         color: "#6b7280",
-                                                        marginTop: 4,
+                                                        marginTop: 6,
+                                                        fontWeight: 500,
                                                     }}
                                                 >
                                                     for 24–28 months
@@ -1021,18 +1048,29 @@ export default function ElterngeldCalculator() {
                                         onClick={() => setCurrentStep(2)}
                                         style={{
                                             width: "100%",
-                                            height: 100,
-                                            borderRadius: 10,
-                                            border: "#000000",
-                                            background: "#FE6318",
+                                            height: 56,
+                                            borderRadius: 14,
+                                            border: "none",
+                                            background: "linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%)",
                                             cursor: "pointer",
-                                            fontSize: 13,
-                                            fontWeight: 900,
-                                            color: "#000000",
-                                            marginTop: 50,
+                                            fontSize: 15,
+                                            fontWeight: 700,
+                                            color: "#ffffff",
+                                            marginTop: "auto",
+                                            boxShadow: "0 4px 14px rgba(255, 107, 53, 0.35)",
+                                            transition: "all 0.2s ease",
+                                            letterSpacing: "0.3px",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.transform = "translateY(-2px)"
+                                            e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 107, 53, 0.45)"
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = "translateY(0)"
+                                            e.currentTarget.style.boxShadow = "0 4px 14px rgba(255, 107, 53, 0.35)"
                                         }}
                                     >
-                                        Plan next
+                                        Plan Your Months →
                                     </button>
                                 </div>
                             </div>
@@ -1080,10 +1118,11 @@ export default function ElterngeldCalculator() {
                             <div>
                                 <h3
                                     style={{
-                                        fontSize: 22,
-                                        fontWeight: 900,
-                                        color: "#1a1a1a",
-                                        margin: "0 0 6px 0",
+                                        fontSize: 24,
+                                        fontWeight: 800,
+                                        color: "#111827",
+                                        margin: "0 0 8px 0",
+                                        letterSpacing: "-0.5px",
                                     }}
                                 >
                                     Plan your months
@@ -1142,16 +1181,26 @@ export default function ElterngeldCalculator() {
                                         }
                                         style={{
                                             width: "100%",
-                                            height: 40,
-                                            padding: "0 12px",
-                                            borderRadius: 10,
-                                            border: "1px solid #e1e1e1",
+                                            height: 42,
+                                            padding: "0 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid #e5e7eb",
                                             background: "#ffffff",
                                             fontSize: 13,
                                             color: childBirthDate
                                                 ? "#1a1a1a"
                                                 : "transparent",
                                             cursor: "pointer",
+                                            transition: "all 0.2s ease",
+                                            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
+                                        }}
+                                        onFocus={(e) => {
+                                            e.currentTarget.style.borderColor = "#3b82f6"
+                                            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)"
+                                        }}
+                                        onBlur={(e) => {
+                                            e.currentTarget.style.borderColor = "#e5e7eb"
+                                            e.currentTarget.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.05)"
                                         }}
                                     />
                                     {!childBirthDate && (
@@ -1187,13 +1236,23 @@ export default function ElterngeldCalculator() {
                                     style={{
                                         display: "flex",
                                         alignItems: "center",
-                                        gap: 8,
+                                        gap: 10,
                                         cursor: "pointer",
-                                        height: 40,
-                                        padding: "0 12px",
-                                        borderRadius: 10,
-                                        border: "1px solid #e1e1e1",
+                                        height: 42,
+                                        padding: "0 14px",
+                                        borderRadius: 12,
+                                        border: "1px solid #e5e7eb",
                                         background: "#ffffff",
+                                        transition: "all 0.2s ease",
+                                        boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.borderColor = "#d1d5db"
+                                        e.currentTarget.style.background = "#f9fafb"
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.borderColor = "#e5e7eb"
+                                        e.currentTarget.style.background = "#ffffff"
                                     }}
                                 >
                                     <input
@@ -1277,17 +1336,33 @@ export default function ElterngeldCalculator() {
                                                     border: hasError
                                                         ? "2px solid #ef4444"
                                                         : "1px solid #e5e7eb",
-                                                    borderRadius: 14,
+                                                    borderRadius: 16,
                                                     padding: 16,
                                                     background: hasError
-                                                        ? "#fff5f5"
-                                                        : "#fafafa",
+                                                        ? "linear-gradient(to bottom, #fff5f5 0%, #fee2e2 100%)"
+                                                        : "linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%)",
                                                     boxSizing: "border-box",
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     justifyContent:
                                                         "space-between",
                                                     minHeight: 320,
+                                                    boxShadow: hasError
+                                                        ? "0 2px 8px rgba(239, 68, 68, 0.15)"
+                                                        : "0 1px 3px rgba(0, 0, 0, 0.06)",
+                                                    transition: "all 0.2s ease",
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    if (!hasError) {
+                                                        e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)"
+                                                        e.currentTarget.style.transform = "translateY(-2px)"
+                                                    }
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    if (!hasError) {
+                                                        e.currentTarget.style.boxShadow = "0 1px 3px rgba(0, 0, 0, 0.06)"
+                                                        e.currentTarget.style.transform = "translateY(0)"
+                                                    }
                                                 }}
                                             >
                                                 {/* Top section: Month + Date + Divider */}
@@ -1534,27 +1609,30 @@ export default function ElterngeldCalculator() {
                                                 {/* Bottom section: Amount */}
                                                 <div
                                                     style={{
-                                                        paddingTop: 8,
+                                                        paddingTop: 12,
                                                         borderTop:
-                                                            "1px solid #f0f0f0",
+                                                            "1px solid #e5e7eb",
                                                     }}
                                                 >
                                                     <div
                                                         style={{
                                                             fontSize: 10,
-                                                            color: "#9a9a9a",
-                                                            marginBottom: 2,
+                                                            color: "#9ca3af",
+                                                            marginBottom: 4,
+                                                            fontWeight: 500,
+                                                            letterSpacing: "0.3px",
                                                         }}
                                                     >
                                                         Amount
                                                     </div>
                                                     <div
                                                         style={{
-                                                            fontSize: 13,
-                                                            fontWeight: 900,
+                                                            fontSize: 15,
+                                                            fontWeight: 800,
                                                             color: amount
-                                                                ? "#1a1a1a"
-                                                                : "#c7c7c7",
+                                                                ? "#111827"
+                                                                : "#d1d5db",
+                                                            letterSpacing: "-0.3px",
                                                         }}
                                                     >
                                                         {amount
@@ -1576,10 +1654,10 @@ export default function ElterngeldCalculator() {
                                         style={{
                                             width: 90,
                                             flex: "0 0 auto",
-                                            border: "2px dashed #e1e1e1",
-                                            borderRadius: 14,
+                                            border: "2px dashed #d1d5db",
+                                            borderRadius: 16,
                                             padding: 16,
-                                            background: "#fafafa",
+                                            background: "linear-gradient(to bottom, #f9fafb 0%, #f3f4f6 100%)",
                                             boxSizing: "border-box",
                                             display: "flex",
                                             flexDirection: "column",
@@ -1587,19 +1665,19 @@ export default function ElterngeldCalculator() {
                                             justifyContent: "center",
                                             cursor: "pointer",
                                             minHeight: 320,
-                                            transition: "all 0.2s",
+                                            transition: "all 0.3s ease",
                                         }}
                                         onMouseEnter={(e) => {
-                                            e.currentTarget.style.borderColor =
-                                                "#1a1a1a"
-                                            e.currentTarget.style.background =
-                                                "#f5f5f5"
+                                            e.currentTarget.style.borderColor = "#3b82f6"
+                                            e.currentTarget.style.background = "linear-gradient(to bottom, #eff6ff 0%, #dbeafe 100%)"
+                                            e.currentTarget.style.transform = "translateY(-2px)"
+                                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(59, 130, 246, 0.15)"
                                         }}
                                         onMouseLeave={(e) => {
-                                            e.currentTarget.style.borderColor =
-                                                "#e1e1e1"
-                                            e.currentTarget.style.background =
-                                                "#fafafa"
+                                            e.currentTarget.style.borderColor = "#d1d5db"
+                                            e.currentTarget.style.background = "linear-gradient(to bottom, #f9fafb 0%, #f3f4f6 100%)"
+                                            e.currentTarget.style.transform = "translateY(0)"
+                                            e.currentTarget.style.boxShadow = "none"
                                         }}
                                     >
                                         <div
