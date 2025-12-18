@@ -468,8 +468,8 @@ export default function ElterngeldCalculator() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        height: 46,
-                        minHeight: 46,
+                        height: 38,
+                        minHeight: 38,
                         paddingBottom: 0,
                         marginBottom: 0,
                     }}
