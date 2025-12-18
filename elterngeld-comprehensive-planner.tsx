@@ -716,7 +716,7 @@ export default function ElterngeldCalculator() {
                                         style={{
                                             display: "grid",
                                             gap: 8,
-                                            marginTop: 0,
+                                            marginTop: 12,
                                             minHeight: 120,
                                         }}
                                     >
