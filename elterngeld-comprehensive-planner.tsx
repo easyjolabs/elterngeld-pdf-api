@@ -570,7 +570,7 @@ export default function ElterngeldCalculator() {
                                         background: "#fafafa",
                                         display: "flex",
                                         flexDirection: "column",
-                                        height: 450,
+                                        height: 350,
                                         overflow: "hidden",
                                     }}
                                 >
@@ -867,7 +867,7 @@ export default function ElterngeldCalculator() {
                                         borderRadius: 14,
                                         padding: 24,
                                         background: "#ffffff",
-                                        height: 450,
+                                        height: 350,
                                         display: "flex",
                                         flexDirection: "column",
                                     }}
@@ -1203,7 +1203,7 @@ export default function ElterngeldCalculator() {
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     justifyContent: "space-between",
-                                                    minHeight: 286,
+                                                    minHeight: 350,
                                                 }}
                                             >
                                                 {/* Top section: Month + Date + Divider */}
@@ -1496,7 +1496,7 @@ export default function ElterngeldCalculator() {
                                             alignItems: "center",
                                             justifyContent: "center",
                                             cursor: "pointer",
-                                            minHeight: 286,
+                                            minHeight: 350,
                                             transition: "all 0.2s",
                                         }}
                                         onMouseEnter={(e) => {
