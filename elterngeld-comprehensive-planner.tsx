@@ -570,7 +570,7 @@ export default function ElterngeldCalculator() {
                                         background: "#fafafa",
                                         display: "flex",
                                         flexDirection: "column",
-                                        height: 286,
+                                        height: 450,
                                         overflow: "hidden",
                                     }}
                                 >
@@ -867,7 +867,7 @@ export default function ElterngeldCalculator() {
                                         borderRadius: 14,
                                         padding: 24,
                                         background: "#ffffff",
-                                        minHeight: 286,
+                                        height: 450,
                                         display: "flex",
                                         flexDirection: "column",
                                     }}
