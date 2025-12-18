@@ -468,7 +468,7 @@ export default function ElterngeldCalculator() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        paddingBottom: 8,
+                        paddingBottom: 4,
                         marginBottom: 0,
                     }}
                 >
@@ -478,13 +478,13 @@ export default function ElterngeldCalculator() {
                         <button
                             onClick={() => setCurrentStep(2)}
                             style={{
-                                height: 32,
+                                height: 28,
                                 padding: "0 12px",
-                                borderRadius: 10,
+                                borderRadius: 8,
                                 border: "none",
                                 background: "#1a1a1a",
                                 cursor: "pointer",
-                                fontSize: 12,
+                                fontSize: 11,
                                 fontWeight: 900,
                                 color: "#ffffff",
                                 flexShrink: 0,
@@ -496,13 +496,13 @@ export default function ElterngeldCalculator() {
                         <button
                             onClick={() => setCurrentStep(1)}
                             style={{
-                                height: 32,
+                                height: 28,
                                 padding: "0 12px",
-                                borderRadius: 10,
+                                borderRadius: 8,
                                 border: "1px solid #e1e1e1",
                                 background: "#ffffff",
                                 cursor: "pointer",
-                                fontSize: 12,
+                                fontSize: 11,
                                 fontWeight: 900,
                                 color: "#1a1a1a",
                                 flexShrink: 0,
@@ -520,7 +520,7 @@ export default function ElterngeldCalculator() {
                         background: "#f0f0f0",
                         marginLeft: -30,
                         marginRight: -30,
-                        marginBottom: 8,
+                        marginBottom: 4,
                     }}
                 />
 
@@ -880,6 +880,29 @@ export default function ElterngeldCalculator() {
                                             </div>
                                         )}
                                     </div>
+
+                                    {/* Income hint box below checkboxes */}
+                                    {income > 2800 && (
+                                        <div
+                                            style={{
+                                                marginTop: 12,
+                                                fontSize: 12,
+                                                lineHeight: 1.5,
+                                                color: "#1e40af",
+                                                display: "flex",
+                                                gap: 8,
+                                            }}
+                                        >
+                                            <span>ℹ️</span>
+                                            <span>
+                                                Income above ~€2,770 net/month
+                                                results in the maximum Elterngeld of
+                                                €1,800. If your annual income
+                                                exceeds €175,000, you are not
+                                                eligible for Elterngeld.
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Result card (smaller fonts + 2-column layout per row) */}
@@ -975,35 +998,6 @@ export default function ElterngeldCalculator() {
                                                     for 24–28 months
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        {/* Income hint box - fixed height container */}
-                                        <div
-                                            style={{
-                                                marginTop: 20,
-                                                minHeight: income > 2800 ? 0 : 0,
-                                            }}
-                                        >
-                                            {income > 2800 && (
-                                                <div
-                                                    style={{
-                                                        fontSize: 12,
-                                                        lineHeight: 1.5,
-                                                        color: "#1e40af",
-                                                        display: "flex",
-                                                        gap: 8,
-                                                    }}
-                                                >
-                                                    <span>ℹ️</span>
-                                                    <span>
-                                                        Income above ~€2,770 net/month
-                                                        results in the maximum Elterngeld of
-                                                        €1,800. If your annual income
-                                                        exceeds €175,000, you are not
-                                                        eligible for Elterngeld.
-                                                    </span>
-                                                </div>
-                                            )}
                                         </div>
                                     </div>
 
@@ -1117,7 +1111,7 @@ export default function ElterngeldCalculator() {
                                     alignItems: "center",
                                 }}
                             >
-                                <div style={{ position: "relative" }}>
+                                <div style={{ position: "relative", minWidth: 160 }}>
                                     <input
                                         id="child-birthday-input"
                                         type="date"
@@ -1126,6 +1120,7 @@ export default function ElterngeldCalculator() {
                                             setChildBirthDate(e.target.value)
                                         }
                                         style={{
+                                            width: "100%",
                                             height: 40,
                                             padding: "0 12px",
                                             borderRadius: 10,
@@ -1133,11 +1128,17 @@ export default function ElterngeldCalculator() {
                                             background: "#ffffff",
                                             fontSize: 13,
                                             color: childBirthDate ? "#1a1a1a" : "transparent",
+                                            cursor: "pointer",
                                         }}
                                     />
                                     {!childBirthDate && (
                                         <div
-                                            onClick={() => document.getElementById("child-birthday-input")?.focus()}
+                                            onClick={() => {
+                                                const input = document.getElementById("child-birthday-input") as HTMLInputElement;
+                                                if (input) {
+                                                    input.showPicker?.();
+                                                }
+                                            }}
                                             style={{
                                                 position: "absolute",
                                                 left: 12,
@@ -1147,6 +1148,7 @@ export default function ElterngeldCalculator() {
                                                 fontWeight: 600,
                                                 color: "#1a1a1a",
                                                 cursor: "pointer",
+                                                pointerEvents: "auto",
                                             }}
                                         >
                                             Child's Birthday
