@@ -683,34 +683,40 @@ export default function ElterngeldCalculator() {
                                         </div>
                                     </div>
 
-                                    {/* Info text for high income */}
-                                    {income > 2800 && (
-                                        <div
-                                            style={{
-                                                marginTop: 8,
-                                                padding: 10,
-                                                backgroundColor: "#eff6ff",
-                                                border: "1px solid #bfdbfe",
-                                                borderRadius: 8,
-                                                fontSize: 11,
-                                                lineHeight: 1.5,
-                                                color: "#1e40af",
-                                            }}
-                                        >
-                                            Income above ~€2,770 net/month
-                                            results in the maximum Elterngeld of
-                                            €1,800. If your annual income
-                                            exceeds €175,000, you are not
-                                            eligible for Elterngeld.
-                                        </div>
-                                    )}
+                                    {/* Fixed space for hint - prevents checkbox movement */}
+                                    <div
+                                        style={{
+                                            marginTop: 12,
+                                            minHeight: 58,
+                                        }}
+                                    >
+                                        {income > 2800 && (
+                                            <div
+                                                style={{
+                                                    padding: 10,
+                                                    backgroundColor: "#eff6ff",
+                                                    border: "1px solid #bfdbfe",
+                                                    borderRadius: 8,
+                                                    fontSize: 11,
+                                                    lineHeight: 1.5,
+                                                    color: "#1e40af",
+                                                }}
+                                            >
+                                                Income above ~€2,770 net/month
+                                                results in the maximum Elterngeld of
+                                                €1,800. If your annual income
+                                                exceeds €175,000, you are not
+                                                eligible for Elterngeld.
+                                            </div>
+                                        )}
+                                    </div>
 
                                     {/* Checkboxes at bottom */}
                                     <div
                                         style={{
                                             display: "grid",
                                             gap: 8,
-                                            marginTop: 70,
+                                            marginTop: 0,
                                             minHeight: 120,
                                         }}
                                     >
@@ -1548,7 +1554,7 @@ export default function ElterngeldCalculator() {
                         {/* Error container with fixed space */}
                         <div
                             style={{
-                                marginTop: 8,
+                                marginTop: 6,
                                 minHeight: 80,
                             }}
                         >
@@ -1587,7 +1593,7 @@ export default function ElterngeldCalculator() {
 
                         <div
                             style={{
-                                marginTop: 20,
+                                marginTop: 8,
                                 display: "flex",
                                 justifyContent: "space-between",
                             }}
@@ -1611,7 +1617,7 @@ export default function ElterngeldCalculator() {
                         </div>
 
                         {/* Legal text: centered at the very bottom */}
-                        <div style={{ marginTop: "auto", paddingTop: 18 }}>
+                        <div style={{ marginTop: "auto", paddingTop: 12 }}>
                             <div
                                 style={{
                                     fontSize: 11,
