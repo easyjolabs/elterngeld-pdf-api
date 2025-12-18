@@ -687,7 +687,7 @@ export default function ElterngeldCalculator() {
                                     {income > 2800 && (
                                         <div
                                             style={{
-                                                marginTop: 12,
+                                                marginTop: 8,
                                                 padding: 10,
                                                 backgroundColor: "#eff6ff",
                                                 border: "1px solid #bfdbfe",
@@ -1201,37 +1201,41 @@ export default function ElterngeldCalculator() {
                                                     boxSizing: "border-box",
                                                     display: "flex",
                                                     flexDirection: "column",
-                                                    minHeight: 215,
+                                                    justifyContent: "space-between",
+                                                    minHeight: 286,
                                                 }}
                                             >
-                                                <div
-                                                    style={{
-                                                        fontSize: 14,
-                                                        fontWeight: 900,
-                                                        color: "#1a1a1a",
-                                                        marginBottom: 4,
-                                                    }}
-                                                >
-                                                    Month {index + 1}
+                                                {/* Top section: Month + Date + Divider */}
+                                                <div>
+                                                    <div
+                                                        style={{
+                                                            fontSize: 14,
+                                                            fontWeight: 900,
+                                                            color: "#1a1a1a",
+                                                            marginBottom: 4,
+                                                        }}
+                                                    >
+                                                        Month {index + 1}
+                                                    </div>
+
+                                                    <div
+                                                        style={{
+                                                            fontSize: 10,
+                                                            color: "#9a9a9a",
+                                                            marginBottom: 12,
+                                                        }}
+                                                    >
+                                                        {dateRange || "dd/mm/yyyy"}
+                                                    </div>
+
+                                                    <div
+                                                        style={{
+                                                            borderTop: "1px solid #e5e7eb",
+                                                        }}
+                                                    />
                                                 </div>
 
-                                                <div
-                                                    style={{
-                                                        fontSize: 10,
-                                                        color: "#9a9a9a",
-                                                        marginBottom: 12,
-                                                    }}
-                                                >
-                                                    {dateRange || "dd/mm/yyyy"}
-                                                </div>
-
-                                                <div
-                                                    style={{
-                                                        borderTop: "1px solid #e5e7eb",
-                                                        marginBottom: 12,
-                                                    }}
-                                                />
-
+                                                {/* Middle section: Checkboxes */}
                                                 <div
                                                     style={{
                                                         display: "grid",
@@ -1434,36 +1438,37 @@ export default function ElterngeldCalculator() {
                                                             </div>
                                                         </div>
                                                     )}
+                                                </div>
 
+                                                {/* Bottom section: Amount */}
+                                                <div
+                                                    style={{
+                                                        paddingTop: 8,
+                                                        borderTop:
+                                                            "1px solid #f0f0f0",
+                                                    }}
+                                                >
                                                     <div
                                                         style={{
-                                                            paddingTop: 8,
-                                                            borderTop:
-                                                                "1px solid #f0f0f0",
+                                                            fontSize: 10,
+                                                            color: "#9a9a9a",
+                                                            marginBottom: 2,
                                                         }}
                                                     >
-                                                        <div
-                                                            style={{
-                                                                fontSize: 10,
-                                                                color: "#9a9a9a",
-                                                                marginBottom: 2,
-                                                            }}
-                                                        >
-                                                            Amount
-                                                        </div>
-                                                        <div
-                                                            style={{
-                                                                fontSize: 13,
-                                                                fontWeight: 900,
-                                                                color: amount
-                                                                    ? "#1a1a1a"
-                                                                    : "#c7c7c7",
-                                                            }}
-                                                        >
-                                                            {amount
-                                                                ? `${amount.toLocaleString("de-DE")} €`
-                                                                : "—"}
-                                                        </div>
+                                                        Amount
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            fontSize: 13,
+                                                            fontWeight: 900,
+                                                            color: amount
+                                                                ? "#1a1a1a"
+                                                                : "#c7c7c7",
+                                                        }}
+                                                    >
+                                                        {amount
+                                                            ? `${amount.toLocaleString("de-DE")} €`
+                                                            : "—"}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1490,7 +1495,7 @@ export default function ElterngeldCalculator() {
                                             alignItems: "center",
                                             justifyContent: "center",
                                             cursor: "pointer",
-                                            minHeight: 200,
+                                            minHeight: 286,
                                             transition: "all 0.2s",
                                         }}
                                         onMouseEnter={(e) => {
@@ -1543,8 +1548,8 @@ export default function ElterngeldCalculator() {
                         {/* Error container with fixed space */}
                         <div
                             style={{
-                                marginTop: 14,
-                                minHeight: hasValidationErrors ? "auto" : 0,
+                                marginTop: 8,
+                                minHeight: 80,
                             }}
                         >
                             {hasValidationErrors && (
