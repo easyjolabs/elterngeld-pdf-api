@@ -468,7 +468,9 @@ export default function ElterngeldCalculator() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        paddingBottom: 8,
+                        height: 52,
+                        minHeight: 52,
+                        paddingBottom: 0,
                         marginBottom: 0,
                     }}
                 >
@@ -513,14 +515,14 @@ export default function ElterngeldCalculator() {
                     )}
                 </div>
 
-                {/* Full-width divider */}
+                {/* Full-width divider - aligned with chat header line */}
                 <div
                     style={{
                         height: 1,
-                        background: "#f0f0f0",
+                        background: "#e5e7eb",
                         marginLeft: -30,
                         marginRight: -30,
-                        marginBottom: 1,
+                        marginBottom: 18,
                     }}
                 />
 
