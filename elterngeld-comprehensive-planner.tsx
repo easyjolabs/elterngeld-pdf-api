@@ -622,6 +622,16 @@ export default function ElterngeldCalculator() {
                                 >
                                     <div
                                         style={{
+                                            fontSize: 13,
+                                            fontWeight: 600,
+                                            color: "#111827",
+                                            marginBottom: 4,
+                                        }}
+                                    >
+                                        Net Income
+                                    </div>
+                                    <div
+                                        style={{
                                             fontSize: 11,
                                             fontWeight: 400,
                                             color: "#374151",
