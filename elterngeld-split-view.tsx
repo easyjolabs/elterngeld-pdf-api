@@ -116,23 +116,20 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                     marginBottom: 12,
                 }}
             >
-                <button
+                <Button
                     onClick={goToPrevMonth}
+                    variant="ghost"
                     style={{
                         width: 32,
                         height: 32,
-                        borderRadius: 6,
+                        padding: 0,
                         border: "1px solid #e1e1e1",
-                        background: "#ffffff",
-                        cursor: "pointer",
+                        borderRadius: 6,
                         fontSize: 16,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
                     }}
                 >
                     ←
-                </button>
+                </Button>
                 <div
                     style={{
                         fontSize: 14,
@@ -142,23 +139,20 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                 >
                     {formatDate(currentMonth, "MMMM yyyy")}
                 </div>
-                <button
+                <Button
                     onClick={goToNextMonth}
+                    variant="ghost"
                     style={{
                         width: 32,
                         height: 32,
-                        borderRadius: 6,
+                        padding: 0,
                         border: "1px solid #e1e1e1",
-                        background: "#ffffff",
-                        cursor: "pointer",
+                        borderRadius: 6,
                         fontSize: 16,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
                     }}
                 >
                     →
-                </button>
+                </Button>
             </div>
 
             {/* Week days */}
@@ -243,6 +237,269 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                     )
                 })}
             </div>
+        </div>
+    )
+}
+
+// ============================================
+// SHADCN-STYLE UI COMPONENTS
+// ============================================
+
+// Button Component
+type ButtonProps = {
+    children: React.ReactNode
+    onClick?: () => void
+    variant?: "default" | "outline" | "ghost"
+    size?: "default" | "sm" | "lg"
+    disabled?: boolean
+    className?: string
+    style?: React.CSSProperties
+}
+
+function Button({
+    children,
+    onClick,
+    variant = "default",
+    size = "default",
+    disabled = false,
+    style = {},
+}: ButtonProps) {
+    const baseStyles: React.CSSProperties = {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        fontSize: 14,
+        fontWeight: 600,
+        transition: "all 0.15s ease",
+        cursor: disabled ? "not-allowed" : "pointer",
+        border: "none",
+        outline: "none",
+        opacity: disabled ? 0.5 : 1,
+    }
+
+    const sizeStyles: Record<string, React.CSSProperties> = {
+        sm: { height: 36, padding: "0 12px", fontSize: 13 },
+        default: { height: 48, padding: "0 24px", fontSize: 14 },
+        lg: { height: 56, padding: "0 32px", fontSize: 16 },
+    }
+
+    const variantStyles: Record<string, React.CSSProperties> = {
+        default: {
+            background: "#FF6B35",
+            color: "#ffffff",
+        },
+        outline: {
+            background: "#ffffff",
+            color: "#FF6B35",
+            border: "2px solid #FF6B35",
+        },
+        ghost: {
+            background: "transparent",
+            color: "#1a1a1a",
+        },
+    }
+
+    const [isHovered, setIsHovered] = useState(false)
+
+    const hoverStyles: Record<string, React.CSSProperties> = {
+        default: { background: "#e55a26" },
+        outline: { background: "#fff5f2" },
+        ghost: { background: "#f5f5f5" },
+    }
+
+    return (
+        <button
+            onClick={onClick}
+            disabled={disabled}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                ...baseStyles,
+                ...sizeStyles[size],
+                ...variantStyles[variant],
+                ...(isHovered && !disabled ? hoverStyles[variant] : {}),
+                ...style,
+            }}
+        >
+            {children}
+        </button>
+    )
+}
+
+// Checkbox Component
+type CheckboxProps = {
+    checked: boolean
+    onChange: (checked: boolean) => void
+    label?: string
+    disabled?: boolean
+}
+
+function Checkbox({ checked, onChange, label, disabled = false }: CheckboxProps) {
+    return (
+        <label
+            style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                cursor: disabled ? "not-allowed" : "pointer",
+                opacity: disabled ? 0.5 : 1,
+            }}
+        >
+            <div
+                onClick={() => !disabled && onChange(!checked)}
+                style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: 4,
+                    border: `2px solid ${checked ? "#FF6B35" : "#e1e1e1"}`,
+                    background: checked ? "#FF6B35" : "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "all 0.15s ease",
+                }}
+            >
+                {checked && (
+                    <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M10 3L4.5 8.5L2 6"
+                            stroke="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                )}
+            </div>
+            {label && (
+                <span
+                    style={{
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: "#1a1a1a",
+                    }}
+                >
+                    {label}
+                </span>
+            )}
+        </label>
+    )
+}
+
+// Slider Component
+type SliderProps = {
+    value: number
+    onChange: (value: number) => void
+    min?: number
+    max?: number
+    step?: number
+    disabled?: boolean
+}
+
+function Slider({
+    value,
+    onChange,
+    min = 0,
+    max = 100,
+    step = 1,
+    disabled = false,
+}: SliderProps) {
+    const percentage = ((value - min) / (max - min)) * 100
+
+    return (
+        <div
+            style={{
+                position: "relative",
+                width: "100%",
+                height: 40,
+                display: "flex",
+                alignItems: "center",
+            }}
+        >
+            <input
+                type="range"
+                value={value}
+                onChange={(e) => onChange(Number(e.target.value))}
+                min={min}
+                max={max}
+                step={step}
+                disabled={disabled}
+                style={{
+                    width: "100%",
+                    height: 6,
+                    borderRadius: 3,
+                    appearance: "none",
+                    background: `linear-gradient(to right, #FF6B35 0%, #FF6B35 ${percentage}%, #e1e1e1 ${percentage}%, #e1e1e1 100%)`,
+                    outline: "none",
+                    cursor: disabled ? "not-allowed" : "pointer",
+                    opacity: disabled ? 0.5 : 1,
+                }}
+            />
+            <style>{`
+                input[type="range"]::-webkit-slider-thumb {
+                    appearance: none;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: #FF6B35;
+                    cursor: pointer;
+                    border: 3px solid #ffffff;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+                input[type="range"]::-moz-range-thumb {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: #FF6B35;
+                    cursor: pointer;
+                    border: 3px solid #ffffff;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+            `}</style>
+        </div>
+    )
+}
+
+// Card Component
+type CardProps = {
+    children: React.ReactNode
+    onClick?: () => void
+    style?: React.CSSProperties
+    hover?: boolean
+}
+
+function Card({ children, onClick, style = {}, hover = false }: CardProps) {
+    const [isHovered, setIsHovered] = useState(false)
+
+    return (
+        <div
+            onClick={onClick}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                background: "#ffffff",
+                border: "1px solid #e1e1e1",
+                borderRadius: 10,
+                padding: 16,
+                transition: "all 0.15s ease",
+                cursor: onClick ? "pointer" : "default",
+                ...(hover && isHovered
+                    ? {
+                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                          borderColor: "#d1d5db",
+                      }
+                    : {}),
+                ...style,
+            }}
+        >
+            {children}
         </div>
     )
 }
@@ -701,27 +958,12 @@ function ElterngeldCalculator() {
                                             justifyContent: "center",
                                         }}
                                     >
-                                        <input
-                                            type="range"
+                                        <Slider
+                                            value={income}
+                                            onChange={setIncome}
                                             min={0}
                                             max={SLIDER_MAX}
                                             step={50}
-                                            value={income}
-                                            onChange={(e) =>
-                                                setIncome(
-                                                    Number(e.target.value)
-                                                )
-                                            }
-                                            style={{
-                                                width: "100%",
-                                                height: 2,
-                                                WebkitAppearance: "none",
-                                                appearance: "none",
-                                                background: `linear-gradient(to right, #111827 0%, #111827 ${(income / SLIDER_MAX) * 100}%, #e5e7eb ${(income / SLIDER_MAX) * 100}%, #e5e7eb 100%)`,
-                                                outline: "none",
-                                                borderRadius: 999,
-                                                cursor: "pointer",
-                                            }}
                                         />
                                         <div
                                             style={{
@@ -768,113 +1010,52 @@ function ElterngeldCalculator() {
                                     <div
                                         style={{
                                             display: "grid",
-                                            gap: 8,
+                                            gap: 12,
                                             marginTop: 20,
                                             minHeight: 120,
                                         }}
                                     >
-                                        <label
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "flex-start",
-                                                gap: 10,
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            <input
-                                                type="checkbox"
+                                        <div>
+                                            <Checkbox
                                                 checked={siblingBonus}
-                                                onChange={(e) =>
-                                                    setSiblingBonus(
-                                                        e.target.checked
-                                                    )
-                                                }
-                                                style={{
-                                                    width: 16,
-                                                    height: 16,
-                                                    cursor: "pointer",
-                                                    accentColor: "#111827",
-                                                    flexShrink: 0,
-                                                    marginTop: 2,
-                                                }}
+                                                onChange={setSiblingBonus}
+                                                label="Include sibling bonus"
                                             />
-                                            <div>
-                                                <div
-                                                    style={{
-                                                        fontSize: 13,
-                                                        fontWeight: 600,
-                                                        color: "#111827",
-                                                        marginBottom: 2,
-                                                    }}
-                                                >
-                                                    Include sibling bonus
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        fontSize: 11,
-                                                        color: "#6b7280",
-                                                        lineHeight: 1.4,
-                                                    }}
-                                                >
-                                                    If you have 1 child under 3
-                                                    years old, or 2 children
-                                                    under 6 years old, or 1
-                                                    child with a disability
-                                                    under 14 years old
-                                                </div>
+                                            <div
+                                                style={{
+                                                    fontSize: 11,
+                                                    color: "#6b7280",
+                                                    lineHeight: 1.4,
+                                                    marginTop: 4,
+                                                    marginLeft: 28,
+                                                }}
+                                            >
+                                                If you have 1 child under 3 years
+                                                old, or 2 children under 6 years
+                                                old, or 1 child with a disability
+                                                under 14 years old
                                             </div>
-                                        </label>
+                                        </div>
 
-                                        <label
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "flex-start",
-                                                gap: 10,
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            <input
-                                                type="checkbox"
+                                        <div>
+                                            <Checkbox
                                                 checked={multipleChildren}
-                                                onChange={(e) =>
-                                                    setMultipleChildren(
-                                                        e.target.checked
-                                                    )
-                                                }
-                                                style={{
-                                                    width: 16,
-                                                    height: 16,
-                                                    cursor: "pointer",
-                                                    accentColor: "#111827",
-                                                    flexShrink: 0,
-                                                    marginTop: 2,
-                                                }}
+                                                onChange={setMultipleChildren}
+                                                label="Include bonus for multiple births"
                                             />
-                                            <div>
-                                                <div
-                                                    style={{
-                                                        fontSize: 13,
-                                                        fontWeight: 600,
-                                                        color: "#111827",
-                                                        marginBottom: 2,
-                                                    }}
-                                                >
-                                                    Include bonus for multiple
-                                                    births
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        fontSize: 11,
-                                                        color: "#6b7280",
-                                                        lineHeight: 1.4,
-                                                    }}
-                                                >
-                                                    If you expect multiple
-                                                    children (e.g., twins or
-                                                    triplets)
-                                                </div>
+                                            <div
+                                                style={{
+                                                    fontSize: 11,
+                                                    color: "#6b7280",
+                                                    lineHeight: 1.4,
+                                                    marginTop: 4,
+                                                    marginLeft: 28,
+                                                }}
+                                            >
+                                                If you expect multiple children
+                                                (e.g., twins or triplets)
                                             </div>
-                                        </label>
+                                        </div>
 
                                         {multipleChildren && (
                                             <div style={{ marginLeft: 26 }}>
@@ -1036,23 +1217,16 @@ function ElterngeldCalculator() {
                                         }}
                                     />
 
-                                    <button
+                                    <Button
                                         onClick={() => setCurrentStep(2)}
+                                        variant="outline"
                                         style={{
                                             width: "100%",
-                                            height: 48,
-                                            borderRadius: 10,
-                                            border: "2px solid #FF6B35",
-                                            background: "#ffffff",
-                                            cursor: "pointer",
-                                            fontSize: 14,
-                                            fontWeight: 700,
-                                            color: "#FF6B35",
                                             marginTop: "auto",
                                         }}
                                     >
                                         Plan next
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -1201,43 +1375,23 @@ function ElterngeldCalculator() {
                                 </div>
 
                                 {/* Single parent checkbox */}
-                                <label
+                                <div
                                     style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 8,
-                                        cursor: "pointer",
                                         height: 40,
                                         padding: "0 12px",
                                         borderRadius: 10,
                                         border: "1px solid #e1e1e1",
                                         background: "#ffffff",
+                                        display: "flex",
+                                        alignItems: "center",
                                     }}
                                 >
-                                    <input
-                                        type="checkbox"
+                                    <Checkbox
                                         checked={isSingleParent}
-                                        onChange={(e) =>
-                                            setIsSingleParent(e.target.checked)
-                                        }
-                                        style={{
-                                            width: 16,
-                                            height: 16,
-                                            cursor: "pointer",
-                                            accentColor: "#111827",
-                                        }}
+                                        onChange={setIsSingleParent}
+                                        label="I am a single parent"
                                     />
-                                    <span
-                                        style={{
-                                            fontSize: 13,
-                                            fontWeight: 600,
-                                            color: "#1a1a1a",
-                                            whiteSpace: "nowrap",
-                                        }}
-                                    >
-                                        I am a single parent
-                                    </span>
-                                </label>
+                                </div>
                             </div>
                         </div>
 
@@ -1668,21 +1822,9 @@ function ElterngeldCalculator() {
                                 marginTop: 8,
                             }}
                         >
-                            <button
-                                style={{
-                                    height: 48,
-                                    padding: "0 24px",
-                                    borderRadius: 10,
-                                    border: "2px solid #FF6B35",
-                                    background: "#ffffff",
-                                    cursor: "pointer",
-                                    fontSize: 14,
-                                    fontWeight: 700,
-                                    color: "#FF6B35",
-                                }}
-                            >
+                            <Button variant="outline">
                                 Start application now
-                            </button>
+                            </Button>
                         </div>
 
                         {/* Legal text positioned absolutely at bottom */}
