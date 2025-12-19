@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { addPropertyControls, ControlType } from "framer"
-import { DayPicker } from "react-day-picker"
-import { format } from "date-fns"
-import "react-day-picker/dist/style.css"
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, addMonths, subMonths, isSameDay, isSameMonth } from "date-fns"
 
 // ============================================
 // TYPES
@@ -11,6 +9,184 @@ import "react-day-picker/dist/style.css"
 type MonthPlan = {
     parent1Type: "basis" | "plus" | "none"
     parent2Type: "basis" | "plus" | "partnership" | "none"
+}
+
+// ============================================
+// CUSTOM CALENDAR COMPONENT
+// ============================================
+
+type CalendarProps = {
+    selected: Date | undefined
+    onSelect: (date: Date | undefined) => void
+}
+
+function Calendar({ selected, onSelect }: CalendarProps) {
+    const [currentMonth, setCurrentMonth] = useState(selected || new Date())
+
+    const monthStart = startOfMonth(currentMonth)
+    const monthEnd = endOfMonth(currentMonth)
+    const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd })
+
+    const startDayOfWeek = getDay(monthStart)
+    const daysFromPrevMonth = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1
+
+    const prevMonthEnd = endOfMonth(subMonths(currentMonth, 1))
+    const prevMonthDays = Array.from({ length: daysFromPrevMonth }, (_, i) => {
+        const day = new Date(prevMonthEnd)
+        day.setDate(prevMonthEnd.getDate() - daysFromPrevMonth + i + 1)
+        return day
+    })
+
+    const totalCells = prevMonthDays.length + daysInMonth.length
+    const nextMonthDays = Array.from({ length: 42 - totalCells }, (_, i) => {
+        const day = new Date(monthEnd)
+        day.setDate(monthEnd.getDate() + i + 1)
+        return day
+    })
+
+    const allDays = [...prevMonthDays, ...daysInMonth, ...nextMonthDays]
+    const weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+
+    return (
+        <div style={{ width: 280 }}>
+            {/* Header */}
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 12,
+                }}
+            >
+                <button
+                    onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+                    style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 6,
+                        border: "1px solid #e1e1e1",
+                        background: "#ffffff",
+                        cursor: "pointer",
+                        fontSize: 16,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    ←
+                </button>
+                <div
+                    style={{
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: "#1a1a1a",
+                    }}
+                >
+                    {format(currentMonth, "MMMM yyyy")}
+                </div>
+                <button
+                    onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+                    style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 6,
+                        border: "1px solid #e1e1e1",
+                        background: "#ffffff",
+                        cursor: "pointer",
+                        fontSize: 16,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    →
+                </button>
+            </div>
+
+            {/* Week days */}
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    gap: 4,
+                    marginBottom: 4,
+                }}
+            >
+                {weekDays.map((day) => (
+                    <div
+                        key={day}
+                        style={{
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: "#6b7280",
+                            textAlign: "center",
+                            padding: 4,
+                        }}
+                    >
+                        {day}
+                    </div>
+                ))}
+            </div>
+
+            {/* Days grid */}
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(7, 1fr)",
+                    gap: 4,
+                }}
+            >
+                {allDays.map((day, index) => {
+                    const isCurrentMonth = isSameMonth(day, currentMonth)
+                    const isSelected = selected && isSameDay(day, selected)
+                    const isToday = isSameDay(day, new Date())
+
+                    return (
+                        <button
+                            key={index}
+                            onClick={() => onSelect(day)}
+                            style={{
+                                width: 32,
+                                height: 32,
+                                borderRadius: 6,
+                                border: "none",
+                                background: isSelected
+                                    ? "#FF6B35"
+                                    : isToday
+                                    ? "#f0f0f0"
+                                    : "transparent",
+                                color: isSelected
+                                    ? "#ffffff"
+                                    : isCurrentMonth
+                                    ? "#1a1a1a"
+                                    : "#d1d5db",
+                                fontSize: 13,
+                                fontWeight: isSelected ? 600 : 400,
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                            onMouseEnter={(e) => {
+                                if (!isSelected) {
+                                    e.currentTarget.style.background = "#f5f5f5"
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (!isSelected) {
+                                    e.currentTarget.style.background = isToday
+                                        ? "#f0f0f0"
+                                        : "transparent"
+                                }
+                            }}
+                        >
+                            {format(day, "d")}
+                        </button>
+                    )
+                })}
+            </div>
+        </div>
+    )
 }
 
 // ============================================
@@ -955,30 +1131,11 @@ function ElterngeldCalculator() {
                                                 padding: 12,
                                             }}
                                         >
-                                            <DayPicker
-                                                mode="single"
+                                            <Calendar
                                                 selected={childBirthDate}
                                                 onSelect={(date) => {
                                                     setChildBirthDate(date)
                                                     setIsCalendarOpen(false)
-                                                }}
-                                                showOutsideDays
-                                                styles={{
-                                                    caption: {
-                                                        fontSize: "14px",
-                                                        fontWeight: 600,
-                                                        marginBottom: "8px",
-                                                    },
-                                                    day: {
-                                                        fontSize: "13px",
-                                                        borderRadius: "6px",
-                                                        width: "32px",
-                                                        height: "32px",
-                                                    },
-                                                    day_selected: {
-                                                        backgroundColor: "#FF6B35",
-                                                        color: "#ffffff",
-                                                    },
                                                 }}
                                             />
                                         </div>
