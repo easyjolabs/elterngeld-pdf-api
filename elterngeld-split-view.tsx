@@ -2,6 +2,24 @@ import { useState, useRef, useEffect } from "react"
 import { addPropertyControls, ControlType } from "framer"
 
 // ============================================
+// GLOBAL TYPES
+// ============================================
+
+declare global {
+    interface Window {
+        voiceflow: {
+            chat: {
+                load: (config: {
+                    verify: { projectID: string }
+                    url: string
+                    versionID: string
+                }) => void
+            }
+        }
+    }
+}
+
+// ============================================
 // TYPES
 // ============================================
 
@@ -546,6 +564,27 @@ function ElterngeldCalculator() {
         }
     }, [isDragging])
 
+    // Load Voiceflow chat
+    useEffect(() => {
+        const script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.onload = function() {
+            if (window.voiceflow) {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '675be3ba5c45e9e8e96c9d40' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production'
+                })
+            }
+        }
+        script.src = 'https://cdn.voiceflow.com/widget/bundle.mjs'
+        document.body.appendChild(script)
+
+        return () => {
+            document.body.removeChild(script)
+        }
+    }, [])
+
     const calculateAllowance = () => {
         const annualIncome = income * 12
         if (annualIncome > 175000) {
@@ -750,76 +789,136 @@ function ElterngeldCalculator() {
                                 overflowY: "auto",
                             }}
                         >
-                            {/* Income Section */}
-                            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                                <div>
-                                    <h3
-                                        style={{
-                                            fontSize: 15,
-                                            fontWeight: 600,
-                                            color: "#111827",
-                                            margin: "0 0 4px 0",
-                                        }}
-                                    >
-                                        Your net income
-                                    </h3>
-                                    <p
-                                        style={{
-                                            fontSize: 13,
-                                            color: "#6b7280",
-                                            margin: 0,
-                                            lineHeight: 1.5,
-                                        }}
-                                    >
-                                        Your average{" "}
-                                        <button
+                            {/* Headline */}
+                            <h1
+                                style={{
+                                    fontSize: 24,
+                                    fontWeight: 700,
+                                    color: "#111827",
+                                    margin: 0,
+                                }}
+                            >
+                                Calculate Elterngeld
+                            </h1>
+
+                            {/* Income Section with Result Box */}
+                            <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+                                {/* Left: Income Slider */}
+                                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16 }}>
+                                    <div>
+                                        <h3
                                             style={{
-                                                background: "none",
-                                                border: "none",
-                                                color: "#6b7280",
-                                                textDecoration: "underline",
-                                                cursor: "pointer",
-                                                padding: 0,
-                                                fontSize: 13,
+                                                fontSize: 15,
+                                                fontWeight: 600,
+                                                color: "#111827",
+                                                margin: "0 0 4px 0",
                                             }}
                                         >
-                                            monthly net income
-                                        </button>{" "}
-                                        over the 12 months before birth (or the previous calendar year
-                                        if self-employed)
-                                    </p>
-                                </div>
+                                            Your net income
+                                        </h3>
+                                        <p
+                                            style={{
+                                                fontSize: 13,
+                                                color: "#6b7280",
+                                                margin: 0,
+                                                lineHeight: 1.5,
+                                            }}
+                                        >
+                                            Your average{" "}
+                                            <button
+                                                style={{
+                                                    background: "none",
+                                                    border: "none",
+                                                    color: "#6b7280",
+                                                    textDecoration: "underline",
+                                                    cursor: "pointer",
+                                                    padding: 0,
+                                                    fontSize: 13,
+                                                }}
+                                            >
+                                                monthly net income
+                                            </button>{" "}
+                                            over the 12 months before birth (or the previous calendar year
+                                            if self-employed)
+                                        </p>
+                                    </div>
 
-                                <Slider
-                                    value={income}
-                                    onChange={setIncome}
-                                    min={0}
-                                    max={SLIDER_MAX}
-                                    step={50}
-                                />
+                                    <Slider
+                                        value={income}
+                                        onChange={setIncome}
+                                        min={0}
+                                        max={SLIDER_MAX}
+                                        step={50}
+                                    />
 
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "baseline",
-                                    }}
-                                >
-                                    <span style={{ fontSize: 13, color: "#9ca3af", fontWeight: 500 }}>
-                                        €0
-                                    </span>
-                                    <span
+                                    <div
                                         style={{
-                                            fontSize: 20,
-                                            color: "#111827",
-                                            fontWeight: 700,
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "baseline",
                                         }}
                                     >
-                                        €{income.toLocaleString("de-DE")}
-                                    </span>
-                                    <span style={{ fontSize: 13, color: "#9ca3af", fontWeight: 500 }}>
-                                        €{SLIDER_MAX.toLocaleString("de-DE")}
-                                    </span>
+                                        <span style={{ fontSize: 13, color: "#9ca3af", fontWeight: 500 }}>
+                                            €0
+                                        </span>
+                                        <span
+                                            style={{
+                                                fontSize: 20,
+                                                color: "#111827",
+                                                fontWeight: 700,
+                                            }}
+                                        >
+                                            €{income.toLocaleString("de-DE")}
+                                        </span>
+                                        <span style={{ fontSize: 13, color: "#9ca3af", fontWeight: 500 }}>
+                                            €{SLIDER_MAX.toLocaleString("de-DE")}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Right: Result Box */}
+                                <div
+                                    style={{
+                                        width: 280,
+                                        flexShrink: 0,
+                                        padding: 24,
+                                        background: "#f9fafb",
+                                        borderRadius: 12,
+                                        border: "1px solid #e5e7eb",
+                                    }}
+                                >
+                                    {result.isOverLimit ? (
+                                        <div style={{ textAlign: "center" }}>
+                                            <p style={{ fontSize: 14, color: "#dc2626", margin: 0 }}>
+                                                Income exceeds €175,000 annual limit
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
+                                                    Basiselterngeld
+                                                </span>
+                                                <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
+                                                    €{result.basis.toLocaleString("de-DE")}
+                                                </span>
+                                            </div>
+                                            <div
+                                                style={{
+                                                    height: 1,
+                                                    background: "#e5e7eb",
+                                                }}
+                                            />
+                                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
+                                                    ElterngeldPlus
+                                                </span>
+                                                <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
+                                                    €{result.plus.toLocaleString("de-DE")}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
@@ -906,50 +1005,6 @@ function ElterngeldCalculator() {
                                 </div>
                             )}
 
-                            {/* Results Card */}
-                            <div
-                                style={{
-                                    marginTop: "auto",
-                                    padding: 24,
-                                    background: "#f9fafb",
-                                    borderRadius: 12,
-                                    border: "1px solid #e5e7eb",
-                                }}
-                            >
-                                {result.isOverLimit ? (
-                                    <div style={{ textAlign: "center" }}>
-                                        <p style={{ fontSize: 14, color: "#dc2626", margin: 0 }}>
-                                            Income exceeds €175,000 annual limit
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                            <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
-                                                Basiselterngeld
-                                            </span>
-                                            <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
-                                                €{result.basis.toLocaleString("de-DE")}
-                                            </span>
-                                        </div>
-                                        <div
-                                            style={{
-                                                height: 1,
-                                                background: "#e5e7eb",
-                                            }}
-                                        />
-                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                            <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
-                                                ElterngeldPlus
-                                            </span>
-                                            <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
-                                                €{result.plus.toLocaleString("de-DE")}
-                                            </span>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-
                             {/* Bottom Action */}
                             <Button onClick={() => setCurrentStep(2)} style={{ width: "100%" }}>
                                 Plan next
@@ -966,6 +1021,18 @@ function ElterngeldCalculator() {
                                 height: "100%",
                             }}
                         >
+                            {/* Headline */}
+                            <h1
+                                style={{
+                                    fontSize: 24,
+                                    fontWeight: 700,
+                                    color: "#111827",
+                                    margin: 0,
+                                }}
+                            >
+                                Plan Elterngeld
+                            </h1>
+
                             {/* Child Info */}
                             <div>
                                 <p
@@ -1381,6 +1448,7 @@ function ElterngeldCalculator() {
 
             {/* Right Panel - Chat */}
             <div
+                id="voiceflow-chat"
                 style={{
                     width: `${100 - leftWidth}%`,
                     height: "100%",
@@ -1389,35 +1457,9 @@ function ElterngeldCalculator() {
                     boxSizing: "border-box",
                     overflow: "hidden",
                     boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+                    position: "relative",
                 }}
-            >
-                <iframe
-                    src="https://cdn.voiceflow.com/widget/bundle.mjs"
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        border: "none",
-                    }}
-                    title="Voiceflow Chat"
-                />
-                <script type="text/javascript">
-                    {`
-                        (function(d, t) {
-                            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                            v.onload = function() {
-                                window.voiceflow.chat.load({
-                                    verify: { projectID: '675be3ba5c45e9e8e96c9d40' },
-                                    url: 'https://general-runtime.voiceflow.com',
-                                    versionID: 'production'
-                                });
-                            }
-                            v.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
-                            v.type = "text/javascript";
-                            s.parentNode.insertBefore(v, s);
-                        })(document, 'script');
-                    `}
-                </script>
-            </div>
+            />
         </div>
     )
 }
