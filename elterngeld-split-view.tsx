@@ -113,19 +113,18 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: 12,
+                    marginBottom: 16,
                 }}
             >
                 <Button
                     onClick={goToPrevMonth}
                     variant="ghost"
+                    size="sm"
                     style={{
                         width: 32,
                         height: 32,
                         padding: 0,
-                        border: "1px solid #e1e1e1",
-                        borderRadius: 6,
-                        fontSize: 16,
+                        fontSize: 14,
                     }}
                 >
                     ←
@@ -134,7 +133,7 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                     style={{
                         fontSize: 14,
                         fontWeight: 600,
-                        color: "#1a1a1a",
+                        color: "#111827",
                     }}
                 >
                     {formatDate(currentMonth, "MMMM yyyy")}
@@ -142,13 +141,12 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                 <Button
                     onClick={goToNextMonth}
                     variant="ghost"
+                    size="sm"
                     style={{
                         width: 32,
                         height: 32,
                         padding: 0,
-                        border: "1px solid #e1e1e1",
-                        borderRadius: 6,
-                        fontSize: 16,
+                        fontSize: 14,
                     }}
                 >
                     →
@@ -161,7 +159,7 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                     display: "grid",
                     gridTemplateColumns: "repeat(7, 1fr)",
                     gap: 4,
-                    marginBottom: 4,
+                    marginBottom: 8,
                 }}
             >
                 {weekDays.map((day) => (
@@ -170,7 +168,7 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                         style={{
                             fontSize: 11,
                             fontWeight: 600,
-                            color: "#6b7280",
+                            color: "#9ca3af",
                             textAlign: "center",
                             padding: 4,
                         }}
@@ -205,12 +203,12 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                                 background: isSelected
                                     ? "#FF6B35"
                                     : isToday
-                                    ? "#f0f0f0"
+                                    ? "#f3f4f6"
                                     : "transparent",
                                 color: isSelected
                                     ? "#ffffff"
                                     : isCurrentMonth
-                                    ? "#1a1a1a"
+                                    ? "#111827"
                                     : "#d1d5db",
                                 fontSize: 13,
                                 fontWeight: isSelected ? 600 : 400,
@@ -221,13 +219,13 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                             }}
                             onMouseEnter={(e) => {
                                 if (!isSelected) {
-                                    e.currentTarget.style.background = "#f5f5f5"
+                                    e.currentTarget.style.background = "#f9fafb"
                                 }
                             }}
                             onMouseLeave={(e) => {
                                 if (!isSelected) {
                                     e.currentTarget.style.background = isToday
-                                        ? "#f0f0f0"
+                                        ? "#f3f4f6"
                                         : "transparent"
                                 }
                             }}
@@ -252,7 +250,6 @@ type ButtonProps = {
     variant?: "default" | "outline" | "ghost"
     size?: "default" | "sm" | "lg"
     disabled?: boolean
-    className?: string
     style?: React.CSSProperties
 }
 
@@ -268,7 +265,7 @@ function Button({
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 10,
+        borderRadius: 8,
         fontSize: 14,
         fontWeight: 600,
         transition: "all 0.15s ease",
@@ -280,8 +277,8 @@ function Button({
 
     const sizeStyles: Record<string, React.CSSProperties> = {
         sm: { height: 36, padding: "0 12px", fontSize: 13 },
-        default: { height: 48, padding: "0 24px", fontSize: 14 },
-        lg: { height: 56, padding: "0 32px", fontSize: 16 },
+        default: { height: 44, padding: "0 20px", fontSize: 14 },
+        lg: { height: 52, padding: "0 28px", fontSize: 15 },
     }
 
     const variantStyles: Record<string, React.CSSProperties> = {
@@ -292,11 +289,11 @@ function Button({
         outline: {
             background: "#ffffff",
             color: "#FF6B35",
-            border: "2px solid #FF6B35",
+            border: "1.5px solid #FF6B35",
         },
         ghost: {
             background: "transparent",
-            color: "#1a1a1a",
+            color: "#111827",
         },
     }
 
@@ -305,7 +302,7 @@ function Button({
     const hoverStyles: Record<string, React.CSSProperties> = {
         default: { background: "#e55a26" },
         outline: { background: "#fff5f2" },
-        ghost: { background: "#f5f5f5" },
+        ghost: { background: "#f9fafb" },
     }
 
     return (
@@ -341,7 +338,7 @@ function Checkbox({ checked, onChange, label, disabled = false }: CheckboxProps)
             style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 8,
+                gap: 10,
                 cursor: disabled ? "not-allowed" : "pointer",
                 opacity: disabled ? 0.5 : 1,
             }}
@@ -352,12 +349,13 @@ function Checkbox({ checked, onChange, label, disabled = false }: CheckboxProps)
                     width: 20,
                     height: 20,
                     borderRadius: 4,
-                    border: `2px solid ${checked ? "#FF6B35" : "#e1e1e1"}`,
+                    border: `2px solid ${checked ? "#FF6B35" : "#d1d5db"}`,
                     background: checked ? "#FF6B35" : "#ffffff",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     transition: "all 0.15s ease",
+                    flexShrink: 0,
                 }}
             >
                 {checked && (
@@ -381,9 +379,9 @@ function Checkbox({ checked, onChange, label, disabled = false }: CheckboxProps)
             {label && (
                 <span
                     style={{
-                        fontSize: 13,
-                        fontWeight: 600,
-                        color: "#1a1a1a",
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: "#111827",
                     }}
                 >
                     {label}
@@ -418,7 +416,7 @@ function Slider({
             style={{
                 position: "relative",
                 width: "100%",
-                height: 40,
+                height: 44,
                 display: "flex",
                 alignItems: "center",
             }}
@@ -436,7 +434,7 @@ function Slider({
                     height: 6,
                     borderRadius: 3,
                     appearance: "none",
-                    background: `linear-gradient(to right, #FF6B35 0%, #FF6B35 ${percentage}%, #e1e1e1 ${percentage}%, #e1e1e1 100%)`,
+                    background: `linear-gradient(to right, #FF6B35 0%, #FF6B35 ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`,
                     outline: "none",
                     cursor: disabled ? "not-allowed" : "pointer",
                     opacity: disabled ? 0.5 : 1,
@@ -451,7 +449,7 @@ function Slider({
                     background: #FF6B35;
                     cursor: pointer;
                     border: 3px solid #ffffff;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
                 }
                 input[type="range"]::-moz-range-thumb {
                     width: 20px;
@@ -460,46 +458,9 @@ function Slider({
                     background: #FF6B35;
                     cursor: pointer;
                     border: 3px solid #ffffff;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
                 }
             `}</style>
-        </div>
-    )
-}
-
-// Card Component
-type CardProps = {
-    children: React.ReactNode
-    onClick?: () => void
-    style?: React.CSSProperties
-    hover?: boolean
-}
-
-function Card({ children, onClick, style = {}, hover = false }: CardProps) {
-    const [isHovered, setIsHovered] = useState(false)
-
-    return (
-        <div
-            onClick={onClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            style={{
-                background: "#ffffff",
-                border: "1px solid #e1e1e1",
-                borderRadius: 10,
-                padding: 16,
-                transition: "all 0.15s ease",
-                cursor: onClick ? "pointer" : "default",
-                ...(hover && isHovered
-                    ? {
-                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                          borderColor: "#d1d5db",
-                      }
-                    : {}),
-                ...style,
-            }}
-        >
-            {children}
         </div>
     )
 }
@@ -576,791 +537,375 @@ function ElterngeldCalculator() {
 
     const result = calculateAllowance()
 
-    const triggerVoiceflowChat = (prompt: string) => {
-        try {
-            if (typeof (window as any).sendToVoiceflow === "function") {
-                ;(window as any).sendToVoiceflow(prompt)
-            } else {
-                sessionStorage.setItem("vf_initial_message", prompt)
-                window.location.reload()
-            }
-        } catch (e) {
-            console.error("Chat trigger error:", e)
-        }
-    }
-
     const toggleCheckbox = (
         monthIndex: number,
         parent: 1 | 2,
-        desired: "basis" | "plus"
+        type: "basis" | "plus"
     ) => {
-        setMonthPlans((prev) => {
-            const next = [...prev]
-            const current = next[monthIndex]
-            if (parent === 1) {
-                const nextType =
-                    current.parent1Type === desired ? "none" : desired
-                next[monthIndex] = { ...current, parent1Type: nextType }
-            } else {
-                const nextType =
-                    current.parent2Type === desired ? "none" : desired
-                next[monthIndex] = { ...current, parent2Type: nextType as any }
-            }
-            return next
-        })
+        const newPlans = [...monthPlans]
+        const plan = newPlans[monthIndex]
+        const key = parent === 1 ? "parent1Type" : "parent2Type"
+        if (plan[key] === type) {
+            plan[key] = "none"
+        } else {
+            plan[key] = type
+        }
+        setMonthPlans(newPlans)
     }
 
-    const computeMonthTotal = (plan: MonthPlan) => {
-        const p1 =
-            plan.parent1Type === "basis"
-                ? result.basis
-                : plan.parent1Type === "plus"
-                  ? result.plus
-                  : 0
-        const p2 =
-            plan.parent2Type === "basis" || plan.parent2Type === "partnership"
-                ? result.basis
-                : plan.parent2Type === "plus"
-                  ? result.plus
-                  : 0
-        return p1 + p2
+    const computeMonthTotal = (plan: MonthPlan): number => {
+        let total = 0
+        if (plan.parent1Type === "basis") total += result.basis
+        if (plan.parent1Type === "plus") total += result.plus
+        if (plan.parent2Type === "basis") total += result.basis
+        if (plan.parent2Type === "plus") total += result.plus
+        return total
     }
 
-    const getMonthDateRange = (monthIndex: number) => {
-        if (!childBirthDate) return ""
-        const birthDate = new Date(childBirthDate)
-        const startDate = new Date(birthDate)
+    const getMonthDateRange = (monthIndex: number): string | null => {
+        if (!childBirthDate) return null
+        const startDate = new Date(childBirthDate)
         startDate.setMonth(startDate.getMonth() + monthIndex)
         const endDate = new Date(startDate)
         endDate.setMonth(endDate.getMonth() + 1)
         endDate.setDate(endDate.getDate() - 1)
-        const formatDate = (date: Date) => {
-            const day = date.getDate().toString().padStart(2, "0")
-            const month = (date.getMonth() + 1).toString().padStart(2, "0")
-            return `${day}.${month}`
-        }
-        return `${formatDate(startDate)} - ${formatDate(endDate)}`
+        const formatShort = (d: Date) =>
+            `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`
+        return `${formatShort(startDate)}-${formatShort(endDate)}`
     }
 
-    const validateMonths = () => {
-        const errors: string[] = []
-        const parent1BasisMonths = monthPlans.filter(
-            (m) => m.parent1Type === "basis"
-        ).length
-        const parent2BasisMonths = monthPlans.filter(
-            (m) => m.parent2Type === "basis"
-        ).length
-        const totalBasisMonths = parent1BasisMonths + parent2BasisMonths
-
-        if (isSingleParent) {
-            if (parent1BasisMonths > 14) {
-                errors.push(
-                    "As a single parent, you can take a maximum of 14 Basis months."
-                )
-            }
-            if (parent1BasisMonths < 2 && parent1BasisMonths > 0) {
-                errors.push("You must take at least 2 Basis months.")
-            }
-        } else {
-            if (totalBasisMonths > 14) {
-                errors.push(
-                    `Maximum 14 Basis months total possible. You have selected ${totalBasisMonths}.`
-                )
-            }
-            if (
-                totalBasisMonths === 14 &&
-                (parent1BasisMonths < 2 || parent2BasisMonths < 2)
-            ) {
-                errors.push(
-                    "For 14 months, both parents must take at least 2 months each."
-                )
-            }
-            let simultaneousCount = 0
-            let simultaneousAfterMonth12 = false
-            for (let i = 0; i < visibleMonths; i++) {
-                const plan = monthPlans[i]
-                if (
-                    plan.parent1Type === "basis" &&
-                    plan.parent2Type === "basis"
-                ) {
-                    simultaneousCount++
-                    if (i >= 12) simultaneousAfterMonth12 = true
-                }
-            }
-            if (simultaneousCount > 1) {
-                errors.push(
-                    "You can take a maximum of 1 month of simultaneous Basiselterngeld."
-                )
-            }
-            if (simultaneousAfterMonth12) {
-                errors.push(
-                    "Simultaneous Basiselterngeld is only possible in the first 12 months of life."
-                )
+    const hasValidationErrors = (() => {
+        if (isSingleParent) return false
+        for (let i = 0; i < visibleMonths; i++) {
+            const plan = monthPlans[i]
+            if (plan.parent1Type === "basis" && plan.parent2Type === "basis") {
+                return true
             }
         }
-        return errors
-    }
+        return false
+    })()
 
-    const validationErrors = validateMonths()
-    const hasValidationErrors = validationErrors.length > 0
     const canAddMoreMonths = visibleMonths < 36
-
-    const renderStepper = () => {
-        return (
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div
-                        style={{
-                            width: 24,
-                            height: 24,
-                            borderRadius: 999,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: 12,
-                            fontWeight: 900,
-                            color: currentStep === 1 ? "#ffffff" : "#1a1a1a",
-                            backgroundColor:
-                                currentStep === 1 ? "#1a1a1a" : "#ffffff",
-                            border: "1px solid #e1e1e1",
-                        }}
-                    >
-                        1
-                    </div>
-                    <div
-                        style={{
-                            fontSize: 12,
-                            fontWeight: 900,
-                            color: "#1a1a1a",
-                        }}
-                    >
-                        Calculator
-                    </div>
-                </div>
-                <div style={{ width: 40, height: 1, background: "#e1e1e1" }} />
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div
-                        style={{
-                            width: 24,
-                            height: 24,
-                            borderRadius: 999,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: 12,
-                            fontWeight: 900,
-                            color: currentStep === 2 ? "#ffffff" : "#1a1a1a",
-                            backgroundColor:
-                                currentStep === 2 ? "#1a1a1a" : "#ffffff",
-                            border: "1px solid #e1e1e1",
-                        }}
-                    >
-                        2
-                    </div>
-                    <div
-                        style={{
-                            fontSize: 12,
-                            fontWeight: 900,
-                            color: "#1a1a1a",
-                        }}
-                    >
-                        Planner
-                    </div>
-                </div>
-            </div>
-        )
-    }
 
     return (
         <div
             style={{
                 width: "100%",
                 height: "100%",
-                fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                 backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
             }}
         >
             <div
                 style={{
                     width: "100%",
+                    maxWidth: 640,
                     height: "100%",
                     backgroundColor: "#ffffff",
-                    border: "1px solid #e1e1e1",
-                    borderRadius: 20,
-                    padding: 30,
+                    borderRadius: 16,
                     boxSizing: "border-box",
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
-                    position: "relative",
+                    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
                 }}
             >
+                {/* Header */}
                 <div
                     style={{
+                        padding: "24px 32px",
+                        borderBottom: "1px solid #e5e7eb",
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        height: 25,
-                        minHeight: 25,
-                        paddingBottom: 25,
-                        marginBottom: 0,
+                        flexShrink: 0,
                     }}
                 >
-                    {renderStepper()}
-                    {currentStep === 1 ? (
-                        <button
-                            onClick={() => setCurrentStep(2)}
-                            style={{
-                                height: 36,
-                                padding: "0 14px",
-                                borderRadius: 10,
-                                border: "none",
-                                background: "#1a1a1a",
-                                cursor: "pointer",
-                                fontSize: 13,
-                                fontWeight: 900,
-                                color: "#ffffff",
-                                flexShrink: 0,
-                            }}
-                        >
-                            Next
-                        </button>
-                    ) : (
-                        <button
-                            onClick={() => setCurrentStep(1)}
-                            style={{
-                                height: 36,
-                                padding: "0 14px",
-                                borderRadius: 10,
-                                border: "1px solid #e1e1e1",
-                                background: "#ffffff",
-                                cursor: "pointer",
-                                fontSize: 13,
-                                fontWeight: 900,
-                                color: "#1a1a1a",
-                                flexShrink: 0,
-                            }}
-                        >
-                            Back
-                        </button>
-                    )}
-                </div>
-
-                <div
-                    style={{
-                        height: 1,
-                        background: "#e5e7eb",
-                        marginLeft: -30,
-                        marginRight: -30,
-                        marginBottom: 18,
-                    }}
-                />
-
-                {currentStep === 1 && (
-                    <div
-                        style={{
-                            width: "100%",
-                            flex: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            position: "relative",
-                            paddingBottom: 50,
-                        }}
-                    >
-                        <h1
-                            style={{
-                                fontSize: 22,
-                                fontWeight: 900,
-                                color: "#1a1a1a",
-                                margin: "0 0 20px 0",
-                                lineHeight: 1.2,
-                            }}
-                        >
-                            Calculate your Elterngeld
-                        </h1>
-
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                         <div
                             style={{
+                                width: 8,
+                                height: 8,
+                                borderRadius: "50%",
+                                background: currentStep === 1 ? "#FF6B35" : "#e5e7eb",
+                                transition: "all 0.2s ease",
+                            }}
+                        />
+                        <div
+                            style={{
+                                width: 8,
+                                height: 8,
+                                borderRadius: "50%",
+                                background: currentStep === 2 ? "#FF6B35" : "#e5e7eb",
+                                transition: "all 0.2s ease",
+                            }}
+                        />
+                    </div>
+                    <h2
+                        style={{
+                            fontSize: 18,
+                            fontWeight: 600,
+                            color: "#111827",
+                            margin: 0,
+                            flex: 1,
+                            textAlign: "center",
+                        }}
+                    >
+                        {currentStep === 1 ? "Calculate Benefits" : "Plan Your Months"}
+                    </h2>
+                    <div style={{ width: 40 }} />
+                </div>
+
+                {/* Content Area - Fixed height to prevent jumping */}
+                <div
+                    style={{
+                        flex: 1,
+                        overflow: "hidden",
+                        display: "flex",
+                        flexDirection: "column",
+                        position: "relative",
+                    }}
+                >
+                    {currentStep === 1 ? (
+                        /* STEP 1: Calculator */
+                        <div
+                            style={{
+                                padding: "32px",
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: 16,
-                                flex: 1,
+                                gap: 24,
+                                height: "100%",
+                                overflowY: "auto",
                             }}
                         >
-                            <div
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "70% 30%",
-                                    gap: 18,
-                                    alignItems: "start",
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        padding: 28,
-                                        border: "1px solid #e5e7eb",
-                                        borderRadius: 14,
-                                        background: "#fafafa",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        height: 450,
-                                    }}
-                                >
-                                    <div
+                            {/* Income Section */}
+                            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                                <div>
+                                    <h3
                                         style={{
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             fontWeight: 600,
                                             color: "#111827",
-                                            marginBottom: 2,
+                                            margin: "0 0 4px 0",
                                         }}
                                     >
-                                        Your net income
-                                    </div>
-                                    <div
+                                        Monthly Net Income
+                                    </h3>
+                                    <p
                                         style={{
-                                            fontSize: 11,
-                                            fontWeight: 400,
-                                            color: "#374151",
-                                            marginBottom: 50,
+                                            fontSize: 13,
+                                            color: "#6b7280",
+                                            margin: 0,
                                             lineHeight: 1.5,
                                         }}
                                     >
-                                        Select your average{" "}
-                                        <button
-                                            onClick={() =>
-                                                triggerVoiceflowChat(
-                                                    "explain how income is measured"
-                                                )
-                                            }
-                                            style={{
-                                                background: "none",
-                                                border: "none",
-                                                padding: 0,
-                                                cursor: "pointer",
-                                                color: "#111827",
-                                                fontSize: 11,
-                                                fontWeight: 800,
-                                                textDecoration: "underline",
-                                            }}
-                                        >
-                                            monthly net income
-                                        </button>{" "}
-                                        over the 12 months before birth (or the
-                                        previous calendar year if self-employed)
-                                    </div>
-
-                                    <div
-                                        style={{
-                                            height: 80,
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            justifyContent: "center",
-                                        }}
-                                    >
-                                        <Slider
-                                            value={income}
-                                            onChange={setIncome}
-                                            min={0}
-                                            max={SLIDER_MAX}
-                                            step={50}
-                                        />
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "baseline",
-                                                marginTop: 15,
-                                            }}
-                                        >
-                                            <div
-                                                style={{
-                                                    fontSize: 13,
-                                                    color: "#9ca3af",
-                                                    fontWeight: 800,
-                                                }}
-                                            >
-                                                0 €
-                                            </div>
-                                            <div
-                                                style={{
-                                                    fontSize: 13,
-                                                    color: "#111827",
-                                                    fontWeight: 900,
-                                                }}
-                                            >
-                                                {income.toLocaleString("de-DE")}{" "}
-                                                €
-                                            </div>
-                                            <div
-                                                style={{
-                                                    fontSize: 13,
-                                                    color: "#9ca3af",
-                                                    fontWeight: 800,
-                                                }}
-                                            >
-                                                {SLIDER_MAX.toLocaleString(
-                                                    "de-DE"
-                                                )}{" "}
-                                                €
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        style={{
-                                            display: "grid",
-                                            gap: 12,
-                                            marginTop: 20,
-                                            minHeight: 120,
-                                        }}
-                                    >
-                                        <div>
-                                            <Checkbox
-                                                checked={siblingBonus}
-                                                onChange={setSiblingBonus}
-                                                label="Include sibling bonus"
-                                            />
-                                            <div
-                                                style={{
-                                                    fontSize: 11,
-                                                    color: "#6b7280",
-                                                    lineHeight: 1.4,
-                                                    marginTop: 4,
-                                                    marginLeft: 28,
-                                                }}
-                                            >
-                                                If you have 1 child under 3 years
-                                                old, or 2 children under 6 years
-                                                old, or 1 child with a disability
-                                                under 14 years old
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <Checkbox
-                                                checked={multipleChildren}
-                                                onChange={setMultipleChildren}
-                                                label="Include bonus for multiple births"
-                                            />
-                                            <div
-                                                style={{
-                                                    fontSize: 11,
-                                                    color: "#6b7280",
-                                                    lineHeight: 1.4,
-                                                    marginTop: 4,
-                                                    marginLeft: 28,
-                                                }}
-                                            >
-                                                If you expect multiple children
-                                                (e.g., twins or triplets)
-                                            </div>
-                                        </div>
-
-                                        {multipleChildren && (
-                                            <div style={{ marginLeft: 26 }}>
-                                                <select
-                                                    value={numberOfChildren}
-                                                    onChange={(e) =>
-                                                        setNumberOfChildren(
-                                                            Number(
-                                                                e.target.value
-                                                            )
-                                                        )
-                                                    }
-                                                    style={{
-                                                        padding: "8px 10px",
-                                                        fontSize: 13,
-                                                        border: "1px solid #e5e7eb",
-                                                        borderRadius: 10,
-                                                        backgroundColor:
-                                                            "#ffffff",
-                                                        cursor: "pointer",
-                                                        width: 180,
-                                                    }}
-                                                >
-                                                    {[
-                                                        1, 2, 3, 4, 5, 6, 7, 8,
-                                                        9, 10,
-                                                    ].map((num) => (
-                                                        <option
-                                                            key={num}
-                                                            value={num}
-                                                        >
-                                                            {num}{" "}
-                                                            {num === 1
-                                                                ? "child"
-                                                                : "children"}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {income > 2800 && (
-                                        <div
-                                            style={{
-                                                marginTop: 12,
-                                                fontSize: 12,
-                                                lineHeight: 1.5,
-                                                color: "#1e40af",
-                                                display: "flex",
-                                                gap: 8,
-                                            }}
-                                        >
-                                            <span>ℹ️</span>
-                                            <span>
-                                                Income above ~€2,770 net/month
-                                                results in the maximum
-                                                Elterngeld of €1,800. If your
-                                                annual income exceeds €175,000,
-                                                you are not eligible for
-                                                Elterngeld.
-                                            </span>
-                                        </div>
-                                    )}
+                                        Average over 12 months before birth
+                                    </p>
                                 </div>
+
+                                <Slider
+                                    value={income}
+                                    onChange={setIncome}
+                                    min={0}
+                                    max={SLIDER_MAX}
+                                    step={50}
+                                />
 
                                 <div
                                     style={{
-                                        border: "1px solid #e5e7eb",
-                                        borderRadius: 14,
-                                        padding: 24,
-                                        background: "#ffffff",
-                                        height: 450,
                                         display: "flex",
-                                        flexDirection: "column",
+                                        justifyContent: "space-between",
+                                        alignItems: "baseline",
                                     }}
                                 >
-                                    <div style={{ paddingBottom: 20 }}>
-                                        <div
-                                            style={{
-                                                fontSize: 11,
-                                                color: "#374151",
-                                                marginBottom: 10,
-                                            }}
-                                        >
-                                            Basiselterngeld
-                                        </div>
-                                        <div>
-                                            <div
-                                                style={{
-                                                    fontSize: 24,
-                                                    fontWeight: 900,
-                                                    color: "#111827",
-                                                    lineHeight: 1,
-                                                }}
-                                            >
-                                                {result.isOverLimit
-                                                    ? "0 €"
-                                                    : `${result.basis.toLocaleString("de-DE")} €`}
-                                            </div>
-                                            <div
-                                                style={{
-                                                    fontSize: 12,
-                                                    color: "#6b7280",
-                                                    marginTop: 4,
-                                                }}
-                                            >
-                                                for 12–14 months
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div
+                                    <span style={{ fontSize: 13, color: "#9ca3af", fontWeight: 500 }}>
+                                        €0
+                                    </span>
+                                    <span
                                         style={{
-                                            borderTop: "1px solid #e5e7eb",
-                                            marginBottom: 20,
-                                        }}
-                                    />
-
-                                    <div style={{ paddingBottom: 20 }}>
-                                        <div
-                                            style={{
-                                                fontSize: 11,
-                                                color: "#374151",
-                                                marginBottom: 10,
-                                            }}
-                                        >
-                                            ElterngeldPlus
-                                        </div>
-                                        <div>
-                                            <div
-                                                style={{
-                                                    fontSize: 24,
-                                                    fontWeight: 800,
-                                                    color: "#111827",
-                                                    lineHeight: 1,
-                                                }}
-                                            >
-                                                {result.isOverLimit
-                                                    ? "0 €"
-                                                    : `${result.plus.toLocaleString("de-DE")} €`}
-                                            </div>
-                                            <div
-                                                style={{
-                                                    fontSize: 12,
-                                                    color: "#6b7280",
-                                                    marginTop: 4,
-                                                }}
-                                            >
-                                                for 24–28 months
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        style={{
-                                            borderTop: "1px solid #e5e7eb",
-                                            marginBottom: 16,
-                                        }}
-                                    />
-
-                                    <Button
-                                        onClick={() => setCurrentStep(2)}
-                                        variant="outline"
-                                        style={{
-                                            width: "100%",
-                                            marginTop: "auto",
+                                            fontSize: 20,
+                                            color: "#111827",
+                                            fontWeight: 700,
                                         }}
                                     >
-                                        Plan next
-                                    </Button>
+                                        €{income.toLocaleString("de-DE")}
+                                    </span>
+                                    <span style={{ fontSize: 13, color: "#9ca3af", fontWeight: 500 }}>
+                                        €{SLIDER_MAX.toLocaleString("de-DE")}
+                                    </span>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Legal text positioned absolutely at bottom */}
-                        <div
-                            style={{
-                                position: "absolute",
-                                bottom: 4,
-                                left: 30,
-                                right: 30,
-                            }}
-                        >
-                            <div
-                                style={{
-                                    fontSize: 11,
-                                    lineHeight: 1.5,
-                                    color: "#6b7280",
-                                    textAlign: "center",
-                                }}
-                            >
-                                This is <strong>not a final amount</strong>. It
-                                is a <strong>quick estimate</strong> based on
-                                the information provided.
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {currentStep === 2 && (
-                    <div
-                        style={{
-                            width: "100%",
-                            flex: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            position: "relative",
-                            paddingBottom: 40,
-                        }}
-                    >
-                        <div style={{ marginBottom: 16 }}>
-                            <h3
-                                style={{
-                                    fontSize: 22,
-                                    fontWeight: 900,
-                                    color: "#1a1a1a",
-                                    margin: "0 0 6px 0",
-                                }}
-                            >
-                                Plan your months
-                            </h3>
-                            <div
-                                style={{
-                                    fontSize: 11,
-                                    color: "#6b7280",
-                                    lineHeight: 1.4,
-                                    marginBottom: 16,
-                                }}
-                            >
-                                More details{" "}
-                                <button
-                                    onClick={() =>
-                                        triggerVoiceflowChat(
-                                            "explain elterngeld plus and basis"
-                                        )
-                                    }
+                            {/* Bonuses Section */}
+                            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                                <Checkbox
+                                    checked={siblingBonus}
+                                    onChange={setSiblingBonus}
+                                    label="Sibling bonus"
+                                />
+                                <p
                                     style={{
-                                        background: "none",
-                                        border: "none",
-                                        padding: 0,
-                                        cursor: "pointer",
-                                        color: "#111827",
-                                        fontSize: 11,
-                                        fontWeight: 800,
-                                        textDecoration: "underline",
+                                        fontSize: 12,
+                                        color: "#6b7280",
+                                        margin: "-8px 0 0 30px",
+                                        lineHeight: 1.5,
                                     }}
                                 >
-                                    which options
-                                </button>{" "}
-                                you have
+                                    At least one child under 3, or two under 6
+                                </p>
+
+                                <Checkbox
+                                    checked={multipleChildren}
+                                    onChange={setMultipleChildren}
+                                    label="Multiple births"
+                                />
+                                <p
+                                    style={{
+                                        fontSize: 12,
+                                        color: "#6b7280",
+                                        margin: "-8px 0 0 30px",
+                                        lineHeight: 1.5,
+                                    }}
+                                >
+                                    Twins, triplets, or more
+                                </p>
+
+                                {multipleChildren && (
+                                    <div style={{ marginLeft: 30 }}>
+                                        <select
+                                            value={numberOfChildren}
+                                            onChange={(e) =>
+                                                setNumberOfChildren(Number(e.target.value))
+                                            }
+                                            style={{
+                                                padding: "10px 12px",
+                                                fontSize: 14,
+                                                border: "1.5px solid #e5e7eb",
+                                                borderRadius: 8,
+                                                backgroundColor: "#ffffff",
+                                                cursor: "pointer",
+                                                width: "100%",
+                                                maxWidth: 200,
+                                                color: "#111827",
+                                            }}
+                                        >
+                                            {[1, 2, 3, 4, 5].map((num) => (
+                                                <option key={num} value={num}>
+                                                    {num} {num === 1 ? "child" : "children"}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
                             </div>
 
-                            {/* Calendar and checkbox inputs */}
+                            {/* Results Card */}
                             <div
                                 style={{
-                                    display: "flex",
-                                    gap: 12,
-                                    alignItems: "center",
-                                    marginBottom: 16,
+                                    marginTop: "auto",
+                                    padding: 24,
+                                    background: "#f9fafb",
+                                    borderRadius: 12,
+                                    border: "1px solid #e5e7eb",
                                 }}
                             >
-                                {/* Calendar input */}
+                                {result.isOverLimit ? (
+                                    <div style={{ textAlign: "center" }}>
+                                        <p style={{ fontSize: 14, color: "#dc2626", margin: 0 }}>
+                                            Income exceeds €175,000 annual limit
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
+                                                Basiselterngeld
+                                            </span>
+                                            <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
+                                                €{result.basis.toLocaleString("de-DE")}
+                                            </span>
+                                        </div>
+                                        <div
+                                            style={{
+                                                height: 1,
+                                                background: "#e5e7eb",
+                                            }}
+                                        />
+                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
+                                                ElterngeldPlus
+                                            </span>
+                                            <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
+                                                €{result.plus.toLocaleString("de-DE")}
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Bottom Action */}
+                            <Button
+                                onClick={() => setCurrentStep(2)}
+                                style={{ width: "100%" }}
+                            >
+                                Continue to Planning
+                            </Button>
+                        </div>
+                    ) : (
+                        /* STEP 2: Planner */
+                        <div
+                            style={{
+                                padding: "32px",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: 24,
+                                height: "100%",
+                            }}
+                        >
+                            {/* Child Info */}
+                            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                                 <div
                                     ref={calendarRef}
                                     style={{
                                         position: "relative",
-                                        minWidth: 180,
+                                        flex: "1 1 200px",
                                     }}
                                 >
                                     <button
-                                        onClick={() =>
-                                            setIsCalendarOpen(!isCalendarOpen)
-                                        }
+                                        onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                                         style={{
                                             width: "100%",
-                                            height: 40,
-                                            padding: "0 12px",
-                                            borderRadius: 10,
-                                            border: "1px solid #e1e1e1",
+                                            height: 44,
+                                            padding: "0 16px",
+                                            borderRadius: 8,
+                                            border: "1.5px solid #e5e7eb",
                                             background: "#ffffff",
-                                            fontSize: 13,
-                                            color: "#1a1a1a",
+                                            fontSize: 14,
+                                            color: childBirthDate ? "#111827" : "#9ca3af",
                                             cursor: "pointer",
                                             textAlign: "left",
-                                            fontWeight: childBirthDate ? 400 : 600,
+                                            fontWeight: 500,
                                         }}
                                     >
                                         {childBirthDate
                                             ? formatDate(childBirthDate, "PPP")
-                                            : "Child's Birthday"}
+                                            : "Child's birthday"}
                                     </button>
                                     {isCalendarOpen && (
                                         <div
                                             style={{
                                                 position: "absolute",
-                                                top: "calc(100% + 4px)",
+                                                top: "calc(100% + 8px)",
                                                 left: 0,
                                                 zIndex: 1000,
                                                 background: "#ffffff",
-                                                border: "1px solid #e1e1e1",
-                                                borderRadius: 10,
-                                                boxShadow:
-                                                    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-                                                padding: 12,
+                                                border: "1px solid #e5e7eb",
+                                                borderRadius: 12,
+                                                boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+                                                padding: 16,
                                             }}
                                         >
                                             <Calendar
@@ -1374,13 +919,13 @@ function ElterngeldCalculator() {
                                     )}
                                 </div>
 
-                                {/* Single parent checkbox */}
                                 <div
                                     style={{
-                                        height: 40,
-                                        padding: "0 12px",
-                                        borderRadius: 10,
-                                        border: "1px solid #e1e1e1",
+                                        flex: "0 0 auto",
+                                        padding: "0 16px",
+                                        height: 44,
+                                        borderRadius: 8,
+                                        border: "1.5px solid #e5e7eb",
                                         background: "#ffffff",
                                         display: "flex",
                                         alignItems: "center",
@@ -1389,846 +934,256 @@ function ElterngeldCalculator() {
                                     <Checkbox
                                         checked={isSingleParent}
                                         onChange={setIsSingleParent}
-                                        label="I am a single parent"
+                                        label="Single parent"
                                     />
                                 </div>
                             </div>
-                        </div>
 
-                        <div
-                            ref={scrollContainerRef}
-                            style={{
-                                width: "100%",
-                                overflowX: "auto",
-                                overflowY: "hidden",
-                                WebkitOverflowScrolling: "touch",
-                                paddingBottom: 16,
-                                position: "relative",
-                                maxHeight: "280px",
-                            }}
-                        >
+                            {/* Month Planner */}
                             <div
                                 style={{
-                                    display: "inline-flex",
-                                    gap: 12,
-                                    whiteSpace: "nowrap",
+                                    flex: 1,
+                                    overflow: "hidden",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 16,
                                 }}
                             >
-                                {monthPlans
-                                    .slice(0, visibleMonths)
-                                    .map((plan, index) => {
-                                        const amount = computeMonthTotal(plan)
-                                        const dateRange =
-                                            getMonthDateRange(index)
-                                        const p1BasisChecked =
-                                            plan.parent1Type === "basis"
-                                        const p1PlusChecked =
-                                            plan.parent1Type === "plus"
-                                        const p2BasisChecked =
-                                            plan.parent2Type === "basis"
-                                        const p2PlusChecked =
-                                            plan.parent2Type === "plus"
-                                        const isSimultaneousBasis =
-                                            !isSingleParent &&
-                                            p1BasisChecked &&
-                                            p2BasisChecked
-                                        const hasError =
-                                            hasValidationErrors &&
-                                            isSimultaneousBasis
+                                <h3
+                                    style={{
+                                        fontSize: 15,
+                                        fontWeight: 600,
+                                        color: "#111827",
+                                        margin: 0,
+                                    }}
+                                >
+                                    Plan each month
+                                </h3>
 
-                                        return (
-                                            <div
-                                                key={index}
-                                                style={{
-                                                    width: 100,
-                                                    flex: "0 0 auto",
-                                                    border: hasError
-                                                        ? "2px solid #ef4444"
-                                                        : "1px solid #e5e7eb",
-                                                    borderRadius: 14,
-                                                    padding: 16,
-                                                    background: hasError
-                                                        ? "#fff5f5"
-                                                        : "#fafafa",
-                                                    boxSizing: "border-box",
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    justifyContent:
-                                                        "space-between",
-                                                    minHeight: 240,
-                                                }}
-                                            >
-                                                <div>
-                                                    <div
-                                                        style={{
-                                                            fontSize: 14,
-                                                            fontWeight: 900,
-                                                            color: "#1a1a1a",
-                                                            marginBottom: 8,
-                                                        }}
-                                                    >
-                                                        Month {index + 1}
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            fontSize: 10,
-                                                            color: "#9a9a9a",
-                                                            marginBottom: 16,
-                                                        }}
-                                                    >
-                                                        {dateRange ||
-                                                            "dd/mm/yyyy"}
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            borderTop:
-                                                                "1px solid #e5e7eb",
-                                                        }}
-                                                    />
-                                                </div>
+                                <div
+                                    ref={scrollContainerRef}
+                                    style={{
+                                        flex: 1,
+                                        overflowX: "auto",
+                                        overflowY: "hidden",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: "inline-flex",
+                                            gap: 12,
+                                            paddingBottom: 12,
+                                        }}
+                                    >
+                                        {monthPlans.slice(0, visibleMonths).map((plan, index) => {
+                                            const amount = computeMonthTotal(plan)
+                                            const dateRange = getMonthDateRange(index)
+                                            const hasError =
+                                                hasValidationErrors &&
+                                                !isSingleParent &&
+                                                plan.parent1Type === "basis" &&
+                                                plan.parent2Type === "basis"
 
+                                            return (
                                                 <div
+                                                    key={index}
                                                     style={{
-                                                        display: "grid",
-                                                        gap: 6,
+                                                        width: 140,
+                                                        flex: "0 0 auto",
+                                                        border: hasError
+                                                            ? "2px solid #dc2626"
+                                                            : "1.5px solid #e5e7eb",
+                                                        borderRadius: 12,
+                                                        padding: 16,
+                                                        background: hasError ? "#fef2f2" : "#ffffff",
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        gap: 16,
                                                     }}
                                                 >
+                                                    {/* Month Header */}
                                                     <div>
                                                         <div
                                                             style={{
-                                                                fontSize: 10,
-                                                                color: "#9a9a9a",
+                                                                fontSize: 15,
+                                                                fontWeight: 700,
+                                                                color: "#111827",
                                                                 marginBottom: 4,
                                                             }}
                                                         >
-                                                            You
+                                                            Month {index + 1}
                                                         </div>
                                                         <div
                                                             style={{
-                                                                display: "grid",
-                                                                gap: 8,
+                                                                fontSize: 11,
+                                                                color: "#9ca3af",
                                                             }}
                                                         >
-                                                            <label
-                                                                style={{
-                                                                    display:
-                                                                        "flex",
-                                                                    alignItems:
-                                                                        "center",
-                                                                    gap: 6,
-                                                                    cursor: "pointer",
-                                                                }}
-                                                            >
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={
-                                                                        p1BasisChecked
-                                                                    }
-                                                                    onChange={() =>
-                                                                        toggleCheckbox(
-                                                                            index,
-                                                                            1,
-                                                                            "basis"
-                                                                        )
-                                                                    }
-                                                                    style={{
-                                                                        width: 14,
-                                                                        height: 14,
-                                                                        accentColor:
-                                                                            "#1a1a1a",
-                                                                    }}
-                                                                />
-                                                                <span
-                                                                    style={{
-                                                                        fontSize: 11,
-                                                                        fontWeight: 800,
-                                                                        color: "#1a1a1a",
-                                                                    }}
-                                                                >
-                                                                    Basis
-                                                                </span>
-                                                            </label>
-                                                            <label
-                                                                style={{
-                                                                    display:
-                                                                        "flex",
-                                                                    alignItems:
-                                                                        "center",
-                                                                    gap: 6,
-                                                                    cursor: "pointer",
-                                                                }}
-                                                            >
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={
-                                                                        p1PlusChecked
-                                                                    }
-                                                                    onChange={() =>
-                                                                        toggleCheckbox(
-                                                                            index,
-                                                                            1,
-                                                                            "plus"
-                                                                        )
-                                                                    }
-                                                                    style={{
-                                                                        width: 14,
-                                                                        height: 14,
-                                                                        accentColor:
-                                                                            "#1a1a1a",
-                                                                    }}
-                                                                />
-                                                                <span
-                                                                    style={{
-                                                                        fontSize: 11,
-                                                                        fontWeight: 800,
-                                                                        color: "#1a1a1a",
-                                                                    }}
-                                                                >
-                                                                    Plus
-                                                                </span>
-                                                            </label>
+                                                            {dateRange || "—"}
                                                         </div>
                                                     </div>
 
-                                                    {!isSingleParent && (
+                                                    {/* Checkboxes */}
+                                                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                                                        <div>
+                                                            <div
+                                                                style={{
+                                                                    fontSize: 11,
+                                                                    color: "#6b7280",
+                                                                    marginBottom: 8,
+                                                                    fontWeight: 600,
+                                                                }}
+                                                            >
+                                                                You
+                                                            </div>
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                                                                <Checkbox
+                                                                    checked={plan.parent1Type === "basis"}
+                                                                    onChange={() =>
+                                                                        toggleCheckbox(index, 1, "basis")
+                                                                    }
+                                                                    label="Basis"
+                                                                />
+                                                                <Checkbox
+                                                                    checked={plan.parent1Type === "plus"}
+                                                                    onChange={() =>
+                                                                        toggleCheckbox(index, 1, "plus")
+                                                                    }
+                                                                    label="Plus"
+                                                                />
+                                                            </div>
+                                                        </div>
+
+                                                        {!isSingleParent && (
+                                                            <div>
+                                                                <div
+                                                                    style={{
+                                                                        fontSize: 11,
+                                                                        color: "#6b7280",
+                                                                        marginBottom: 8,
+                                                                        fontWeight: 600,
+                                                                    }}
+                                                                >
+                                                                    Partner
+                                                                </div>
+                                                                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                                                                    <Checkbox
+                                                                        checked={plan.parent2Type === "basis"}
+                                                                        onChange={() =>
+                                                                            toggleCheckbox(index, 2, "basis")
+                                                                        }
+                                                                        label="Basis"
+                                                                    />
+                                                                    <Checkbox
+                                                                        checked={plan.parent2Type === "plus"}
+                                                                        onChange={() =>
+                                                                            toggleCheckbox(index, 2, "plus")
+                                                                        }
+                                                                        label="Plus"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    {/* Amount */}
+                                                    {amount > 0 && (
                                                         <div
                                                             style={{
-                                                                paddingTop: 18,
+                                                                marginTop: "auto",
+                                                                paddingTop: 12,
+                                                                borderTop: "1px solid #e5e7eb",
+                                                                fontSize: 16,
+                                                                fontWeight: 700,
+                                                                color: "#FF6B35",
                                                             }}
                                                         >
-                                                            <div
-                                                                style={{
-                                                                    fontSize: 10,
-                                                                    color: "#9a9a9a",
-                                                                    marginBottom: 4,
-                                                                }}
-                                                            >
-                                                                Partner
-                                                            </div>
-                                                            <div
-                                                                style={{
-                                                                    display:
-                                                                        "grid",
-                                                                    gap: 8,
-                                                                }}
-                                                            >
-                                                                <label
-                                                                    style={{
-                                                                        display:
-                                                                            "flex",
-                                                                        alignItems:
-                                                                            "center",
-                                                                        gap: 6,
-                                                                        cursor: "pointer",
-                                                                    }}
-                                                                >
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        checked={
-                                                                            p2BasisChecked
-                                                                        }
-                                                                        onChange={() =>
-                                                                            toggleCheckbox(
-                                                                                index,
-                                                                                2,
-                                                                                "basis"
-                                                                            )
-                                                                        }
-                                                                        style={{
-                                                                            width: 14,
-                                                                            height: 14,
-                                                                            accentColor:
-                                                                                "#1a1a1a",
-                                                                        }}
-                                                                    />
-                                                                    <span
-                                                                        style={{
-                                                                            fontSize: 11,
-                                                                            fontWeight: 800,
-                                                                            color: "#1a1a1a",
-                                                                        }}
-                                                                    >
-                                                                        Basis
-                                                                    </span>
-                                                                </label>
-                                                                <label
-                                                                    style={{
-                                                                        display:
-                                                                            "flex",
-                                                                        alignItems:
-                                                                            "center",
-                                                                        gap: 6,
-                                                                        cursor: "pointer",
-                                                                    }}
-                                                                >
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        checked={
-                                                                            p2PlusChecked
-                                                                        }
-                                                                        onChange={() =>
-                                                                            toggleCheckbox(
-                                                                                index,
-                                                                                2,
-                                                                                "plus"
-                                                                            )
-                                                                        }
-                                                                        style={{
-                                                                            width: 14,
-                                                                            height: 14,
-                                                                            accentColor:
-                                                                                "#1a1a1a",
-                                                                        }}
-                                                                    />
-                                                                    <span
-                                                                        style={{
-                                                                            fontSize: 11,
-                                                                            fontWeight: 800,
-                                                                            color: "#1a1a1a",
-                                                                        }}
-                                                                    >
-                                                                        Plus
-                                                                    </span>
-                                                                </label>
-                                                            </div>
+                                                            €{amount.toLocaleString("de-DE")}
                                                         </div>
                                                     )}
                                                 </div>
-
-                                                <div
-                                                    style={{
-                                                        paddingTop: 8,
-                                                        borderTop:
-                                                            "1px solid #f0f0f0",
-                                                    }}
-                                                >
-                                                    <div
-                                                        style={{
-                                                            fontSize: 10,
-                                                            color: "#9a9a9a",
-                                                            marginBottom: 2,
-                                                        }}
-                                                    >
-                                                        Amount
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            fontSize: 13,
-                                                            fontWeight: 900,
-                                                            color: amount
-                                                                ? "#1a1a1a"
-                                                                : "#c7c7c7",
-                                                        }}
-                                                    >
-                                                        {amount
-                                                            ? `${amount.toLocaleString("de-DE")} €`
-                                                            : "—"}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-
-                                {canAddMoreMonths && (
-                                    <div
-                                        onClick={() =>
-                                            setVisibleMonths((m) =>
-                                                Math.min(36, m + 1)
                                             )
-                                        }
+                                        })}
+
+                                        {canAddMoreMonths && (
+                                            <button
+                                                onClick={() => setVisibleMonths(visibleMonths + 6)}
+                                                style={{
+                                                    width: 140,
+                                                    flex: "0 0 auto",
+                                                    border: "1.5px dashed #d1d5db",
+                                                    borderRadius: 12,
+                                                    padding: 16,
+                                                    background: "transparent",
+                                                    cursor: "pointer",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    fontSize: 24,
+                                                    color: "#9ca3af",
+                                                }}
+                                            >
+                                                +
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Error Message */}
+                                {hasValidationErrors && (
+                                    <div
                                         style={{
-                                            width: 100,
-                                            flex: "0 0 auto",
-                                            border: "2px dashed #e1e1e1",
-                                            borderRadius: 14,
-                                            padding: 16,
-                                            background: "#fafafa",
-                                            boxSizing: "border-box",
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            cursor: "pointer",
-                                            minHeight: 240,
-                                            transition: "all 0.2s",
+                                            padding: 12,
+                                            background: "#fef2f2",
+                                            border: "1px solid #fecaca",
+                                            borderRadius: 8,
+                                            fontSize: 13,
+                                            color: "#dc2626",
                                         }}
                                     >
-                                        <div
-                                            style={{
-                                                width: 32,
-                                                height: 32,
-                                                borderRadius: "50%",
-                                                background: "#ffffff",
-                                                border: "2px solid #1a1a1a",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                fontSize: 18,
-                                                fontWeight: 900,
-                                                color: "#1a1a1a",
-                                                marginBottom: 6,
-                                                lineHeight: 1,
-                                            }}
-                                        >
-                                            +
-                                        </div>
-                                        <div
-                                            style={{
-                                                fontSize: 11,
-                                                fontWeight: 800,
-                                                color: "#1a1a1a",
-                                                textAlign: "center",
-                                            }}
-                                        >
-                                            Add month
-                                        </div>
+                                        Both parents cannot claim Basis in the same month
                                     </div>
                                 )}
                             </div>
-                        </div>
 
-                        <div style={{ marginTop: 8, minHeight: 30 }}>
-                            {hasValidationErrors && (
-                                <div>
-                                    {validationErrors.map((error, idx) => (
-                                        <div
-                                            key={idx}
-                                            style={{
-                                                display: "flex",
-                                                gap: 8,
-                                                color: "#dc2626",
-                                                fontSize: 12,
-                                                lineHeight: 1.5,
-                                                marginBottom:
-                                                    idx <
-                                                    validationErrors.length - 1
-                                                        ? 6
-                                                        : 0,
-                                            }}
-                                        >
-                                            <span>⚠️</span>
-                                            <span>{error}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Bottom section with button */}
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                marginTop: 8,
-                            }}
-                        >
-                            <Button variant="outline">
-                                Start application now
-                            </Button>
-                        </div>
-
-                        {/* Legal text positioned absolutely at bottom */}
-                        <div
-                            style={{
-                                position: "absolute",
-                                bottom: 4,
-                                left: 30,
-                                right: 30,
-                            }}
-                        >
-                            <div
-                                style={{
-                                    fontSize: 11,
-                                    lineHeight: 1.5,
-                                    color: "#6b7280",
-                                    textAlign: "center",
-                                }}
-                            >
-                                This is <strong>not a final amount</strong>. It
-                                is a <strong>quick estimate</strong> based on
-                                the information provided.
+                            {/* Bottom Actions */}
+                            <div style={{ display: "flex", gap: 12 }}>
+                                <Button
+                                    onClick={() => setCurrentStep(1)}
+                                    variant="outline"
+                                    style={{ flex: 1 }}
+                                >
+                                    Back
+                                </Button>
+                                <Button style={{ flex: 1 }}>
+                                    Start Application
+                                </Button>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
 
-                <style>{`
-                    input[type="range"]::-webkit-slider-thumb {
-                        -webkit-appearance: none;
-                        appearance: none;
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 50%;
-                        background: #111827;
-                        cursor: pointer;
-                        border: 3px solid #ffffff;
-                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-                    }
-                    input[type="range"]::-moz-range-thumb {
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 50%;
-                        background: #111827;
-                        cursor: pointer;
-                        border: 3px solid #ffffff;
-                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-                    }
-                    input[type="date"]::-webkit-calendar-picker-indicator {
-                        cursor: pointer;
-                    }
-                `}</style>
-            </div>
-        </div>
-    )
-}
-
-// ============================================
-// VOICEFLOW CHAT COMPONENT
-// ============================================
-
-function VoiceflowChat() {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const loadChat = () => {
-            const vf = (window as any).voiceflow
-            if (!vf?.chat?.load || !containerRef.current) return
-
-            vf.chat
-                .load({
-                    verify: { projectID: "69173e22a302c7cedb983faf" },
-                    url: "https://general-runtime.voiceflow.com",
-                    versionID: "production",
-                    voice: { url: "https://runtime-api.voiceflow.com" },
-                    render: { mode: "embedded", target: containerRef.current },
-                    assistant: {
-                        stylesheet:
-                            "https://easyjolabs.github.io/voiceflow-styles/voiceflow.css",
-                    },
-                })
-                .then(() => {
-                    setIsLoading(false)
-                    ;(window as any).sendToVoiceflow = (message: string) => {
-                        const vf = (window as any).voiceflow
-                        if (vf?.chat?.interact) {
-                            vf.chat.interact({ type: "text", payload: message })
-                        }
-                    }
-                    const sessionMessage =
-                        sessionStorage.getItem("vf_initial_message")
-                    if (sessionMessage) {
-                        sessionStorage.removeItem("vf_initial_message")
-                        setTimeout(() => {
-                            ;(window as any).voiceflow?.chat?.interact({
-                                type: "text",
-                                payload: sessionMessage,
-                            })
-                        }, 800)
-                    }
-                })
-                .catch(() => setIsLoading(false))
-        }
-
-        const existingScript = document.querySelector(
-            'script[data-vf-widget="true"]'
-        ) as HTMLScriptElement
-        if (existingScript?.dataset.loaded === "true") {
-            loadChat()
-            return
-        }
-        if (existingScript) {
-            existingScript.addEventListener("load", loadChat)
-            return () => existingScript.removeEventListener("load", loadChat)
-        }
-
-        const script = document.createElement("script")
-        script.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"
-        script.async = true
-        script.setAttribute("data-vf-widget", "true")
-        script.onload = () => {
-            script.dataset.loaded = "true"
-            loadChat()
-        }
-        document.body.appendChild(script)
-
-        return () => {
-            delete (window as any).sendToVoiceflow
-        }
-    }, [])
-
-    return (
-        <div
-            style={{
-                width: "100%",
-                height: "100%",
-                backgroundColor: "#ffffff",
-                border: "1px solid #e1e1e1",
-                borderRadius: 20,
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
-            }}
-        >
-            {isLoading && (
+                {/* Footer Disclaimer */}
                 <div
                     style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
+                        padding: "16px 32px",
+                        borderTop: "1px solid #e5e7eb",
+                        fontSize: 11,
+                        color: "#6b7280",
                         textAlign: "center",
-                        zIndex: 10,
+                        lineHeight: 1.5,
+                        flexShrink: 0,
                     }}
                 >
-                    <div
-                        style={{
-                            width: "40px",
-                            height: "40px",
-                            border: "3px solid #F5F5F5",
-                            borderTopColor: "#FB6A42",
-                            borderRadius: "50%",
-                            animation: "spin 0.8s linear infinite",
-                            margin: "0 auto 12px",
-                        }}
-                    />
-                    <div style={{ color: "#6b7280", fontSize: "0.9rem" }}>
-                        Loading chat...
-                    </div>
+                    This is an estimate. Final amounts may vary based on your specific situation.
                 </div>
-            )}
-            <div
-                ref={containerRef}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    opacity: isLoading ? 0 : 1,
-                    transition: "opacity 0.3s",
-                }}
-            />
-            <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+            </div>
         </div>
     )
 }
 
-// ============================================
-// RESIZABLE SPLIT VIEW - MAIN EXPORT
-// ============================================
-
-const NAV_HEIGHT = 70
-
-export default function ResizableSplitView(props: {
-    defaultLeftWidth?: number
-    minLeftWidth?: number
-    minRightWidth?: number
-    dividerColor?: string
-    dividerHoverColor?: string
-    backgroundColor?: string
-}) {
-    const {
-        defaultLeftWidth = 65,
-        minLeftWidth = 520,
-        minRightWidth = 320,
-        dividerColor = "#e5e7eb",
-        dividerHoverColor = "#9ca3af",
-        backgroundColor = "#f5f5f5",
-    } = props
-
-    const containerRef = useRef<HTMLDivElement>(null)
-    const [leftWidthPercent, setLeftWidthPercent] = useState(defaultLeftWidth)
-    const [isDragging, setIsDragging] = useState(false)
-    const [isHovering, setIsHovering] = useState(false)
-
-    const handleMouseDown = (e: React.MouseEvent) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setIsDragging(true)
-    }
-
-    const handleTouchStart = (e: React.TouchEvent) => {
-        e.stopPropagation()
-        setIsDragging(true)
-    }
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            if (!isDragging || !containerRef.current) return
-            const rect = containerRef.current.getBoundingClientRect()
-            const mouseX = e.clientX - rect.left
-            let percent = (mouseX / rect.width) * 100
-            const minLeft = (minLeftWidth / rect.width) * 100
-            const maxLeft = 100 - (minRightWidth / rect.width) * 100
-            percent = Math.max(minLeft, Math.min(maxLeft, percent))
-            setLeftWidthPercent(percent)
-        }
-
-        const handleTouchMove = (e: TouchEvent) => {
-            if (!isDragging || !containerRef.current) return
-            const touch = e.touches[0]
-            const rect = containerRef.current.getBoundingClientRect()
-            const touchX = touch.clientX - rect.left
-            let percent = (touchX / rect.width) * 100
-            const minLeft = (minLeftWidth / rect.width) * 100
-            const maxLeft = 100 - (minRightWidth / rect.width) * 100
-            percent = Math.max(minLeft, Math.min(maxLeft, percent))
-            setLeftWidthPercent(percent)
-        }
-
-        const handleEnd = () => setIsDragging(false)
-
-        if (isDragging) {
-            window.addEventListener("mousemove", handleMouseMove)
-            window.addEventListener("mouseup", handleEnd)
-            window.addEventListener("touchmove", handleTouchMove)
-            window.addEventListener("touchend", handleEnd)
-            document.body.style.cursor = "col-resize"
-            document.body.style.userSelect = "none"
-        }
-
-        return () => {
-            window.removeEventListener("mousemove", handleMouseMove)
-            window.removeEventListener("mouseup", handleEnd)
-            window.removeEventListener("touchmove", handleTouchMove)
-            window.removeEventListener("touchend", handleEnd)
-            document.body.style.cursor = ""
-            document.body.style.userSelect = ""
-        }
-    }, [isDragging, minLeftWidth, minRightWidth])
-
-    return (
-        <div
-            ref={containerRef}
-            style={{
-                width: "100%",
-                height: `calc(100vh - ${NAV_HEIGHT}px)`,
-                marginTop: NAV_HEIGHT,
-                display: "flex",
-                flexDirection: "row",
-                backgroundColor,
-                overflow: "hidden",
-                position: "relative",
-                padding: 16,
-                boxSizing: "border-box",
-                gap: 8,
-            }}
-        >
-            {/* Left Panel - Calculator */}
-            <div
-                style={{
-                    width: `calc(${leftWidthPercent}% - 6px)`,
-                    height: "100%",
-                    overflow: "hidden",
-                    flexShrink: 0,
-                }}
-            >
-                <ElterngeldCalculator />
-            </div>
-
-            {/* Divider */}
-            <div
-                onMouseDown={handleMouseDown}
-                onTouchStart={handleTouchStart}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => !isDragging && setIsHovering(false)}
-                style={{
-                    width: 16,
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "col-resize",
-                    flexShrink: 0,
-                    backgroundColor: "transparent",
-                    zIndex: 100,
-                    touchAction: "none",
-                }}
-            >
-                <div
-                    style={{
-                        width: 4,
-                        height: "80px",
-                        backgroundColor:
-                            isDragging || isHovering
-                                ? dividerHoverColor
-                                : dividerColor,
-                        transition: isDragging
-                            ? "none"
-                            : "background-color 0.15s ease",
-                        pointerEvents: "none",
-                        borderRadius: 4,
-                    }}
-                />
-            </div>
-
-            {/* Right Panel - Chat */}
-            <div
-                style={{
-                    width: `calc(${100 - leftWidthPercent}% - 6px)`,
-                    height: "100%",
-                    overflow: "hidden",
-                    flexShrink: 0,
-                }}
-            >
-                <VoiceflowChat />
-            </div>
-
-            {/* Overlay during drag */}
-            {isDragging && (
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        zIndex: 99,
-                        cursor: "col-resize",
-                    }}
-                />
-            )}
-        </div>
-    )
+export default function ElterngeldSplitView() {
+    return <ElterngeldCalculator />
 }
 
-addPropertyControls(ResizableSplitView, {
-    defaultLeftWidth: {
-        type: ControlType.Number,
-        title: "Left Width %",
-        defaultValue: 65,
-        min: 20,
-        max: 80,
-        step: 1,
-    },
-    minLeftWidth: {
-        type: ControlType.Number,
-        title: "Min Left",
-        defaultValue: 520,
-        min: 100,
-        max: 600,
-        step: 10,
-    },
-    minRightWidth: {
-        type: ControlType.Number,
-        title: "Min Right",
-        defaultValue: 320,
-        min: 100,
-        max: 600,
-        step: 10,
-    },
-    dividerColor: {
-        type: ControlType.Color,
-        title: "Divider",
-        defaultValue: "#e5e7eb",
-    },
-    dividerHoverColor: {
-        type: ControlType.Color,
-        title: "Divider Hover",
-        defaultValue: "#9ca3af",
-    },
-    backgroundColor: {
-        type: ControlType.Color,
-        title: "Background",
-        defaultValue: "#f5f5f5",
-    },
-})
+addPropertyControls(ElterngeldSplitView, {})
