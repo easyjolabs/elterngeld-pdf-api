@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react"
 import { addPropertyControls, ControlType } from "framer"
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, addMonths, subMonths, isSameDay, isSameMonth } from "date-fns"
 
 // ============================================
 // TYPES
@@ -9,6 +8,53 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, addMonths,
 type MonthPlan = {
     parent1Type: "basis" | "plus" | "none"
     parent2Type: "basis" | "plus" | "partnership" | "none"
+}
+
+// ============================================
+// DATE UTILITIES
+// ============================================
+
+const formatDate = (date: Date, formatStr: string): string => {
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ]
+
+    if (formatStr === "PPP") {
+        return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+    }
+    if (formatStr === "MMMM yyyy") {
+        return `${months[date.getMonth()]} ${date.getFullYear()}`
+    }
+    if (formatStr === "d") {
+        return date.getDate().toString()
+    }
+    return date.toLocaleDateString()
+}
+
+const isSameDay = (date1: Date, date2: Date): boolean => {
+    return (
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate()
+    )
+}
+
+const isSameMonth = (date1: Date, date2: Date): boolean => {
+    return (
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth()
+    )
+}
+
+const getDaysInMonth = (year: number, month: number): Date[] => {
+    const days: Date[] = []
+    const date = new Date(year, month, 1)
+    while (date.getMonth() === month) {
+        days.push(new Date(date))
+        date.setDate(date.getDate() + 1)
+    }
+    return days
 }
 
 // ============================================
@@ -23,29 +69,41 @@ type CalendarProps = {
 function Calendar({ selected, onSelect }: CalendarProps) {
     const [currentMonth, setCurrentMonth] = useState(selected || new Date())
 
-    const monthStart = startOfMonth(currentMonth)
-    const monthEnd = endOfMonth(currentMonth)
-    const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd })
+    const year = currentMonth.getFullYear()
+    const month = currentMonth.getMonth()
 
-    const startDayOfWeek = getDay(monthStart)
+    const daysInMonth = getDaysInMonth(year, month)
+    const firstDay = new Date(year, month, 1)
+    const startDayOfWeek = firstDay.getDay()
     const daysFromPrevMonth = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1
 
-    const prevMonthEnd = endOfMonth(subMonths(currentMonth, 1))
+    const prevMonth = month === 0 ? 11 : month - 1
+    const prevYear = month === 0 ? year - 1 : year
+    const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate()
+
     const prevMonthDays = Array.from({ length: daysFromPrevMonth }, (_, i) => {
-        const day = new Date(prevMonthEnd)
-        day.setDate(prevMonthEnd.getDate() - daysFromPrevMonth + i + 1)
-        return day
+        return new Date(prevYear, prevMonth, daysInPrevMonth - daysFromPrevMonth + i + 1)
     })
 
     const totalCells = prevMonthDays.length + daysInMonth.length
-    const nextMonthDays = Array.from({ length: 42 - totalCells }, (_, i) => {
-        const day = new Date(monthEnd)
-        day.setDate(monthEnd.getDate() + i + 1)
-        return day
+    const nextMonthDaysCount = 42 - totalCells
+    const nextMonth = month === 11 ? 0 : month + 1
+    const nextYear = month === 11 ? year + 1 : year
+
+    const nextMonthDays = Array.from({ length: nextMonthDaysCount }, (_, i) => {
+        return new Date(nextYear, nextMonth, i + 1)
     })
 
     const allDays = [...prevMonthDays, ...daysInMonth, ...nextMonthDays]
     const weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+
+    const goToPrevMonth = () => {
+        setCurrentMonth(new Date(year, month - 1, 1))
+    }
+
+    const goToNextMonth = () => {
+        setCurrentMonth(new Date(year, month + 1, 1))
+    }
 
     return (
         <div style={{ width: 280 }}>
@@ -59,7 +117,7 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                 }}
             >
                 <button
-                    onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+                    onClick={goToPrevMonth}
                     style={{
                         width: 32,
                         height: 32,
@@ -82,10 +140,10 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                         color: "#1a1a1a",
                     }}
                 >
-                    {format(currentMonth, "MMMM yyyy")}
+                    {formatDate(currentMonth, "MMMM yyyy")}
                 </div>
                 <button
-                    onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+                    onClick={goToNextMonth}
                     style={{
                         width: 32,
                         height: 32,
@@ -180,7 +238,7 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                                 }
                             }}
                         >
-                            {format(day, "d")}
+                            {formatDate(day, "d")}
                         </button>
                     )
                 })}
@@ -1113,7 +1171,7 @@ function ElterngeldCalculator() {
                                         }}
                                     >
                                         {childBirthDate
-                                            ? format(childBirthDate, "PPP")
+                                            ? formatDate(childBirthDate, "PPP")
                                             : "Child's Birthday"}
                                     </button>
                                     {isCalendarOpen && (
