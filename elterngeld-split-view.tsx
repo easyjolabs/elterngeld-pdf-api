@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import { addPropertyControls, ControlType } from "framer"
+import { DayPicker } from "react-day-picker"
+import { format } from "date-fns"
+import "react-day-picker/dist/style.css"
 
 // ============================================
 // TYPES
@@ -20,7 +23,10 @@ function ElterngeldCalculator() {
     const [siblingBonus, setSiblingBonus] = useState(false)
     const [multipleChildren, setMultipleChildren] = useState(false)
     const [numberOfChildren, setNumberOfChildren] = useState(1)
-    const [childBirthDate, setChildBirthDate] = useState<string>("")
+    const [childBirthDate, setChildBirthDate] = useState<Date | undefined>(
+        undefined
+    )
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false)
     const [isSingleParent, setIsSingleParent] = useState(false)
     const [monthPlans, setMonthPlans] = useState<MonthPlan[]>(
         Array.from({ length: 36 }, () => ({
@@ -30,7 +36,28 @@ function ElterngeldCalculator() {
     )
     const [visibleMonths, setVisibleMonths] = useState(14)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
+    const calendarRef = useRef<HTMLDivElement>(null)
     const SLIDER_MAX = 7000
+
+    // Close calendar when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                calendarRef.current &&
+                !calendarRef.current.contains(event.target as Node)
+            ) {
+                setIsCalendarOpen(false)
+            }
+        }
+
+        if (isCalendarOpen) {
+            document.addEventListener("mousedown", handleClickOutside)
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [isCalendarOpen])
 
     const calculateAllowance = () => {
         const annualIncome = income * 12
@@ -885,17 +912,15 @@ function ElterngeldCalculator() {
                             >
                                 {/* Calendar input */}
                                 <div
+                                    ref={calendarRef}
                                     style={{
                                         position: "relative",
                                         minWidth: 180,
                                     }}
                                 >
-                                    <input
-                                        id="child-birthday-input"
-                                        type="date"
-                                        value={childBirthDate}
-                                        onChange={(e) =>
-                                            setChildBirthDate(e.target.value)
+                                    <button
+                                        onClick={() =>
+                                            setIsCalendarOpen(!isCalendarOpen)
                                         }
                                         style={{
                                             width: "100%",
@@ -905,37 +930,57 @@ function ElterngeldCalculator() {
                                             border: "1px solid #e1e1e1",
                                             background: "#ffffff",
                                             fontSize: 13,
-                                            color: childBirthDate
-                                                ? "#1a1a1a"
-                                                : "transparent",
+                                            color: "#1a1a1a",
                                             cursor: "pointer",
+                                            textAlign: "left",
+                                            fontWeight: childBirthDate ? 400 : 600,
                                         }}
-                                    />
-                                    {!childBirthDate && (
+                                    >
+                                        {childBirthDate
+                                            ? format(childBirthDate, "PPP")
+                                            : "Child's Birthday"}
+                                    </button>
+                                    {isCalendarOpen && (
                                         <div
-                                            onClick={() => {
-                                                const input =
-                                                    document.getElementById(
-                                                        "child-birthday-input"
-                                                    ) as HTMLInputElement
-                                                if (input) {
-                                                    input.click()
-                                                    input.focus()
-                                                }
-                                            }}
                                             style={{
                                                 position: "absolute",
-                                                left: 12,
-                                                top: "50%",
-                                                transform: "translateY(-50%)",
-                                                fontSize: 13,
-                                                fontWeight: 600,
-                                                color: "#1a1a1a",
-                                                cursor: "pointer",
-                                                pointerEvents: "auto",
+                                                top: "calc(100% + 4px)",
+                                                left: 0,
+                                                zIndex: 1000,
+                                                background: "#ffffff",
+                                                border: "1px solid #e1e1e1",
+                                                borderRadius: 10,
+                                                boxShadow:
+                                                    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                                                padding: 12,
                                             }}
                                         >
-                                            Child's Birthday
+                                            <DayPicker
+                                                mode="single"
+                                                selected={childBirthDate}
+                                                onSelect={(date) => {
+                                                    setChildBirthDate(date)
+                                                    setIsCalendarOpen(false)
+                                                }}
+                                                showOutsideDays
+                                                styles={{
+                                                    caption: {
+                                                        fontSize: "14px",
+                                                        fontWeight: 600,
+                                                        marginBottom: "8px",
+                                                    },
+                                                    day: {
+                                                        fontSize: "13px",
+                                                        borderRadius: "6px",
+                                                        width: "32px",
+                                                        height: "32px",
+                                                    },
+                                                    day_selected: {
+                                                        backgroundColor: "#FF6B35",
+                                                        color: "#ffffff",
+                                                    },
+                                                }}
+                                            />
                                         </div>
                                     )}
                                 </div>
