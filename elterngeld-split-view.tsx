@@ -2,24 +2,6 @@ import { useState, useRef, useEffect } from "react"
 import { addPropertyControls, ControlType } from "framer"
 
 // ============================================
-// GLOBAL TYPES
-// ============================================
-
-declare global {
-    interface Window {
-        voiceflow: {
-            chat: {
-                load: (config: {
-                    verify: { projectID: string }
-                    url: string
-                    versionID: string
-                }) => void
-            }
-        }
-    }
-}
-
-// ============================================
 // TYPES
 // ============================================
 
@@ -564,26 +546,7 @@ function ElterngeldCalculator() {
         }
     }, [isDragging])
 
-    // Load Voiceflow chat
-    useEffect(() => {
-        const script = document.createElement('script')
-        script.type = 'text/javascript'
-        script.onload = function() {
-            if (window.voiceflow) {
-                window.voiceflow.chat.load({
-                    verify: { projectID: '675be3ba5c45e9e8e96c9d40' },
-                    url: 'https://general-runtime.voiceflow.com',
-                    versionID: 'production'
-                })
-            }
-        }
-        script.src = 'https://cdn.voiceflow.com/widget/bundle.mjs'
-        document.body.appendChild(script)
-
-        return () => {
-            document.body.removeChild(script)
-        }
-    }, [])
+    // Voiceflow chat is loaded via iframe
 
     const calculateAllowance = () => {
         const annualIncome = income * 12
@@ -803,8 +766,19 @@ function ElterngeldCalculator() {
 
                             {/* Income Section with Result Box */}
                             <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
-                                {/* Left: Income Slider */}
-                                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16 }}>
+                                {/* Left: Income Slider in Box */}
+                                <div
+                                    style={{
+                                        flex: 1,
+                                        padding: 24,
+                                        background: "#f9fafb",
+                                        borderRadius: 12,
+                                        border: "1px solid #e5e7eb",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: 16,
+                                    }}
+                                >
                                     <div>
                                         <h3
                                             style={{
@@ -1019,6 +993,7 @@ function ElterngeldCalculator() {
                                 flexDirection: "column",
                                 gap: 24,
                                 height: "100%",
+                                overflowY: "auto",
                             }}
                         >
                             {/* Headline */}
@@ -1448,7 +1423,6 @@ function ElterngeldCalculator() {
 
             {/* Right Panel - Chat */}
             <div
-                id="voiceflow-chat"
                 style={{
                     width: `${100 - leftWidth}%`,
                     height: "100%",
@@ -1459,7 +1433,19 @@ function ElterngeldCalculator() {
                     boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
                     position: "relative",
                 }}
-            />
+            >
+                <iframe
+                    src="https://general-runtime.voiceflow.com/webchat/675be3ba5c45e9e8e96c9d40"
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        border: "none",
+                        borderRadius: 16,
+                    }}
+                    title="Voiceflow Chat"
+                    allow="microphone"
+                />
+            </div>
         </div>
     )
 }
