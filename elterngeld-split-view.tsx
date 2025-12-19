@@ -5,6 +5,21 @@ import { addPropertyControls, ControlType } from "framer"
 // TYPES
 // ============================================
 
+declare global {
+    interface Window {
+        voiceflow?: {
+            chat?: {
+                load?: (config: {
+                    verify: { projectID: string }
+                    url: string
+                    versionID: string
+                    render: { mode: string }
+                }) => void
+            }
+        }
+    }
+}
+
 type MonthPlan = {
     parent1Type: "basis" | "plus" | "none"
     parent2Type: "basis" | "plus" | "partnership" | "none"
@@ -546,7 +561,30 @@ function ElterngeldCalculator() {
         }
     }, [isDragging])
 
-    // Voiceflow chat is loaded via iframe
+    // Load Voiceflow chat widget
+    useEffect(() => {
+        const script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.src = 'https://cdn.voiceflow.com/widget/bundle.mjs'
+
+        script.onload = () => {
+            if (window.voiceflow?.chat?.load) {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '675be3ba5c45e9e8e96c9d40' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                })
+            }
+        }
+
+        document.head.appendChild(script)
+
+        return () => {
+            if (document.head.contains(script)) {
+                document.head.removeChild(script)
+            }
+        }
+    }, [])
 
     const calculateAllowance = () => {
         const annualIncome = income * 12
@@ -855,44 +893,62 @@ function ElterngeldCalculator() {
                                     style={{
                                         width: 280,
                                         flexShrink: 0,
-                                        padding: 24,
-                                        background: "#f9fafb",
-                                        borderRadius: 12,
-                                        border: "1px solid #e5e7eb",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: 12,
                                     }}
                                 >
-                                    {result.isOverLimit ? (
-                                        <div style={{ textAlign: "center" }}>
-                                            <p style={{ fontSize: 14, color: "#dc2626", margin: 0 }}>
-                                                Income exceeds €175,000 annual limit
-                                            </p>
-                                        </div>
-                                    ) : (
-                                        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                                <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
-                                                    Basiselterngeld
-                                                </span>
-                                                <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
-                                                    €{result.basis.toLocaleString("de-DE")}
-                                                </span>
+                                    <div
+                                        style={{
+                                            padding: 24,
+                                            background: "#f9fafb",
+                                            borderRadius: 12,
+                                            border: "1px solid #e5e7eb",
+                                        }}
+                                    >
+                                        {result.isOverLimit ? (
+                                            <div style={{ textAlign: "center" }}>
+                                                <p style={{ fontSize: 14, color: "#dc2626", margin: 0 }}>
+                                                    Income exceeds €175,000 annual limit
+                                                </p>
                                             </div>
-                                            <div
-                                                style={{
-                                                    height: 1,
-                                                    background: "#e5e7eb",
-                                                }}
-                                            />
-                                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                                <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
-                                                    ElterngeldPlus
-                                                </span>
-                                                <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
-                                                    €{result.plus.toLocaleString("de-DE")}
-                                                </span>
+                                        ) : (
+                                            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                                                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                    <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
+                                                        Basiselterngeld
+                                                    </span>
+                                                    <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
+                                                        €{result.basis.toLocaleString("de-DE")}
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    style={{
+                                                        height: 1,
+                                                        background: "#e5e7eb",
+                                                    }}
+                                                />
+                                                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                    <span style={{ fontSize: 14, color: "#6b7280", fontWeight: 500 }}>
+                                                        ElterngeldPlus
+                                                    </span>
+                                                    <span style={{ fontSize: 16, fontWeight: 700, color: "#111827" }}>
+                                                        €{result.plus.toLocaleString("de-DE")}
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
+                                    </div>
+                                    <p
+                                        style={{
+                                            fontSize: 12,
+                                            color: "#6b7280",
+                                            margin: 0,
+                                            lineHeight: 1.5,
+                                        }}
+                                    >
+                                        Your monthly Elterngeld amount. Basiselterngeld is paid for up to 12 months, ElterngeldPlus for up to 24 months.
+                                    </p>
                                 </div>
                             </div>
 
@@ -1113,7 +1169,7 @@ function ElterngeldCalculator() {
                             <div
                                 style={{
                                     flex: 1,
-                                    overflow: "hidden",
+                                    minHeight: 0,
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: 16,
@@ -1122,13 +1178,16 @@ function ElterngeldCalculator() {
                                 <div
                                     style={{
                                         position: "relative",
+                                        flex: 1,
+                                        minHeight: 0,
                                     }}
                                 >
                                     <div
                                         ref={scrollContainerRef}
                                         style={{
                                             overflowX: "auto",
-                                            overflowY: "hidden",
+                                            overflowY: "auto",
+                                            height: "100%",
                                         }}
                                         onScroll={() => {
                                             // Force re-render to update scroll indicator
@@ -1423,28 +1482,67 @@ function ElterngeldCalculator() {
 
             {/* Right Panel - Chat */}
             <div
+                id="voiceflow-chat-container"
                 style={{
                     width: `${100 - leftWidth}%`,
                     height: "100%",
                     backgroundColor: "#ffffff",
                     borderRadius: 16,
                     boxSizing: "border-box",
-                    overflow: "hidden",
+                    overflow: "auto",
                     boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
                     position: "relative",
+                    padding: 32,
                 }}
             >
-                <iframe
-                    src="https://general-runtime.voiceflow.com/webchat/675be3ba5c45e9e8e96c9d40"
+                <div
                     style={{
-                        width: "100%",
                         height: "100%",
-                        border: "none",
-                        borderRadius: 16,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 16,
                     }}
-                    title="Voiceflow Chat"
-                    allow="microphone"
-                />
+                >
+                    <div
+                        style={{
+                            width: 60,
+                            height: 60,
+                            borderRadius: "50%",
+                            background: "#f9fafb",
+                            border: "1px solid #e5e7eb",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: 28,
+                        }}
+                    >
+                        💬
+                    </div>
+                    <h3
+                        style={{
+                            fontSize: 18,
+                            fontWeight: 600,
+                            color: "#111827",
+                            margin: 0,
+                        }}
+                    >
+                        Chat Assistant
+                    </h3>
+                    <p
+                        style={{
+                            fontSize: 14,
+                            color: "#6b7280",
+                            margin: 0,
+                            textAlign: "center",
+                            maxWidth: 320,
+                            lineHeight: 1.5,
+                        }}
+                    >
+                        Our AI assistant is ready to help you with your Elterngeld questions. Click the chat button to get started.
+                    </p>
+                </div>
             </div>
         </div>
     )
