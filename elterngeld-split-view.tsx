@@ -391,6 +391,16 @@ function ElterngeldCalculator() {
                                 >
                                     <div
                                         style={{
+                                            fontSize: 13,
+                                            fontWeight: 600,
+                                            color: "#111827",
+                                            marginBottom: 2,
+                                        }}
+                                    >
+                                        Your net income
+                                    </div>
+                                    <div
+                                        style={{
                                             fontSize: 11,
                                             fontWeight: 400,
                                             color: "#374151",
@@ -819,10 +829,10 @@ function ElterngeldCalculator() {
                             display: "flex",
                             flexDirection: "column",
                             position: "relative",
-                            paddingBottom: 50,
+                            paddingBottom: 40,
                         }}
                     >
-                        <div style={{ marginBottom: 12 }}>
+                        <div style={{ marginBottom: 16 }}>
                             <h3
                                 style={{
                                     fontSize: 22,
@@ -838,7 +848,6 @@ function ElterngeldCalculator() {
                                     fontSize: 11,
                                     color: "#6b7280",
                                     lineHeight: 1.4,
-                                    marginBottom: 16,
                                 }}
                             >
                                 More details{" "}
@@ -863,102 +872,6 @@ function ElterngeldCalculator() {
                                 </button>{" "}
                                 you have
                             </div>
-
-                            {/* Calendar and checkbox inputs */}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    gap: 12,
-                                    alignItems: "center",
-                                    marginBottom: 16,
-                                }}
-                            >
-                                {/* Floating label date input */}
-                                <div
-                                    style={{
-                                        position: "relative",
-                                        minWidth: 180,
-                                    }}
-                                >
-                                    <input
-                                        id="child-birthday-input"
-                                        type="date"
-                                        value={childBirthDate}
-                                        onChange={(e) =>
-                                            setChildBirthDate(e.target.value)
-                                        }
-                                        placeholder=" "
-                                        style={{
-                                            width: "100%",
-                                            height: 48,
-                                            padding: "16px 12px 8px 12px",
-                                            borderRadius: 10,
-                                            border: "1px solid #e1e1e1",
-                                            background: "#ffffff",
-                                            fontSize: 14,
-                                            color: "#1a1a1a",
-                                            cursor: "pointer",
-                                            outline: "none",
-                                        }}
-                                    />
-                                    <label
-                                        htmlFor="child-birthday-input"
-                                        style={{
-                                            position: "absolute",
-                                            left: 12,
-                                            top: childBirthDate ? 6 : "50%",
-                                            transform: childBirthDate
-                                                ? "translateY(0)"
-                                                : "translateY(-50%)",
-                                            fontSize: childBirthDate ? 10 : 14,
-                                            fontWeight: 600,
-                                            color: "#6b7280",
-                                            pointerEvents: "none",
-                                            transition: "all 0.2s ease",
-                                        }}
-                                    >
-                                        Child's Birthday
-                                    </label>
-                                </div>
-
-                                <label
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 8,
-                                        cursor: "pointer",
-                                        height: 48,
-                                        padding: "0 12px",
-                                        borderRadius: 10,
-                                        border: "1px solid #e1e1e1",
-                                        background: "#ffffff",
-                                    }}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        checked={isSingleParent}
-                                        onChange={(e) =>
-                                            setIsSingleParent(e.target.checked)
-                                        }
-                                        style={{
-                                            width: 16,
-                                            height: 16,
-                                            cursor: "pointer",
-                                            accentColor: "#111827",
-                                        }}
-                                    />
-                                    <span
-                                        style={{
-                                            fontSize: 13,
-                                            fontWeight: 600,
-                                            color: "#1a1a1a",
-                                            whiteSpace: "nowrap",
-                                        }}
-                                    >
-                                        I am a single parent
-                                    </span>
-                                </label>
-                            </div>
                         </div>
 
                         <div
@@ -970,7 +883,7 @@ function ElterngeldCalculator() {
                                 WebkitOverflowScrolling: "touch",
                                 paddingBottom: 16,
                                 position: "relative",
-                                maxHeight: "380px",
+                                maxHeight: "280px",
                             }}
                         >
                             <div
@@ -1021,7 +934,7 @@ function ElterngeldCalculator() {
                                                     flexDirection: "column",
                                                     justifyContent:
                                                         "space-between",
-                                                    minHeight: 320,
+                                                    minHeight: 240,
                                                 }}
                                             >
                                                 <div>
@@ -1315,7 +1228,7 @@ function ElterngeldCalculator() {
                                             alignItems: "center",
                                             justifyContent: "center",
                                             cursor: "pointer",
-                                            minHeight: 320,
+                                            minHeight: 240,
                                             transition: "all 0.2s",
                                         }}
                                     >
@@ -1353,7 +1266,7 @@ function ElterngeldCalculator() {
                             </div>
                         </div>
 
-                        <div style={{ marginTop: 8, minHeight: 50 }}>
+                        <div style={{ marginTop: 8, minHeight: 30 }}>
                             {hasValidationErrors && (
                                 <div>
                                     {validationErrors.map((error, idx) => (
@@ -1385,7 +1298,7 @@ function ElterngeldCalculator() {
                             style={{
                                 display: "flex",
                                 justifyContent: "flex-end",
-                                marginTop: 16,
+                                marginTop: 8,
                             }}
                         >
                             <button
