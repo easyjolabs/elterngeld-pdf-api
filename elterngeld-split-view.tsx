@@ -848,6 +848,7 @@ function ElterngeldCalculator() {
                                     fontSize: 11,
                                     color: "#6b7280",
                                     lineHeight: 1.4,
+                                    marginBottom: 16,
                                 }}
                             >
                                 More details{" "}
@@ -871,6 +872,112 @@ function ElterngeldCalculator() {
                                     which options
                                 </button>{" "}
                                 you have
+                            </div>
+
+                            {/* Calendar and checkbox inputs */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    gap: 12,
+                                    alignItems: "center",
+                                    marginBottom: 16,
+                                }}
+                            >
+                                {/* Calendar input */}
+                                <div
+                                    style={{
+                                        position: "relative",
+                                        minWidth: 180,
+                                    }}
+                                >
+                                    <input
+                                        id="child-birthday-input"
+                                        type="date"
+                                        value={childBirthDate}
+                                        onChange={(e) =>
+                                            setChildBirthDate(e.target.value)
+                                        }
+                                        style={{
+                                            width: "100%",
+                                            height: 40,
+                                            padding: "0 12px",
+                                            borderRadius: 10,
+                                            border: "1px solid #e1e1e1",
+                                            background: "#ffffff",
+                                            fontSize: 13,
+                                            color: childBirthDate
+                                                ? "#1a1a1a"
+                                                : "transparent",
+                                            cursor: "pointer",
+                                        }}
+                                    />
+                                    {!childBirthDate && (
+                                        <div
+                                            onClick={() => {
+                                                const input =
+                                                    document.getElementById(
+                                                        "child-birthday-input"
+                                                    ) as HTMLInputElement
+                                                if (input) {
+                                                    input.click()
+                                                    input.focus()
+                                                }
+                                            }}
+                                            style={{
+                                                position: "absolute",
+                                                left: 12,
+                                                top: "50%",
+                                                transform: "translateY(-50%)",
+                                                fontSize: 13,
+                                                fontWeight: 600,
+                                                color: "#1a1a1a",
+                                                cursor: "pointer",
+                                                pointerEvents: "auto",
+                                            }}
+                                        >
+                                            Child's Birthday
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Single parent checkbox */}
+                                <label
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 8,
+                                        cursor: "pointer",
+                                        height: 40,
+                                        padding: "0 12px",
+                                        borderRadius: 10,
+                                        border: "1px solid #e1e1e1",
+                                        background: "#ffffff",
+                                    }}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={isSingleParent}
+                                        onChange={(e) =>
+                                            setIsSingleParent(e.target.checked)
+                                        }
+                                        style={{
+                                            width: 16,
+                                            height: 16,
+                                            cursor: "pointer",
+                                            accentColor: "#111827",
+                                        }}
+                                    />
+                                    <span
+                                        style={{
+                                            fontSize: 13,
+                                            fontWeight: 600,
+                                            color: "#1a1a1a",
+                                            whiteSpace: "nowrap",
+                                        }}
+                                    >
+                                        I am a single parent
+                                    </span>
+                                </label>
                             </div>
                         </div>
 
