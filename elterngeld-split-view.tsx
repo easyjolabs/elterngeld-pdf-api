@@ -272,7 +272,7 @@ function ElterngeldCalculator() {
                     borderRadius: 20,
                     padding: 30,
                     boxSizing: "border-box",
-                    overflow: "auto",
+                    overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
                     position: "relative",
@@ -822,63 +822,55 @@ function ElterngeldCalculator() {
                             paddingBottom: 50,
                         }}
                     >
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "flex-end",
-                                gap: 16,
-                                marginBottom: 16,
-                                flexWrap: "wrap",
-                            }}
-                        >
-                            <div>
-                                <h3
+                        <div style={{ marginBottom: 12 }}>
+                            <h3
+                                style={{
+                                    fontSize: 22,
+                                    fontWeight: 900,
+                                    color: "#1a1a1a",
+                                    margin: "0 0 6px 0",
+                                }}
+                            >
+                                Plan your months
+                            </h3>
+                            <div
+                                style={{
+                                    fontSize: 11,
+                                    color: "#6b7280",
+                                    lineHeight: 1.4,
+                                    marginBottom: 16,
+                                }}
+                            >
+                                More details{" "}
+                                <button
+                                    onClick={() =>
+                                        triggerVoiceflowChat(
+                                            "explain elterngeld plus and basis"
+                                        )
+                                    }
                                     style={{
-                                        fontSize: 22,
-                                        fontWeight: 900,
-                                        color: "#1a1a1a",
-                                        margin: "0 0 6px 0",
-                                    }}
-                                >
-                                    Plan your months
-                                </h3>
-                                <div
-                                    style={{
+                                        background: "none",
+                                        border: "none",
+                                        padding: 0,
+                                        cursor: "pointer",
+                                        color: "#111827",
                                         fontSize: 11,
-                                        color: "#6b7280",
-                                        lineHeight: 1.4,
+                                        fontWeight: 800,
+                                        textDecoration: "underline",
                                     }}
                                 >
-                                    More details{" "}
-                                    <button
-                                        onClick={() =>
-                                            triggerVoiceflowChat(
-                                                "explain elterngeld plus and basis"
-                                            )
-                                        }
-                                        style={{
-                                            background: "none",
-                                            border: "none",
-                                            padding: 0,
-                                            cursor: "pointer",
-                                            color: "#111827",
-                                            fontSize: 11,
-                                            fontWeight: 800,
-                                            textDecoration: "underline",
-                                        }}
-                                    >
-                                        which options
-                                    </button>{" "}
-                                    you have
-                                </div>
+                                    which options
+                                </button>{" "}
+                                you have
                             </div>
 
+                            {/* Calendar and checkbox inputs */}
                             <div
                                 style={{
                                     display: "flex",
                                     gap: 12,
                                     alignItems: "center",
+                                    marginBottom: 16,
                                 }}
                             >
                                 {/* Floating label date input */}
